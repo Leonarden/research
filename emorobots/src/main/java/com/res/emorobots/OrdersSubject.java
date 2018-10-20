@@ -7,10 +7,13 @@ public class OrdersSubject  extends Subject<List<Order>>{
 	String status;
 	List<List<Order>> reentrantOrders;
 	boolean islimit = false;
-	
+	Long limit = 0l;
 	public OrdersSubject() {}
-	public OrdersSubject(long id) {
+	public OrdersSubject(long id, long limit) {
 		this.setId(id);
+		this.limit = limit;
+		
+		
 	}
 	
 	
@@ -20,6 +23,7 @@ public class OrdersSubject  extends Subject<List<Order>>{
 		for(int i = 0;i<this.observers.size();i++) {
 			ro =  (RobotObserver)this.observers.get(i);
 			r = ro.update(ord);
+			
 			this.reentrantOrders.add(i, r);
 			this.setData(processReentrantOrders(r));
 		}
