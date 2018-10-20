@@ -7,11 +7,16 @@ import java.util.Map;
 
 public class RobotObserver extends Observer<List<Order>> implements RobotCallback{
 
+	Map<Integer,String> sysstat = new HashMap<Integer,String>();
 	private Subject subject;
 	//eActLevel is a Map containing and ordered list of <emotion,transitions of emotion list>
 	private Map<String,List<Integer>> eActLevel;
 	private Map<String,Long> emotions;
 	List<Order> reentrantO;
+	StringBuffer status = new StringBuffer();
+	Integer updates = 0;
+	Integer stresslevel = 0;
+	
 	public RobotObserver(long id, OrdersSubject s,List<Integer> angerLevels, List<Integer> happyLevels, List<Integer> sadLevels) {
 		this.id = id;
 		eActLevel = new HashMap<String,List<Integer>>();
@@ -25,6 +30,15 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	   emotions.put("sad", 0l);
 	   subject = s;
 	   data = s.getData();
+	
+	   sysstat.put(0,"VERY CALM");
+	   sysstat.put(1,"CALM");
+	   sysstat.put(2,"AVERAGE");
+	   sysstat.put(3,"BIT STRESSED");
+	   sysstat.put(4,"STRESSED");
+	   sysstat.put(5,"OVERFLOWN");
+	   
+	   
 	   
 	   
 	}
@@ -56,8 +70,15 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	}
 	
 	List<Order> processOrders(List<Order> o){
-		
+	    boolean ischange = false;
+		updates++;	
+		if(ischange)
+			status.append("Robot " + id + "at update " + updates + " is: "+ sysstat.get(stresslevel) );
 		return null;
+	}
+	
+	public String getStatus() {
+		return this.status.toString();
 	}
 	
 	String checkAction() {
@@ -104,6 +125,6 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 			
 		}
 	
-	}	
+}	
 	
 

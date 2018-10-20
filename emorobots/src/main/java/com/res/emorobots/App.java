@@ -58,7 +58,7 @@ public class App {
 	   obs = new RobotObserver(3,os, angerLevels, happyLevels, sadLevels);
 	   os.attach(obs);
 	   
-	while(! limitReached(sorders)) {
+	while(! os.limitReached(sorders)) {
 	    /* setting new orders
 	     * 
 		ord =  "Do#the laundry".split("#");
@@ -79,20 +79,14 @@ public class App {
 	
 	     */
 		//os.setData(sorders);
-		sorders = processOrders(os.notifyTo());
+		sorders = os.processOrders(os.notifyTo());
 	}
+	String systemStatus = os.getStatus();
+	
+	System.out.println("System ended: " + systemStatus);
 	
 	System.exit(0);
 	
 	
 	}
-	// processing the result of notification
-	static List<Order> processOrders(List<Order> io){
-		return null;
-	}
-
-	static boolean limitReached(List<Order> io) {
-		return false;
-	}
-
 }
