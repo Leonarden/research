@@ -1,10 +1,10 @@
-package patterns;
+package com.res;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class SubjectObservers1 {
+public class SubjectObserver1 {
 
 	@Test
 	public void test() {
