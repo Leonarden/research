@@ -25,7 +25,20 @@ public class Order {
 		complement.put("weight", Arrays.asList(0,0,0));
 		
 	}
+	
 
+	public Order(String verbtext, String comptext, List<Integer> vws, List<Integer> cws) {
+		verb = new HashMap<String,Object>();
+		complement = new HashMap<String,Object>();
+		
+		verb.put("text", verbtext);
+		verb.put("weight", vws);
+		
+		complement.put("text", comptext);
+		complement.put("weight", cws);
+		
+	}
+	
 	 public String getVerbText() {
 		 return (String) verb.get("text");
 	 }

@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RobotObserver extends Observer<List<Order>> implements RobotCallback<List<Order>>{
+public class RobotObserver extends Observer<List<Order>> implements RobotCallback{
 
-	private RobotSubject subject;
+	private Subject subject;
 	//eActLevel is a Map containing and ordered list of <emotion,transitions of emotion list>
-	private Map<String,List<Long>> eActLevel;
+	private Map<String,List<Integer>> eActLevel;
 	private Map<String,Long> emotions;
 	List<Order> reentrantO;
-	public RobotObserver(RobotSubject s,List<Long> angerLevels, List<Long> happyLevels, List<Long> sadLevels) {
-		
-		eActLevel = new HashMap<String,List<Long>>();
+	public RobotObserver(long id, OrdersSubject s,List<Integer> angerLevels, List<Integer> happyLevels, List<Integer> sadLevels) {
+		this.id = id;
+		eActLevel = new HashMap<String,List<Integer>>();
 	   emotions = new HashMap<String,Long>();
 	   eActLevel.put("anger", angerLevels);
 	   eActLevel.put("happy", happyLevels);
@@ -57,7 +57,7 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	
 	List<Order> processOrders(List<Order> o){
 		
-		
+		return null;
 	}
 	
 	String checkAction() {
@@ -106,5 +106,4 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	
 	}	
 	
-}
 

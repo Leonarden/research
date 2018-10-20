@@ -6,10 +6,10 @@ public class OrdersSubject  extends Subject<List<Order>>{
 
 	List<List<Order>> reentrantOrders;
 	
-	public OrdersSubject() {
-		
+	public OrdersSubject() {}
+	public OrdersSubject(long id) {
+		this.setId(id);
 	}
-	
 	
 	
 	public List<Order> notify(List<Order> ord) {
@@ -33,4 +33,5 @@ public class OrdersSubject  extends Subject<List<Order>>{
 		return null;
 	}
 
+	
 }
