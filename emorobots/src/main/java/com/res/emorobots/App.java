@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.res.emorobots.data.Order;
+import com.res.emorobots.observer.Observer;
+import com.res.emorobots.observer.RobotObserver;
+import com.res.emorobots.subject.OrdersSubject;
 import com.res.emorobots.util.ObserverStatus;
 
 public class App {
@@ -13,72 +17,75 @@ public class App {
 		
 		List<Order> sorders = new LinkedList<Order>();
 		Order o;
-		List<Integer> wsv,wsc;
+		List<Double> wsv,wsc;
 		RobotObserver obs;
-		List<Integer> angerLevels, happyLevels, sadLevels;
+		List<Double> angerLevels, happyLevels, sadLevels;
 		String[] ord;   
 		Integer obsLimit = 0;  // stress resistance 0 fewer
 		Integer sysLimit = 0; // system stress resistance 0 fewer
+		Integer criteria = 2;  // 0 first observer end ends app, 1 half observers end ends app, 2 all observer end ends app
+		Integer detachMode = 0;
+		OrdersSubject os = new OrdersSubject(1000,sysLimit);
 		
 		ord =  "Do#the laundry".split("#");
-		wsv = Arrays.asList(5,5,1); // 5 anger, 5 happy, 1 sad  //action so anger, action so happy, uncertain so sad
-		wsc = Arrays.asList(7,2,2); // 6 anger, 5 happy, 2 sad //...
+		wsv = (List<Double>) Arrays.asList(5d,5d,1d); // 5 anger, 5 happy, 1 sad  //action so anger, action so happy, uncertain so sad
+		wsc = Arrays.asList(7d,2d,2d); // 6 anger, 5 happy, 2 sad //...
 		
 		o = new Order(ord[0],ord[1],wsv,wsc);
 	
 		sorders.add(o);
 		
 		ord =  "Do#party".split("#");
-		wsv = Arrays.asList(5,5,1); // 5 anger, 5 happy, 1 sad  //action so anger, action so happy, uncertain so sad
-		wsc = Arrays.asList(1,8,1); // base levels and very happy...
+		wsv = Arrays.asList(5d,5d,1d); // 5 anger, 5 happy, 1 sad  //action so anger, action so happy, uncertain so sad
+		wsc = Arrays.asList(1d,8d,1d); // base levels and very happy...
 			
 		o = new Order(ord[0],ord[1],wsv,wsc);
 			
 		sorders.add(o);
 		sysLimit = ObserverStatus.getStatusLen();
-		OrdersSubject os = new OrdersSubject(1000,sysLimit);
+		
 
 	   os.setData(sorders);
 	   
 	   //mean
-	   angerLevels = Arrays.asList(3, 6, 9);  //mean mood
-	   happyLevels = Arrays.asList(3, 6, 9);  
-	   sadLevels = Arrays.asList(3, 6, 9);  
+	   angerLevels = Arrays.asList(3d, 6d, 9d);  //mean mood
+	   happyLevels = Arrays.asList(3d, 6d, 9d);  
+	   sadLevels = Arrays.asList(3d, 6d, 9d);  
 	   obsLimit = ObserverStatus.getStatusLen() -2;
 	   obs = new RobotObserver(1,obsLimit,os, angerLevels, happyLevels, sadLevels);
 		os.attach(obs);
 	   
 	   //sensitive
-	   angerLevels = Arrays.asList(1, 4, 6); 
-	   happyLevels = Arrays.asList(1, 4, 6); 
-	   sadLevels = Arrays.asList(1, 4, 6);  
+	   angerLevels = Arrays.asList(1d, 4d, 6d); 
+	   happyLevels = Arrays.asList(1d, 4d, 6d); 
+	   sadLevels = Arrays.asList(1d, 4d, 6d);  
 	   obsLimit = ObserverStatus.getStatusLen() -3;
 	    obs = new RobotObserver(1,obsLimit,os, angerLevels, happyLevels, sadLevels);
 		 os.attach(obs);
 	   
 	
 	 //cold
-	   angerLevels = Arrays.asList(4, 7, 10); 
-	   happyLevels = Arrays.asList(4, 7, 10); 
-	   sadLevels = Arrays.asList(4, 7, 10);  
+	   angerLevels = Arrays.asList(4d, 7d, 10d); 
+	   happyLevels = Arrays.asList(4d, 7d, 10d); 
+	   sadLevels = Arrays.asList(4d, 7d, 10d);  
 	   obsLimit = ObserverStatus.getStatusLen()-1;
 	   obs = new RobotObserver(1,obsLimit,os, angerLevels, happyLevels, sadLevels);
 	   os.attach(obs);
 	   
-	while(! os.limitReached(sorders)) {
+	while(! globalLimits(os, criteria.intValue(), detachMode.intValue())) {
 	    /* setting new orders
 	     * 
 		ord =  "Be#happy".split("#");
-		wsv = Arrays.asList(3,5,1); // 3 anger, 5 happy, 1 sad  //behavioural action so anger, action so happy, uncertain so sad
-		wsc = Arrays.asList(1,8,1); // 1 anger, 8 happy, 1 sad //...
+		wsv = Arrays.asList(3d,5d,1d); // 3 anger, 5 happy, 1 sad  //behavioural action so anger, action so happy, uncertain so sad
+		wsc = Arrays.asList(1d,8d,1d); // 1 anger, 8 happy, 1 sad //...
 		
 		o = new Order(ord[0],ord[1],wsv,wsc);
 	
 		sorders.add(o);
 		
 		ord =  "Hate#you".split("#");
-		wsv = Arrays.asList(6,1,8); // 6 anger, 1 happy, 8 sad  //action so anger, action so happy, uncertain so sad
-		wsc = Arrays.asList(5,1,1); // base
+		wsv = Arrays.asList(6d,1d,8d); // 6 anger, 1 happy, 8 sad  //action so anger, action so happy, uncertain so sad
+		wsc = Arrays.asList(5d,1d,1d); // base
 			
 		o = new Order(ord[0],ord[1],wsv,wsc);
 			
@@ -87,6 +94,7 @@ public class App {
 	     */
 		//os.setData(sorders);
 		sorders = os.processOrders(os.notifyTo());
+		
 	}
 	String systemStatus = os.getStatus();
 	
@@ -96,4 +104,45 @@ public class App {
 	
 	
 	}
+	
+	static boolean globalLimits(OrdersSubject os, int criteria, int dmode) {
+		boolean islimit = false;
+		int falseCount = 0;
+		List<Boolean> limits = new ArrayList<Boolean>();
+		List<RobotObserver> obs = (List<RobotObserver>) os.getObservers();
+		
+		for(int i=0;i<obs.size();i++) {
+			limits.add( new Boolean(obs.get(i).limitReached()));
+			
+			if(!limits.get(i)) {
+				falseCount = falseCount+1;
+				os.detach(obs.get(i), command, mode);
+			}
+			
+			if(criteria==0 && !limits.get(i)) {
+				islimit = true;
+			    break;
+			}
+			if(criteria==1 && !limits.get(i) &&
+				falseCount==(Math.abs(obs.size())/2)) {
+					islimit = true;
+					break;
+				}
+			
+			if(criteria==2 && !limits.get(i) &&
+					falseCount==(Math.abs(obs.size())-1)) {
+						islimit = true;
+						break;
+					}
+				
+		
+			
+		}	
+		
+		
+		return islimit;
+	}
+
+
 }
+

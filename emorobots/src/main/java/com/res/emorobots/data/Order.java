@@ -1,4 +1,4 @@
-package com.res.emorobots;
+package com.res.emorobots.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,17 +17,17 @@ public class Order {
 		complement = new HashMap<String,Object>();
 		//default initialization
 		
-		List<Integer> em1 = Arrays.asList(0,0,0);
+		List<Double> em1 = Arrays.asList(1d,1d,1d);
 		verb.put("text", "");
 		verb.put("weight", em1);
 		
 		complement.put("text", "");
-		complement.put("weight", Arrays.asList(0,0,0));
+		complement.put("weight", em1);
 		
 	}
 	
 
-	public Order(String verbtext, String comptext, List<Integer> vws, List<Integer> cws) {
+	public Order(String verbtext, String comptext, List<Double> vws, List<Double> cws) {
 		verb = new HashMap<String,Object>();
 		complement = new HashMap<String,Object>();
 		
@@ -43,17 +43,17 @@ public class Order {
 		 return (String) verb.get("text");
 	 }
 
-	 public List<Integer> getVerbWeight() {
+	 public List<Double> getVerbWeight() {
 		 
-		 return (List<Integer>) verb.get("weight");
+		 return (List<Double>) verb.get("weight");
 	 }
 
 	 public String getComplementText() {
 		 return(String) complement.get("text");
 	 }
 
-	 public List<Integer> getComplementWeight() {
-		 return (List<Integer>) complement.get("weight");
+	 public List<Double> getComplementWeight() {
+		 return (List<Double>) complement.get("weight");
 
 	 }
 
@@ -61,7 +61,7 @@ public class Order {
 	   verb.put("text", v);
    }
 	 
-   public void setComplementWeight(List<Integer> w) {
+   public void setComplementWeight(List<Double> w) {
 	   
 	   complement.put("weight", w);
    }

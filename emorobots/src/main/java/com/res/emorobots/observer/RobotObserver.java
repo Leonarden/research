@@ -1,10 +1,13 @@
-package com.res.emorobots;
+package com.res.emorobots.observer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.res.emorobots.data.Order;
+import com.res.emorobots.subject.OrdersSubject;
+import com.res.emorobots.subject.Subject;
 import com.res.emorobots.util.ObserverStatus;
 
 public class RobotObserver extends Observer<List<Order>> implements RobotCallback{
@@ -12,25 +15,25 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	Map<Integer,String> sysstat = new HashMap<Integer,String>();
 	private Subject subject;
 	//eActLevel is a Map containing and ordered list of <emotion,transitions of emotion list>
-	private Map<String,List<Integer>> eActLevel;
-	private Map<String,Integer> emotions;
+	private Map<String,List<Double>> eActLevel;
+	private Map<String,Double> emotions;
 	List<Order> reentrantO;
 	StringBuffer status = new StringBuffer();
 	Integer updates = 0;
 	Integer limit = 0;
 	Integer stresslevel = 0;
 	
-	public RobotObserver(long id,int limit, OrdersSubject s,List<Integer> angerLevels, List<Integer> happyLevels, List<Integer> sadLevels) {
+	public RobotObserver(long id,int limit, OrdersSubject s,List<Double> angerLevels, List<Double> happyLevels, List<Double> sadLevels) {
 		this.id = id;
-		eActLevel = new HashMap<String,List<Integer>>();
-	   emotions = new HashMap<String,Integer>();
+		eActLevel = new HashMap<String,List<Double>>();
+	   emotions = new HashMap<String,Double>();
 	   eActLevel.put("anger", angerLevels);
 	   eActLevel.put("happy", happyLevels);
 	   eActLevel.put("sad", sadLevels);
 	   
-	   emotions.put("anger", 0);
-	   emotions.put("happy", 0);
-	   emotions.put("sad", 0);
+	   emotions.put("anger", 1d);
+	   emotions.put("happy", 1d);
+	   emotions.put("sad", 1d);
 	   subject = s;
 	   data = s.getData();
 	  this.limit = limit;
@@ -64,9 +67,9 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	
 	public void reset() {
 		data = new ArrayList<Order>();
-		 emotions.put("anger", 0);
-		 emotions.put("happy", 0);
-		  emotions.put("sad", 0);
+		 emotions.put("anger", 1d);
+		 emotions.put("happy", 1d);
+		  emotions.put("sad", 1d);
 		  
 	}
 	
@@ -85,15 +88,18 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	public String getStatus() {
 		return this.status.toString();
 	}
+	public boolean limitReached() {
+		return (stresslevel>= this.limit);
+	}
 	
 	String checkAction() {
 		String em = "";
-       List<Integer> l = new ArrayList(emotions.values());
+       List<Double> l = new ArrayList(emotions.values());
        List<String> e = new ArrayList(emotions.keySet());
-       List<List<Integer>> al = new ArrayList(eActLevel.values());
+       List<List<Double>> al = new ArrayList(eActLevel.values());
        List<String> ae = new ArrayList(eActLevel.keySet());
        for(int i=0;i<e.size();i++) { 
-    	 List<Integer> a = (List<Integer>) al.get(i);
+    	 List<Double> a = (List<Double>) al.get(i);
     	 
        }
     	   

@@ -1,4 +1,4 @@
-package com.res.emorobots;
+package com.res.emorobots.observer;
 
 public class Observer<T> {
 	protected long id;

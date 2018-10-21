@@ -1,6 +1,10 @@
-package com.res.emorobots;
+package com.res.emorobots.subject;
 
 import java.util.List;
+
+import com.res.emorobots.data.Order;
+import com.res.emorobots.observer.Observer;
+import com.res.emorobots.observer.RobotObserver;
 
 public class OrdersSubject  extends Subject<List<Order>>{
 
@@ -8,6 +12,9 @@ public class OrdersSubject  extends Subject<List<Order>>{
 	List<List<Order>> reentrantOrders;
 	boolean islimit = false;
 	Long limit = 0l;
+	List<RobotObserver> observers;
+	
+	
 	public OrdersSubject() {}
 	public OrdersSubject(long id, long limit) {
 		this.setId(id);
@@ -48,7 +55,7 @@ public class OrdersSubject  extends Subject<List<Order>>{
 		return null;
 	}
 	
-	boolean limitReached(List<Order> io) {
+	public boolean limitReached(List<Order> io) {
 		//..processing
 		return islimit;
 		
@@ -57,5 +64,9 @@ public class OrdersSubject  extends Subject<List<Order>>{
 
 	public String getStatus() {
 		return this.status.toString();
+	}
+
+	public 	List<RobotObserver> getObservers(){
+		return this.observers;
 	}
 }
