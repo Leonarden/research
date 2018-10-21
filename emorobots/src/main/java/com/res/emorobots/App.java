@@ -2,9 +2,13 @@ package com.res.emorobots;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import com.res.emorobots.command.RobotAction;
+import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.data.Order;
 import com.res.emorobots.observer.Observer;
 import com.res.emorobots.observer.RobotObserver;
@@ -25,21 +29,27 @@ public class App {
 		Integer sysLimit = 0; // system stress resistance 0 fewer
 		Integer criteria = 2;  // 0 first observer end ends app, 1 half observers end ends app, 2 all observer end ends app
 		Integer detachMode = 0;
+	   Map<String,String> cmdsactsname = new HashMap<String,String>();
+		
 		OrdersSubject os = new OrdersSubject(1000,sysLimit);
 		
 		ord =  "Do#the laundry".split("#");
 		wsv = (List<Double>) Arrays.asList(5d,5d,1d); // 5 anger, 5 happy, 1 fear  //action so anger, action so happy, uncertain so fear
 		wsc = Arrays.asList(7d,2d,2d); // 6 anger, 5 happy, 2 fear //...
-		
-		o = new Order(ord[0],ord[1],wsv,wsc);
+		//what to do with this order
+	   cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction");
+		//cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction"); PUT further implementations
+		o = new Order(ord[0],ord[1],wsv,wsc,cmdsactsname);
 	
 		sorders.add(o);
 		
 		ord =  "Do#party".split("#");
 		wsv = Arrays.asList(5d,5d,1d); // 5 anger, 5 happy, 1 fear  //action so anger, action so happy, uncertain so fear
 		wsc = Arrays.asList(1d,8d,1d); // base levels and very happy...
-			
-		o = new Order(ord[0],ord[1],wsv,wsc);
+		//what to do with this order
+		 cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction");
+		//cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction"); PUT further implementations
+		o = new Order(ord[0],ord[1],wsv,wsc,cmdsactsname);
 			
 		sorders.add(o);
 		sysLimit = ObserverStatus.getStatusLen();

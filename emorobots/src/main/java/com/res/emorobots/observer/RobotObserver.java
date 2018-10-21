@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.data.Order;
 import com.res.emorobots.subject.OrdersSubject;
 import com.res.emorobots.subject.Subject;
@@ -54,10 +55,18 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 		return data;
 	}
 	
-	public List<Order> callback(List<Order> o) {
+	public List<Order> callback(List<Order> ords) {
 		List<Order> l = null;
+		List<RobotCommand> cmds;
 		//processing
-		
+		for(Order o: ords) {
+			cmds = o.getCommands();
+			l = ords;
+			for(RobotCommand c:cmds) {
+				l = c.execute();
+				c.setData(l);
+			}
+		}
 		return l;
 	}
 	

@@ -21,5 +21,17 @@ public class Command<T> {
 		this.data = d;
 		return d;
 	}
+	public T getData() {
+		return data;
+	}
+	public void setData(T data) {
+		this.data = data;
+	}
+	public Action<T> getAction() {
+		return action;
+	}
+	public void setAction(Action<T> action) {
+		this.action = action;
+	}
 
 }
