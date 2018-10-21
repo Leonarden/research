@@ -33,7 +33,7 @@ public class Order {
 	}
 	
 
-	public Order(String verbtext, String comptext, List<Double> vws, List<Double> cws,Map<String,String> commandsactionscssname) {
+	public Order(String verbtext, String comptext, List<Double> vws, List<Double> cws,Map<String,List<String>> commandsactionscssname) {
 		verb = new HashMap<String,Object>();
 		complement = new HashMap<String,Object>();
 		
@@ -108,17 +108,21 @@ public void setCommands(List<RobotCommand> commands) {
 	this.commands = commands;
 }
 
-List<RobotCommand> generateCommands(Map<String,String> commandsactionscssname) throws Exception {
+List<RobotCommand> generateCommands(Map<String,List<String>> commandsactionscssname) throws Exception {
 	List<RobotCommand> cmds = null;
-	List<RobotAction> acts = null;
+	List<RobotAction> actlist = null;
 	Class[] type = { List.class };
 	Object[] obj = { this};
+	Constructor<?> cons = null;
 	for(String cname: commandsactionscssname.keySet()) {
-	    String aname = commandsactionscssname.get(cname);
-		Class<?> actclass = Class.forName(aname);
-		Constructor<?> cons = actclass.getConstructor(type);
+	    List<String> anames = commandsactionscssname.get(cname);
+		for(String actn: anames) {
+	    Class<?> actclass = Class.forName(actn);
+		 cons = actclass.getConstructor(type);
 	    RobotAction a = (RobotAction) cons.newInstance(obj);
-		obj = new Object[2]; obj[0] = this; obj[1] = a;
+	    actlist.add(a);
+		}
+		obj = new Object[2]; obj[0] = this; obj[1] = actlist;
 		Class<?> cmdclass = Class.forName(cname);
 		 cons = cmdclass.getConstructor(type);
 		 RobotCommand c = (RobotCommand) cons.newInstance(obj);

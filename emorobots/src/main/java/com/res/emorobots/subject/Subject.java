@@ -23,6 +23,8 @@ public class Subject<T>{
 
 	public void attach(Observer<T>  o,Command<T> c) {}
    // mode on detach could be lazy, deep...
+	public void detach(Observer<T>  o,Integer mode) {}
+	// lazy mode to detach observer's command
 	public void detach(Observer<T>  o,Command<T>command, Integer mode) {}
 
 	public T notifyTo() {

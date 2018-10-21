@@ -1,24 +1,27 @@
 package com.res.emorobots.command;
 
+import java.util.List;
+
 public class Command<T> {
 	T data;
-    Action<T> action;
+    List<Action<T>> actions;
     public Command() {}
     public Command(T data) {
     	this.data = data;
     }
-    public Command(T data, Action<T> action) {
+    public Command(T data, List<Action<T>> actions) {
     	this.data = data;
-    	this.action = action;
+    	this.actions = actions;
     }
 	T execute() {
 		T d = null;
-		d = action.preprocess(this.data);
+		for(Action<T> ra:actions) {
+			d = ra.preprocess(this.data);
+			d = ra.process(d);
+			d = ra.postprocess(d);
+		}
 		this.data = d;
-		d = action.process(d);
-		this.data = d;
-		d = action.postprocess(d);
-		this.data = d;
+		
 		return d;
 	}
 	public T getData() {
@@ -27,11 +30,11 @@ public class Command<T> {
 	public void setData(T data) {
 		this.data = data;
 	}
-	public Action<T> getAction() {
-		return action;
+	public List<Action<T>> getActions() {
+		return actions;
 	}
-	public void setAction(Action<T> action) {
-		this.action = action;
+	public void setActions(List<Action<T>> actions) {
+		this.actions = actions;
 	}
 
 }

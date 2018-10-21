@@ -29,17 +29,18 @@ public class App {
 		Integer sysLimit = 0; // system stress resistance 0 fewer
 		Integer criteria = 2;  // 0 first observer end ends app, 1 half observers end ends app, 2 all observer end ends app
 		Integer detachMode = 0;
-	   Map<String,String> cmdsactsname = new HashMap<String,String>();
-		
+	   Map<String,List<String>> cmdsactsname = new HashMap<String,List<String>>();
+	
 		OrdersSubject os = new OrdersSubject(1000,sysLimit);
 		
 		ord =  "Do#the laundry".split("#");
 		wsv = (List<Double>) Arrays.asList(5d,5d,1d); // 5 anger, 5 happy, 1 fear  //action so anger, action so happy, uncertain so fear
 		wsc = Arrays.asList(7d,2d,2d); // 6 anger, 5 happy, 2 fear //...
 		//what to do with this order
-	   cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction");
-		//cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction"); PUT further implementations
-		o = new Order(ord[0],ord[1],wsv,wsc,cmdsactsname);
+	   cmdsactsname.put("com.res.emorobots.command.RobotCommand", Arrays.asList("com.res.emorobots.command.RobotAction"));
+	   //PUT more implementations
+	   //  cmdsactsname.put("com.res.emorobots.command.RobotCommand"..., Arrays.asList("com.res.emorobots.command.RobotAction"...));
+	  	o = new Order(ord[0],ord[1],wsv,wsc,cmdsactsname);
 	
 		sorders.add(o);
 		
@@ -47,9 +48,10 @@ public class App {
 		wsv = Arrays.asList(5d,5d,1d); // 5 anger, 5 happy, 1 fear  //action so anger, action so happy, uncertain so fear
 		wsc = Arrays.asList(1d,8d,1d); // base levels and very happy...
 		//what to do with this order
-		 cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction");
-		//cmdsactsname.put("com.res.emorobots.command.RobotCommand","com.res.emorobots.command.RobotAction"); PUT further implementations
-		o = new Order(ord[0],ord[1],wsv,wsc,cmdsactsname);
+		  cmdsactsname.put("com.res.emorobots.command.RobotCommand", Arrays.asList("com.res.emorobots.command.RobotAction"));
+		   //PUT more implementations
+		   //  cmdsactsname.put("com.res.emorobots.command.RobotCommand"..., Arrays.asList("com.res.emorobots.command.RobotAction"...));
+			o = new Order(ord[0],ord[1],wsv,wsc,cmdsactsname);
 			
 		sorders.add(o);
 		sysLimit = ObserverStatus.getStatusLen();
@@ -126,7 +128,7 @@ public class App {
 			
 			if(!limits.get(i)) {
 				falseCount = falseCount+1;
-				os.detach(obs.get(i), command, mode);
+				os.detach(obs.get(i), dmode);
 			}
 			
 			if(criteria==0 && !limits.get(i)) {
