@@ -12,7 +12,7 @@ public class OrdersSubject  extends Subject<List<Order>>{
 	List<List<Order>> reentrantOrders;
 	boolean islimit = false;
 	Long limit = 0l;
-	List<RobotObserver> observers;
+	
 	
 	
 	public OrdersSubject() {}

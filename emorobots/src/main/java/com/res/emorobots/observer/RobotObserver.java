@@ -23,17 +23,17 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	Integer limit = 0;
 	Integer stresslevel = 0;
 	
-	public RobotObserver(long id,int limit, OrdersSubject s,List<Double> angerLevels, List<Double> happyLevels, List<Double> sadLevels) {
+	public RobotObserver(long id,int limit, OrdersSubject s,List<Double> angerLevels, List<Double> happyLevels, List<Double> fearLevels) {
 		this.id = id;
 		eActLevel = new HashMap<String,List<Double>>();
 	   emotions = new HashMap<String,Double>();
 	   eActLevel.put("anger", angerLevels);
 	   eActLevel.put("happy", happyLevels);
-	   eActLevel.put("sad", sadLevels);
+	   eActLevel.put("fear", fearLevels);
 	   
 	   emotions.put("anger", 1d);
 	   emotions.put("happy", 1d);
-	   emotions.put("sad", 1d);
+	   emotions.put("fear", 1d);
 	   subject = s;
 	   data = s.getData();
 	  this.limit = limit;
@@ -69,7 +69,7 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 		data = new ArrayList<Order>();
 		 emotions.put("anger", 1d);
 		 emotions.put("happy", 1d);
-		  emotions.put("sad", 1d);
+		  emotions.put("fear", 1d);
 		  
 	}
 	
@@ -117,8 +117,8 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 				doAnger();
 			if(ems.contains("happy"))
 				doHappy();
-			if(ems.contains("sad"))
-				doSad();
+			if(ems.contains("fear"))
+				doFear();
 			
 			
 			
@@ -132,7 +132,7 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	 void	 doHappy() {
 			
 		}
-		void doSad() {
+		void doFear() {
 			
 		}
 	
