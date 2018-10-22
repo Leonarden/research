@@ -1,15 +1,17 @@
 package com.res.emorobots.subject;
 
+import java.util.Collection;
 import java.util.List;
 
+import com.res.emorobots.command.Action;
 import com.res.emorobots.command.Command;
 import com.res.emorobots.observer.Observer;
 
-public class Subject<T>{
-  private  long id;
-	private T data;
-   protected List<Observer<T>> observers;
-   List<Command<T>> commands;
+public class Subject<T1 extends Collection<T2>,T2 extends Observer<T>, T3 extends Collection<Command<Collection<Action<T>>,T>>, T extends Collection<?>>{
+    long id;
+	 T data;
+   protected T1 observers;
+   T2 commands;
    List<Integer> modes;
    
    public Subject() {
@@ -19,13 +21,13 @@ public class Subject<T>{
 	   this.id = id;
    }
 	public void attach(Observer<T> o) {}
-	public void detach(Observer o) {}
+	public void detach(Observer<T> o) {}
 
-	public void attach(Observer<T>  o,Command<T> c) {}
+	public void attach(Observer<T>  o,T3 commands) {}
    // mode on detach could be lazy, deep...
 	public void detach(Observer<T>  o,Integer mode) {}
 	// lazy mode to detach observer's command
-	public void detach(Observer<T>  o,Command<T>command, Integer mode) {}
+	public void detach(Observer<T>  o,T3 commands, Integer mode) {}
 
 	public T notifyTo() {
 	T d = null;
@@ -55,10 +57,10 @@ public class Subject<T>{
 	public void setId(long id) {
 		this.id = id;
 	}
-	public List<Observer<T>> getObservers() {
+	public T1 getObservers() {
 		return observers;
 	}
-	public void setObservers(List<Observer<T>> observers) {
+	public void setObservers(T1 observers) {
 		this.observers = observers;
 	}
 	T processData(T d) {

@@ -6,7 +6,7 @@ public class MilleTracker<Double> {
 	public MilleTrackerMemento createMemento() {
 		return new MilleTrackerMemento();
 	}
-	public MilleTrackerMemento setMemento(MilleTrackerMemento mt){
+	public MilleTrackerMemento setMemento(MilleTrackerMemento<?> mt){
 		
 	
 	}

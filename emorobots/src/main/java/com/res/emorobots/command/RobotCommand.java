@@ -1,32 +1,29 @@
 package com.res.emorobots.command;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 
 import com.res.emorobots.data.Order;
 
-public class RobotCommand extends Command<List<Order>>{
+public class RobotCommand extends Command<Stack<Action<List<Order>>>,List<Order>>{
 	
 
-	public RobotCommand(List<Order> d) {
-	  this.data = d;	
-	}
-	public RobotCommand(List<Order> d, RobotAction action) {
-		this.data = d;
-		this.action = action;
-		
-	}
 	
 	public List<Order> execute() {
-		List<Order> d;
-		d = ((RobotAction)this.action).initalize(this.data);
+		List<Order> d = null;
+		for(Action<List<Order>> action:this.actions) {
+		d = ((RobotAction)action).initalize(this.data);
 		this.data = d;
-		d = ((RobotAction)this.action).preprocess(d);
+		d = ((RobotAction)action).preprocess(d);
 		this.data = d;
-		d = ((RobotAction)this.action).process(d);
+		d = ((RobotAction)action).process(d);
 		this.data = d;
-		d = ((RobotAction)this.action).postprocess(d);
+		d = ((RobotAction)action).postprocess(d);
 		this.data =d;
-		d = ((RobotAction)this.action).finalize(this.data);
+		d = ((RobotAction)action).finalize(d);
+		}
 		
 		this.data = d;
 		return d;

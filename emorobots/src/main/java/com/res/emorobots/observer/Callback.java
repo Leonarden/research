@@ -1,7 +1,10 @@
 package com.res.emorobots.observer;
 
-public interface Callback<T> {
+import java.util.Collection;
+
+public interface Callback<T extends Collection<?>> {
 
 	public void callback();
 	public T callback(T o);
+	
 }

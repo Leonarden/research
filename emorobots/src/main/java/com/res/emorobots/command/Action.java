@@ -1,6 +1,8 @@
 package com.res.emorobots.command;
 
-public class Action<T> {
+import java.util.Collection;
+
+public class Action<T extends Collection<?>> {
 T data;
 	public T preprocess(T d) {
 		return null;

@@ -1,10 +1,11 @@
 package com.res.emorobots.normalizer;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.res.emorobots.statmodel.EmotionModel;
 
-public class Normalizer<T>{
+public class Normalizer<T extends Collection<?>>{
 T data;
 EmotionModel<T> statModel;
 public Normalizer() {}

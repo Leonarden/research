@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import com.res.emorobots.command.RobotAction;
 import com.res.emorobots.command.RobotCommand;
@@ -121,14 +122,15 @@ public class App {
 		boolean islimit = false;
 		int falseCount = 0;
 		List<Boolean> limits = new ArrayList<Boolean>();
-		List<RobotObserver> obs = (List<RobotObserver>) os.getObservers();
-		
-		for(int i=0;i<obs.size();i++) {
-			limits.add( new Boolean(obs.get(i).limitReached()));
+		Queue<Observer<List<Order>>> obs =(Queue<Observer<List<Order>>>)os.getObservers();
+		int i = 0;
+		for(Observer<List<Order>> o: obs) {
+			RobotObserver ro = (RobotObserver) o;
+			limits.add( new Boolean(ro.limitReached()));
 			
 			if(!limits.get(i)) {
 				falseCount = falseCount+1;
-				os.detach(obs.get(i), dmode);
+				os.detach(o, dmode);
 			}
 			
 			if(criteria==0 && !limits.get(i)) {

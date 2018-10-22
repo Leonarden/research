@@ -1,6 +1,8 @@
 package com.res.emorobots.observer;
 
-public class Observer<T> {
+import java.util.Collection;
+
+public class Observer<T extends Collection<?>> {
 	protected long id;
 	protected T data;
 
