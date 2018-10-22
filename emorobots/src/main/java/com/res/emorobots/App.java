@@ -149,7 +149,7 @@ public class App {
 						break;
 					}
 				
-		
+			i++;
 			
 		}	
 		
