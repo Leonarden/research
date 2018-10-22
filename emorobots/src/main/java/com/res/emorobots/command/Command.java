@@ -3,18 +3,18 @@ package com.res.emorobots.command;
 import java.util.Collection;
 import java.util.List;
 
-public class Command<T1 extends Collection<Action<T>>,T extends Collection<?>> {
+public class Command<T1 extends Collection<Action<T>>,T extends Collection<?>> implements Executable<T>{
 	T data;
     T1 actions;
     public Command() {}
     public Command(T data) {
     	this.data = data;
     }
-    public Command(T data, T1 actions) {
-    	this.data = data;
-    	this.actions = actions;
+    public Command(Collection<?> data, Collection<?> actions) {
+    	this.data = (T) data;
+    	this.actions = (T1) actions;
     }
-	T execute() {
+public 	T execute() {
 		T d = null;
 		for(Action<T> ra:actions) {
 			d = ra.preprocess(this.data);

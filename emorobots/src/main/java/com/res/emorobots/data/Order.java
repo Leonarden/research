@@ -1,8 +1,10 @@
 package com.res.emorobots.data;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -10,13 +12,14 @@ import java.util.Map;
 
 import com.res.emorobots.command.RobotAction;
 import com.res.emorobots.command.RobotCommand;
+import com.res.emorobots.command.RobotCommandProxy;
 
-public class Order {
+public class Order<T extends Collection<RobotCommandProxy>> implements Serializable{
 
 	private Map<String,Object> verb;
 	private Map<String,Object> complement;
-	private List<RobotCommand> commands;
-	 
+	private T commandproxies;
+	private  Map<String,List<String>> commandsactionscssname;
 	public Order() {
 		verb = new HashMap<String,Object>();
 		complement = new HashMap<String,Object>();
@@ -28,12 +31,12 @@ public class Order {
 		
 		complement.put("text", "");
 		complement.put("weight", em1);
-		commands = null;
+		commandproxies = null;
 		
 	}
 	
 
-	public Order(String verbtext, String comptext, List<Double> vws, List<Double> cws,Map<String,List<String>> commandsactionscssname) {
+	public Order(String verbtext, String comptext, List<Double> vws, List<Double> cws,Map<String,List<String>> cacssname) {
 		verb = new HashMap<String,Object>();
 		complement = new HashMap<String,Object>();
 		
@@ -42,8 +45,9 @@ public class Order {
 		
 		complement.put("text", comptext);
 		complement.put("weight", cws);
+		commandsactionscssname = cacssname;
 		try {
-		this.commands = generateCommands(commandsactionscssname);
+		this.commandproxies = generateCommandProxies(commandsactionscssname);
 		}catch(Exception ex) {
 			//Todo: Implement custom exceptions
 		ex.printStackTrace();
@@ -99,39 +103,34 @@ public void setComplement(Map<String, Object> complement) {
 }
 
 
-public List<RobotCommand> getCommands() {
-	return commands;
+public T getCommands() {
+	return commandproxies;
 }
 
 
-public void setCommands(List<RobotCommand> commands) {
-	this.commands = commands;
+public void setCommands(T cps) {
+	this.commandproxies = cps;
 }
 
-List<RobotCommand> generateCommands(Map<String,List<String>> commandsactionscssname) throws Exception {
-	List<RobotCommand> cmds = null;
+public T generateCommandProxies(Map<String,List<String>> commandsactionscssname) throws Exception {
+	T cmds = null;
 	List<RobotAction> actlist = null;
-	Class[] type = { List.class };
-	Object[] obj = { this};
+	Class[] type = { String.class, List.class };
+	Object[] obj = new Object[2];
 	Constructor<?> cons = null;
 	for(String cname: commandsactionscssname.keySet()) {
 	    List<String> anames = commandsactionscssname.get(cname);
-		for(String actn: anames) {
-	    Class<?> actclass = Class.forName(actn);
-		 cons = actclass.getConstructor(type);
-	    RobotAction a = (RobotAction) cons.newInstance(obj);
-	    actlist.add(a);
-		}
-		obj = new Object[2]; obj[0] = this; obj[1] = actlist;
+		  obj[0] = cname; obj[1] = anames;
 		Class<?> cmdclass = Class.forName(cname);
 		 cons = cmdclass.getConstructor(type);
-		 RobotCommand c = (RobotCommand) cons.newInstance(obj);
+		 RobotCommandProxy c = (RobotCommandProxy) cons.newInstance(obj);
 			
 		 cmds.add( c);
 	}
 	
 	return cmds;
 }
+
 
 
 }

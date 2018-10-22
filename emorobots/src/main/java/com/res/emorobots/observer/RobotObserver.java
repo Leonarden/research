@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 import com.res.emorobots.command.RobotCommand;
+import com.res.emorobots.command.RobotCommandProxy;
 import com.res.emorobots.data.Order;
 import com.res.emorobots.subject.OrdersSubject;
 import com.res.emorobots.subject.Subject;
@@ -60,14 +61,13 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	
 	public List<Order> callback(List<Order> ords) {
 		List<Order> l = null;
-		List<RobotCommand> cmds;
+		List<RobotCommandProxy> cmds= null;
 		//processing
 		for(Order o: ords) {
-			cmds = o.getCommands();
 			l = ords;
-			for(RobotCommand c:cmds) {
+			for(RobotCommandProxy c: cmds) {
 				l = c.execute();
-				c.setData(l);
+				//need to update this.data??
 			}
 		}
 		return l;

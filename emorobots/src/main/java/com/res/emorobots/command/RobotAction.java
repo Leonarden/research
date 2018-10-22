@@ -1,13 +1,14 @@
 package com.res.emorobots.command;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.res.emorobots.data.Order;
 
 public class RobotAction extends Action<List<Order>> implements RobotEmotional {
 
-	public RobotAction(List<Order> d) {
-		this.data = d;
+	public RobotAction(Collection<?> d) {
+		this.data = (List<Order>) d;
 	}
 	public List<Order> initalize(List<Order> d) {
 		// TODO Auto-generated method stub
