@@ -2,16 +2,19 @@ package com.res.emorobots.subject;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
-import com.res.emorobots.command.Action;
-import com.res.emorobots.command.Command;
 import com.res.emorobots.observer.Observer;
+import com.res.emorobots.command.CommandBean;
+import com.res.emorobots.interpreter.OrderProxy;
 
-public class Subject<T1 extends Collection<T2>,T2 extends Observer<T>, T3 extends Collection<Command<Collection<Action<T>>,T>>, T extends Collection<?>>{
+public class Subject {
     long id;
-	 T data;
-   protected T1 observers;
-   T2 commands;
+    Stack<OrderProxy> data;
+    Queue<Observer<Stack<OrderProxy>>> observers;
+   
    List<Integer> modes;
    
    public Subject() {
@@ -20,33 +23,34 @@ public class Subject<T1 extends Collection<T2>,T2 extends Observer<T>, T3 extend
    public Subject(long id) {
 	   this.id = id;
    }
-	public void attach(Observer<T> o) {}
-	public void detach(Observer<T> o) {}
+	public void attach(Observer<Stack<OrderProxy>> o) {}
+	public void detach(Observer<Stack<OrderProxy>> o) {}
 
-	public void attach(Observer<T>  o,T3 commands) {}
+	public void attach(Observer<Stack<OrderProxy>>  o,Map<Long,CommandBean> cmdb) {}
    // mode on detach could be lazy, deep...
-	public void detach(Observer<T>  o,Integer mode) {}
+	public void detach(Observer<Stack<OrderProxy>>  o,Integer mode) {}
 	// lazy mode to detach observer's command
-	public void detach(Observer<T>  o,T3 commands, Integer mode) {}
+	public void detach(Observer<Stack<OrderProxy>>  o, Map<Long,CommandBean> cmdb, Integer mode) {}
 
-	public T notifyTo() {
-	T d = null;
-        for(Observer<T>  o: observers) {
-        	o.update(data);
+	public Stack<OrderProxy> notifyTo() {
+	Stack<OrderProxy> d =  this.data;
+        for(Observer<Stack<OrderProxy>>  o: observers) {
+        	d = o.update(data);
         	
         	data = processData(d);
         }
+        
 	return data;
 	}
 
-	public T getData() {
+	public Stack<OrderProxy> getData() {
 	
 		return this.data;
 		
 	}
 	
 	
-	public void setData(T d) {
+	public void setData(Stack<OrderProxy> d) {
 		this.data = d;
 	}
 
@@ -57,13 +61,14 @@ public class Subject<T1 extends Collection<T2>,T2 extends Observer<T>, T3 extend
 	public void setId(long id) {
 		this.id = id;
 	}
-	public T1 getObservers() {
+	public Queue<Observer<Stack<OrderProxy>>> getObservers() {
 		return observers;
 	}
-	public void setObservers(T1 observers) {
+	public void setObservers(Queue<Observer<Stack<OrderProxy>>> observers) {
 		this.observers = observers;
 	}
-	T processData(T d) {
+	Stack<OrderProxy> processData(Stack<OrderProxy> d) {
 		return null;
 	}
+
 }

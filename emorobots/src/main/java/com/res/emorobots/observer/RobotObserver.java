@@ -10,19 +10,21 @@ import java.util.Stack;
 
 import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.command.RobotCommandProxy;
-import com.res.emorobots.data.Order;
+import com.res.emorobots.interpreter.Order;
+import com.res.emorobots.interpreter.OrderProxy;
+
 import com.res.emorobots.subject.OrdersSubject;
 import com.res.emorobots.subject.Subject;
 import com.res.emorobots.util.ObserverStatus;
 
-public class RobotObserver extends Observer<List<Order>> implements RobotCallback{
+public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotCallback{
 
 	Map<Integer,String> sysstat = new HashMap<Integer,String>();
 	private Subject subject;
 	//eActLevel is a Map containing and ordered list of <emotion,transitions of emotion list>
 	private Map<String,List<Double>> eActLevel;
 	private Map<String,Double> emotions;
-	List<Order> reentrantO;
+	List<Stack<com.res.emorobots.interpreter.Order>> reentrantO;
 	StringBuffer status = new StringBuffer();
 	Integer updates = 0;
 	Integer limit = 0;
@@ -52,21 +54,23 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	   
 	}
 
-	public List<Order> update(List<Order> o) {
-		// reentrant Orders
-		reentrantO = processOrders(o);
-		this.data = this.callback(reentrantO);
-		return data;
+	public Stack <OrderProxy> update(Stack<OrderProxy> o) {
+		
+				return this.callback(o);;
 	}
 	
-	public List<Order> callback(List<Order> ords) {
-		List<Order> l = null;
-		List<RobotCommandProxy> cmds= null;
+	public Stack<OrderProxy> callback( Stack<OrderProxy> ords) {
+		
+		List<Order><Collection<RobotCommandProxy>>> l = null;
+		Collection<RobotCommandProxy> cmds= null;
+		 = 	 processOrders(o); 
+
 		//processing
-		for(Order o: ords) {
-			l = ords;
+		for(Order<Collection<RobotCommandProxy>> o: ords) {
+			cmds = o.getCommands();
 			for(RobotCommandProxy c: cmds) {
-				l = c.execute();
+				l = (List<Order<Collection<RobotCommandProxy>>>) c.execute();
+				//c.setData((Collection<Order<Collection<RobotCommandProxy>>>)l);
 				//need to update this.data??
 			}
 		}
@@ -78,14 +82,14 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 	}
 	
 	public void reset() {
-		data = new ArrayList<Order>();
+		data = new ArrayList<Order<Collection<RobotCommandProxy>>>();
 		 emotions.put("anger", 1d);
 		 emotions.put("happy", 1d);
 		  emotions.put("fear", 1d);
 		  
 	}
 	
-	List<Order> processOrders(List<Order> o){
+	List<Order<Collection<RobotCommandProxy>>> processOrders( List<Order<Collection<RobotCommandProxy>>> o){
 	    boolean ischange = false;
 	    List<Order> l = new ArrayList<Order>();
 		updates++;	
@@ -147,7 +151,8 @@ public class RobotObserver extends Observer<List<Order>> implements RobotCallbac
 		void doFear() {
 			
 		}
-	
+
+		
 }	
 	
 

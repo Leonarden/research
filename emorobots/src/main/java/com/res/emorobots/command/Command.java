@@ -2,8 +2,13 @@ package com.res.emorobots.command;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 
-public class Command<T1 extends Collection<Action<T>>,T extends Collection<?>> implements Executable<T>{
+import com.res.emorobots.sentence.Order;
+
+public class Command<T1 extends Queue<Action<T>>,T extends Stack<Order>> 
+		implements Executable<T>{
 	T data;
     T1 actions;
     public Command() {}
@@ -15,13 +20,27 @@ public class Command<T1 extends Collection<Action<T>>,T extends Collection<?>> i
     	this.actions = (T1) actions;
     }
 public 	T execute() {
+	
 		T d = null;
-		for(Action<T> ra:actions) {
-			d = ra.preprocess(this.data);
-			d = ra.process(d);
+		T ld = this.data;
+	    
+		d = ld;
+		
+	    try {
+	    for(Action<T> ra:actions) {
+		
+			d = ra.preprocess(d);
+			if(d!=null)
+				d = ra.process(d);
+			if(d!=null)
 			d = ra.postprocess(d);
 		}
-		this.data = d;
+		}catch(CommandException cex) {
+			cex.printStackTrace();
+			d = null;
+		}
+		if(d!=null)
+			this.data = d;
 		
 		return d;
 	}

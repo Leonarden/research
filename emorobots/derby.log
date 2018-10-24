@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Oct 23 23:05:36 CEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-a2bf-4420-000003748ec0 
+on database directory /home/david/.wrk/devenv-A/git/research/emorobots/emorobots with class loader sun.misc.Launcher$AppClassLoader@dad5dc 
+Loaded from file:/home/david/.wrk/user/dev/j2ee/m/.m2/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_65-b17
+user.dir=/home/david/.wrk/devenv-A/git/research/emorobots
+os.name=Linux
+os.arch=i386
+os.version=4.4.0-53-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
