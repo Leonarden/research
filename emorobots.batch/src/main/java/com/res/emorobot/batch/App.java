@@ -1,4 +1,4 @@
-package com.res.emorobot.emorobots_streaming;
+package com.res.emorobot.batch;
 
 /**
  * Hello world!
