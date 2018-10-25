@@ -10,9 +10,9 @@ import java.util.Stack;
 
 import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.command.RobotCommandProxy;
-import com.res.emorobots.interpreter.Order;
-import com.res.emorobots.interpreter.OrderProxy;
-
+import com.res.emorobots.interpreter.SentenceInterpretableProblem;
+import com.res.emorobots.order.Order;
+import com.res.emorobots.order.OrderProxy;
 import com.res.emorobots.subject.OrdersSubject;
 import com.res.emorobots.subject.Subject;
 import com.res.emorobots.util.ObserverStatus;
@@ -25,7 +25,7 @@ public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotC
 	private Map<String,List<Double>> eActLevel;
 	private Map<String,Double> emotions;
 	
-	List<Stack<Order>> reentrantO;
+	Map<String, Stack<Order<SentenceInterpretableProblem, Collection<?>>>> reentrantO;  //keys are OrderType
 	StringBuffer status = new StringBuffer();
 	Integer updates = 0;
 	Integer limit = 0;
@@ -151,6 +151,21 @@ public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotC
 		}
 		void doFear() {
 			
+		}
+
+		public Stack<com.res.emorobots.observer.OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public Stack<com.res.emorobots.observer.OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public Stack<com.res.emorobots.observer.OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 		
