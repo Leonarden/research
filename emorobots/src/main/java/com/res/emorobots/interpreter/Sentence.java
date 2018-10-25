@@ -2,7 +2,7 @@ package com.res.emorobots.interpreter;
 
 import java.util.Collection;
 
-public class Sentence<T1,T2>  extends Token<T1,T2>implements Interpretable<T2> {
+public class Sentence<T1,T2>  implements Interpretable<T2> {
 	
 	T1 value;
    T2 interpretation = null;

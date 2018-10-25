@@ -35,11 +35,11 @@ public class OrderProxy implements Serializable{
 	   }
    }
 
-Order getOrder() {
+public Order getOrder() {
 	return order;
 }
 
-void setOrder(Order order) {
+public void setOrder(Order order) {
 	this.order = order;
 }
 
@@ -67,7 +67,9 @@ public void setCommandBeans(Map<Long, CommandBean> commandBeans) {
 }	
 
    
-
+public Integer getOrderStatus() {
+	return this.order.getOrderStatus();
+}
    
 
 }

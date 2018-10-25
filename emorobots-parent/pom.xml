@@ -19,19 +19,23 @@
 <module>emorobots</module>
 <module>emorobots-ai</module>
 
-<!-- <module>emorobots-streaming</module> -->
+<module>emorobots-streaming</module> 
+<module>emorobots-batch</module> 
+
 </modules>
+  
   <dependencies>
     
 
 <!-- Logging -->
+
 <dependency>
     <groupId>junit</groupId>
     <artifactId>junit</artifactId>
     <version>4.12</version>
     <scope>test</scope>
 </dependency>
-
+        
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -74,11 +78,12 @@
             <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-<dependency>
+	<dependency>
     <groupId>org.picocontainer</groupId>
     <artifactId>picocontainer</artifactId>
     <version>2.15</version>
-</dependency>
+	</dependency>
+
 <!-- Persistence -->
 <dependency>
     <groupId>org.apache.derby</groupId>
@@ -87,5 +92,8 @@
     <scope>test</scope>
 </dependency>
 
+
  </dependencies>
+
+
 </project>

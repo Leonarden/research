@@ -24,7 +24,8 @@ public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotC
 	//eActLevel is a Map containing and ordered list of <emotion,transitions of emotion list>
 	private Map<String,List<Double>> eActLevel;
 	private Map<String,Double> emotions;
-	List<Stack<com.res.emorobots.interpreter.Order>> reentrantO;
+	
+	List<Stack<Order>> reentrantO;
 	StringBuffer status = new StringBuffer();
 	Integer updates = 0;
 	Integer limit = 0;

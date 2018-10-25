@@ -21,7 +21,7 @@ import com.res.emorobots.command.RobotCommandProxy;
 public class Order extends Sentence<String,>> {
 
 	private Queue<CommandProxy> commandproxies = null;
-	
+    private Integer currentStatus = 1;	
 	
 	public Order() {	}
 	
@@ -74,6 +74,12 @@ public Queue<CommandProxy> getCommandproxies() {
 public void setCommandproxies(Queue<CommandProxy> commandproxies) {
 	this.commandproxies = commandproxies;
 }
+
+
+public Integer getOrderStatus() {
+	return this.currentStatus;
+}
+
 
 
 
