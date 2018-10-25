@@ -1,30 +1,31 @@
 package com.res.emorobots.interpreter;
 
 import java.util.Collection;
+import java.util.List;
 
-public class SentenceInterpretableProblem extends Problem<Collection<Sentences<Sentence,?>>, Collection<?>>{
+public class SentenceInterpretableProblem extends Problem<Definition, SentencesSolution>{
 	
-	Collection<Sentences<Sentence,?>> definition;
-	Collection<?> solution; 
+	Definition definition;
+	SentencesSolution solution; 
 	
 	public SentenceInterpretableProblem() {
 		
 	}
-	public SentenceInterpretableProblem(Collection<Sentences<Sentence, ?>> def) {
-		super(def);
+	public SentenceInterpretableProblem(Long id,Definition def) {
+		super(id,def);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Collection<Sentences<Sentence, ?>> getDefinition() {
+	public Definition getDefinition() {
 		return definition;
 	}
-	public void setDefinition(Collection<Sentences<Sentence,?>> definition) {
+	public void setDefinition(Definition definition) {
 		this.definition = definition;
 	}
-	public Collection<?> getSolution() {
+	public SentencesSolution getSolution() {
 		return solution;
 	}
-	public void setSolution(Collection<?> solution) {
+	public void setSolution(SentencesSolution solution) {
 		this.solution = solution;
 	}
 	

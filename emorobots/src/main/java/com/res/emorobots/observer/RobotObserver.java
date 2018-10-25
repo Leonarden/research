@@ -8,14 +8,18 @@ import java.util.Map;
 import java.util.Stack;
 
 import com.res.emorobots.command.RobotCommandProxy;
+import com.res.emorobots.interpreter.Definition;
+import com.res.emorobots.interpreter.Problem;
 import com.res.emorobots.interpreter.SentenceInterpretableProblem;
+import com.res.emorobots.interpreter.SentencesSolution;
+import com.res.emorobots.interpreter.Solution;
 import com.res.emorobots.order.Order;
 import com.res.emorobots.order.OrderProxy;
 import com.res.emorobots.subject.OrdersSubject;
 import com.res.emorobots.subject.Subject;
 import com.res.emorobots.util.ObserverStatus;
 
-public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotCallback{
+public class RobotObserver extends Observer<Stack<OrderProxy<SentenceInterpretableProblem,SentencesSolution>>> implements RobotCallback{
 
 	Map<Integer,String> sysstat = new HashMap<Integer,String>();
 	private Subject subject;
@@ -23,7 +27,7 @@ public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotC
 	private Map<String,List<Double>> eActLevel;
 	private Map<String,Double> emotions;
 	
-	Map<String, Stack<Order<SentenceInterpretableProblem, Collection<?>>>> reentrantO;  //keys are OrderType
+	Map<String, Stack<Order<SentenceInterpretableProblem>>> reentrantO;  //keys are OrderType
 	StringBuffer status = new StringBuffer();
 	Integer updates = 0;
 	Integer limit = 0;
@@ -151,21 +155,12 @@ public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotC
 			
 		}
 
-		public Stack<OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
+		public Stack<OrderProxy<T, T1>> callback(Stack<OrderProxy<T, T1>> o) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		public Stack<OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public Stack<com.res.emorobots.observer.OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
+	
 		
 }	
 	

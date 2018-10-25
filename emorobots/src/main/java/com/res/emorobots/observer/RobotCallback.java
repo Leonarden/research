@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Stack;
 
 import com.res.emorobots.command.RobotCommandProxy;
-import com.res.emorobots.interpreter.OrderProxy;
+import com.res.emorobots.order.OrderProxy;
 
 
-public interface RobotCallback extends Callback<Stack<OrderProxy>>{
+public interface RobotCallback extends Callback<Stack<OrderProxy<T, T1>>>{
 
 	
 }
