@@ -5,17 +5,19 @@ import java.util.Map;
 
 public class OrderType {
 
-		static Map<Integer,String> types = new HashMap<Integer,String>();
+		static Map<String,String> types = new HashMap<String,String>();
 
 		static {
 			//different types of orders with different types of problems to solve
-			types.put(0, "");
-			types.put(1,"");
-			types.put(2,"");
-			types.put(3,"");
-			types.put(4,"");
-			types.put(9, "");	
-		};
+			//different types of orders with different types of problems to solve
+			types.put("math", "alge-diff-");
+			types.put("nlp","nlpsys1-nplsys2-nlpsysX");
+			types.put("indus", "indussys1-indussys2-indussysX");
+			types.put("comp", "perf-codegen-");
+			types.put("med","");
+			types.put("chem","");
+			types.put("multi","multiord1");
+			};
 		
 	public OrderType() {
 		

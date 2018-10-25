@@ -2,7 +2,7 @@ package com.res.emorobots.interpreter;
 
 import java.io.Serializable;
 
-public class ProblemProxy<T,T1,T2> implements Serializable {
+public class ProblemProxy<T,T1 extends Definition,T2 extends Solution> implements Serializable {
 
 	/**
 	 * 

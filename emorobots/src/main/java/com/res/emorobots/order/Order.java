@@ -17,13 +17,16 @@ import com.res.emorobots.command.CommandProxy;
 import com.res.emorobots.command.RobotAction;
 import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.command.RobotCommandProxy;
+import com.res.emorobots.interpreter.Definition;
+import com.res.emorobots.interpreter.Problem;
+import com.res.emorobots.interpreter.Solution;
 
-public class Order<T,T1>  {
+public class Order<T extends Problem<Definition, Solution<Object>>>  {
 
 	private Queue<CommandProxy> commandproxies = null;
     private Integer status = 9;	
 	private T problem;  // problem must be of type interpretable Problem <T1 extends Solution> 
-	private T1 solution;
+
 	private String type;
 	
 	public Order() {	}
@@ -91,12 +94,16 @@ public void setProblem(T problem) {
 	this.problem = problem;
 }
 
-public T1 getSolution() {
-	return solution;
+public Solution getSolution() {
+	if(this.problem.getStatus()== 1) // problem solved
+	return this.problem.getSolution();
+ return null; //have to be a significative value CHANGE
 }
 
-public void setSolution(T1 solution) {
-	this.solution = solution;
+public void setSolution(Solution solution) {
+	if(this.problem.getStatus()!=1) // problem not solved
+	 this.problem.setSolution(solution);
+	//have to log this
 }
 
 public String getType() {

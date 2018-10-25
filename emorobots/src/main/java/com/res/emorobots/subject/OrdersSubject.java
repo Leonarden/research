@@ -5,24 +5,22 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
-import com.res.emorobots.command.Action;
-import com.res.emorobots.command.Command;
-import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.command.RobotCommandProxy;
-import com.res.emorobots.interpreter.Order;
-import com.res.emorobots.interpreter.OrderProxy;
-import com.res.emorobots.interpreter.OrderStatus;
 import com.res.emorobots.observer.Observer;
 import com.res.emorobots.observer.RobotObserver;
+import com.res.emorobots.order.Order;
+import com.res.emorobots.order.OrderProxy;
+import com.res.emorobots.order.OrderStatus;
 
 public class OrdersSubject  extends Subject {
 
 	String status;
-	List<Stack<Order>> reentrantOrders;
+	Map<String,List<Stack<Order>>> reentrantOrders;  /// "OrderType"->"Orders1,Orders2..." entries
 	boolean islimit = false;
 	Long limit = 0l;
 	Stack<OrderProxy> completedOrders;

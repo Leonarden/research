@@ -7,13 +7,14 @@ import java.util.Queue;
 import java.util.Stack;
 
 import com.res.emorobots.observer.Observer;
+import com.res.emorobots.order.OrderProxy;
 import com.res.emorobots.command.CommandBean;
-import com.res.emorobots.interpreter.OrderProxy;
+
 
 public class Subject {
     long id;
-    Stack<OrderProxy> data;
-    Queue<Observer<Stack<OrderProxy>>> observers;
+    Stack<OrderProxy<T, T1>> data;
+   Map<String, Queue<Observer<Stack<OrderProxy>>>> observers;
    
    List<Integer> modes;
    

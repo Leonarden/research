@@ -5,10 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Stack;
 
-import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.command.RobotCommandProxy;
 import com.res.emorobots.interpreter.SentenceInterpretableProblem;
 import com.res.emorobots.order.Order;
@@ -153,12 +151,12 @@ public class RobotObserver extends Observer<Stack<OrderProxy>> implements RobotC
 			
 		}
 
-		public Stack<com.res.emorobots.observer.OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
+		public Stack<OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		public Stack<com.res.emorobots.observer.OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
+		public Stack<OrderProxy> callback(Stack<com.res.emorobots.observer.OrderProxy> o) {
 			// TODO Auto-generated method stub
 			return null;
 		}
