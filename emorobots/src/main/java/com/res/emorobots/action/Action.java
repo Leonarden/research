@@ -3,9 +3,10 @@ package com.res.emorobots.action;
 import java.util.Collection;
 import java.util.List;
 
-import com.res.emorobots.sentence.Order;
+import com.res.emorobots.order.Order;
 
-public class Action<T extends Collection<Order>> {
+
+public class Action<T extends Collection<Order<Problem<Definition,Solution<Object>>>>> {
 T data;
 long type;
 

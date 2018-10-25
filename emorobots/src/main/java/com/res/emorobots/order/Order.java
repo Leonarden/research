@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import com.res.emorobots.command.ActionBean;
+import com.res.emorobots.action.ActionBean;
 import com.res.emorobots.command.CommandBean;
 import com.res.emorobots.command.CommandProxy;
 import com.res.emorobots.command.RobotAction;
 import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.command.RobotCommandProxy;
+import com.res.emorobots.exception.OrderException;
 import com.res.emorobots.interpreter.Definition;
 import com.res.emorobots.interpreter.Problem;
 import com.res.emorobots.interpreter.Solution;
@@ -61,7 +62,7 @@ public Queue<CommandProxy> generateCommandProxies(Map<Long,CommandBean> cmdbeans
 	for(Long key: cmdbeans.keySet()) {
 	    CommandBean cmdb = cmdbeans.get(key);
 		  obj[0] = cmdb.getClassName(); 
-		  Map<Long,com.res.emorobots.action.ActionBean> actbs = cmdb.getActions();
+		  Map<Long,ActionBean> actbs = cmdb.getActions();
 		  obj[1] = actbs;
 		Class<?> cmdclass = Class.forName( cmdb.getClassName()); 
 		 cons = cmdclass.getConstructor(type);

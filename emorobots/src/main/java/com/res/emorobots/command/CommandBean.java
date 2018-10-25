@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
+import com.res.emorobots.action.ActionBean;
+
 public class CommandBean{
 
 	Long type = 0l;

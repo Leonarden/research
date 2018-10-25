@@ -23,9 +23,9 @@ public class OrderType {
 		
 	}	
 		
-		public static String getOrderType(Integer i) {
+		public static String getOrderType(String k) {
 			
-			return types.get(i);
+			return types.get(k);
 			
 		
 		}
