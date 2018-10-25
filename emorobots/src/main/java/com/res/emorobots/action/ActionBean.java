@@ -1,4 +1,4 @@
-package com.res.emorobots.command;
+package com.res.emorobots.action;
 
 import java.io.Serializable;
 import java.util.Collection;

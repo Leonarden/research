@@ -1,4 +1,4 @@
-package com.res.emorobots.interpreter;
+package com.res.emorobots.order;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -15,7 +15,7 @@ import com.res.emorobots.command.CommandProxy;
 import com.res.emorobots.command.RobotAction;
 import com.res.emorobots.command.RobotCommandProxy;
 
-public class OrderProxy implements Serializable{
+public class OrderProxy<T,T1> implements Serializable{
 
 	/**
 	 * 
@@ -25,10 +25,22 @@ public class OrderProxy implements Serializable{
 	
 	Map<Long,CommandBean> commandBeans = null;
 	
-   public OrderProxy(String value,Map<Long,CommandBean> cmdbeans) {
+	private T problem;  // problem must be of type interpretable Problem <T1 extends Solution> 
+	private T1 solution;
+	private String type;
+	
+	
+	
+	public OrderProxy(String type) {
+		 this.type = type;
+	   }
+	
+		
+	
+   public OrderProxy(String type,Map<Long,CommandBean> cmdbeans) {
 	   try{
 		      this.commandBeans = cmdbeans;
-	          this.order = new Order(value,cmdbeans);
+	          this.order = new Order(type,cmdbeans);
 		    
 	   }catch(Exception ex) {
 		   ex.printStackTrace();
@@ -41,12 +53,6 @@ public Order getOrder() {
 
 public void setOrder(Order order) {
 	this.order = order;
-}
-
-Map<String,Object> getInterpretation() {
-
-	return this.order.getInterpretation();
-
 }
 
 
@@ -67,9 +73,47 @@ public void setCommandBeans(Map<Long, CommandBean> commandBeans) {
 }	
 
    
-public Integer getOrderStatus() {
-	return this.order.getOrderStatus();
+public Integer getStatus() {
+	return this.order.getStatus();
+}
+
+
+
+public T getProblem() {
+	return problem;
+}
+
+
+
+public void setProblem(T problem) {
+	this.problem = problem;
+}
+
+
+
+public T1 getSolution() {
+	return solution;
+}
+
+
+
+public void setSolution(T1 solution) {
+	this.solution = solution;
+}
+
+
+
+public String getType() {
+	return type;
+}
+
+
+
+public void setType(String type) {
+	this.type = type;
 }
    
+
+
 
 }

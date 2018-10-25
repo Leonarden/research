@@ -1,6 +1,6 @@
 package com.res.emorobots.interpreter;
 
-public class SentenceInterpreterBean extends InterpreterBean<String,SentenceInterpreterBean> {
+public class SentenceInterpreterBeanDEP extends InterpreterBean<String,SentenceInterpreterBean> {
 	
 
     public String getFinalValue(Long mx) {

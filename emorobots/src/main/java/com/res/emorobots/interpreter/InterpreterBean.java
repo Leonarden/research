@@ -2,7 +2,7 @@ package com.res.emorobots.interpreter;
 
 import java.io.Serializable;
 
-public class InterpreterBean <T, List<? extends IntrepretBean>> implements Serializable {
+public class InterpreterBean <T extends , List<? extends IntrepretBean>> implements Serializable {
     Long id;
     
     static Long MaxLen=100l; 

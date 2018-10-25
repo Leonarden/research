@@ -1,4 +1,4 @@
-package com.res.emorobots.interpreter;
+package com.res.emorobots.order;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -18,20 +18,23 @@ import com.res.emorobots.command.RobotAction;
 import com.res.emorobots.command.RobotCommand;
 import com.res.emorobots.command.RobotCommandProxy;
 
-public class Order extends Sentence<String,>> {
+public class Order<T,T1>  {
 
 	private Queue<CommandProxy> commandproxies = null;
-    private Integer currentStatus = 1;	
+    private Integer status = 9;	
+	private T problem;  // problem must be of type interpretable Problem <T1 extends Solution> 
+	private T1 solution;
+	private String type;
 	
 	public Order() {	}
 	
-	public Order(String value) {
-	 this.value = value;
+	public Order(String type) {
+	 this.type = type;
    }
 
-	public Order(String value, Map<Long,CommandBean> cmdbeans ) {
+	public Order(String type, Map<Long,CommandBean> cmdbeans ) {
 		
-		this.value = value;
+		this.type = type;
 		
 		try {
 		this.commandproxies = generateCommandProxies(cmdbeans);
@@ -43,7 +46,7 @@ public class Order extends Sentence<String,>> {
 				
 	}
 	
-
+	
 
 
 public Queue<CommandProxy> generateCommandProxies(Map<Long,CommandBean> cmdbeans) throws Exception {
@@ -55,7 +58,7 @@ public Queue<CommandProxy> generateCommandProxies(Map<Long,CommandBean> cmdbeans
 	for(Long key: cmdbeans.keySet()) {
 	    CommandBean cmdb = cmdbeans.get(key);
 		  obj[0] = cmdb.getClassName(); 
-		  Map<Long,ActionBean> actbs = cmdb.getActions();
+		  Map<Long,com.res.emorobots.action.ActionBean> actbs = cmdb.getActions();
 		  obj[1] = actbs;
 		Class<?> cmdclass = Class.forName( cmdb.getClassName()); 
 		 cons = cmdclass.getConstructor(type);
@@ -76,9 +79,39 @@ public void setCommandproxies(Queue<CommandProxy> commandproxies) {
 }
 
 
-public Integer getOrderStatus() {
-	return this.currentStatus;
+public Integer getStatus() {
+	return this.status;
 }
+
+public T getProblem() {
+	return problem;
+}
+
+public void setProblem(T problem) {
+	this.problem = problem;
+}
+
+public T1 getSolution() {
+	return solution;
+}
+
+public void setSolution(T1 solution) {
+	this.solution = solution;
+}
+
+public String getType() {
+	return type;
+}
+
+public void setType(String type) {
+	this.type = type;
+}
+
+public void setStatus(Integer status) {
+	this.status = status;
+}
+
+
 
 
 
