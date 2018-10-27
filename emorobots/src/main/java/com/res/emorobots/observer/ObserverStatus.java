@@ -1,4 +1,4 @@
-package com.res.emorobots.util;
+package com.res.emorobots.observer;
 
 import java.util.Map;
 

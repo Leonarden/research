@@ -26,7 +26,8 @@
  
   	
   <parent>
-  	<groupId>com.res.emorobot</groupId>
-  	<artifactId>emorobots-parent</artifactId>
-  </parent>
+    	<groupId>com.res.emorobot</groupId>
+    	<artifactId>emorobots-parent</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </parent>
 </project>

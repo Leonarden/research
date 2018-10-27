@@ -38,11 +38,12 @@ public class ExecuteDDLScript {
 					String[]sa = line.trim().split(regex);
 
 					if(sa[1] != null && sa[1].length()>0) {
-						veridx = Integer.valueOf(sa[1].substring(sa[1].lastIndexOf('-')+1));
+						//veridx = Integer.valueOf(sa[1].substring(sa[1].lastIndexOf('-')+1));
 						
 						if(buf.length()>0 &&
 							executeDDL(c, buf.toString(),veridx)) {
 							index ++;
+							veridx = index;
 							buf = new StringBuffer();
 
 

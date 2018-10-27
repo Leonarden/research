@@ -19,7 +19,7 @@ import com.res.emorobots.util.ExecuteDDLScript;
 
 public class DerbyInitTest {
 
-	String scriptN =  "/home/david/.wrk/devenv-A/git/research/emorobots/src/main/resources/sql/create.sql";
+	String scriptN =  "/home/david/.wrk/devenv-A/git/research/emorobots/src/main/resources/sql/temp.sql";
 	@Test
 	public void test() {
 		boolean r = false;
@@ -29,7 +29,7 @@ public class DerbyInitTest {
 
 			Connection conn =  DriverManager.getConnection("jdbc:derby:emorobots;create=true","c3po","ok");
 
-			 r = ExecuteDDLScript.generateDDL(conn, new File(scriptN),  new String("#+-TOKEN-#+"));
+			 r = ExecuteDDLScript.generateDDL(conn, new File(scriptN),  new String("#+-TOKEN-"));
 
 			System.out.println("DDL executed correctly :" + r );
 		}catch(Exception ex) {

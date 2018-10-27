@@ -1,47 +1,47 @@
+
+/* for testing purposes */
 123456789-TOKEN-10
-drop table TestSentences;  
+drop table TestProblem;  
 123456789-TOKEN-11
 
-create table TestSentences(
+create table TestProblem(
   
-  commadId BIGINT UNSIGNED NOT NULL,
-  sentenceId  BIGINT UNSIGNED NOT NULL,
+  problemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT ,
    text  Varchar2(300) ,
-   weightNormId BIGINT UNSIGNED NOT NULL,
+weightNormId BIGINT UNSIGNED,
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0
    lastaccess DATETIME,
-   CONSTRAINT ss_pk_ss PRIMARY KEY(commadId,sentencesId),
+   CONSTRAINT tp_pk_tp PRIMARY KEY(problemId),
 
    
-  CONSTRAINT wnw_ss_wnw FOREIGN KEY(weighNormId)
+  CONSTRAINT t_8_t FOREIGN KEY(weighNormId)
   REFERENCES WeightNorm(weighNormId)
 
 
 );
 123456789-TOKEN-10
-drop table TestSentences2TestSentences;  
+drop table TestProblem2TestProblem;  
 123456789-TOKEN-11
 
-create table TestSentences2TestSentences(
+create table TestProblem2TestProblem(
   
-  commadId BIGINT UNSIGNED NOT NULL,
-  sentenceId  BIGINT UNSIGNED NOT NULL,
-  commad2Id BIGINT UNSIGNED NOT NULL,
-  sentence2d BIGINT UNSIGNED NOT NULL,
+  problemId BIGINT UNSIGNED NOT NULL,
+  problem2Id BIGINT UNSIGNED NOT NULL,
   text  Varchar2(350) ,
-   weightNormId BIGINT UNSIGNED NOT NULL,
+weightNormId BIGINT UNSIGNED,
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0
    lastaccess DATETIME,
-   CONSTRAINT s2s_pk_s2s PRIMARY KEY(commadId,sentencesId),
+   CONSTRAINT tp2_pk_tp2 PRIMARY KEY(problemId,problem2Id),
  
-  CONSTRAINT wnw_s2s_wnw FOREIGN KEY((commad2Id,sentences2Id))
-  REFERENCES TestSentences(commadId,sentencesId),
+  CONSTRAINT t_9_t FOREIGN KEY(problem2Id)
+  REFERENCES TestProblem(problemId),
 
    
-  CONSTRAINT wnw_s2s_wnw FOREIGN KEY(weighNormId)
-  REFERENCES WeightNormTest(weighNormId)
+  CONSTRAINT t_10_t FOREIGN KEY(weighNormId)
+  REFERENCES WeightNorm(weighNormId)
 
 
 );
+
 
 
