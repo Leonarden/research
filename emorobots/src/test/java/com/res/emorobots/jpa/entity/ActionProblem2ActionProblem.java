@@ -11,10 +11,13 @@ import java.math.BigInteger;
  * 
  */
 @Entity
+@Table(name="ActionProblem2ActionProblem")
 @NamedQuery(name="ActionProblem2ActionProblem.findAll", query="SELECT a FROM ActionProblem2ActionProblem a")
 public class ActionProblem2ActionProblem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String actionproblem2actionproblemId;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -28,12 +31,33 @@ public class ActionProblem2ActionProblem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getActionproblem2actionproblemId() {
 		return this.actionproblem2actionproblemId;
 	}
 
 	public void setActionproblem2actionproblemId(String actionproblem2actionproblemId) {
 		this.actionproblem2actionproblemId = actionproblem2actionproblemId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
+	}
+
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -47,6 +71,7 @@ public class ActionProblem2ActionProblem implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -56,6 +81,7 @@ public class ActionProblem2ActionProblem implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -67,7 +93,7 @@ public class ActionProblem2ActionProblem implements Serializable {
 
 	//bi-directional many-to-one association to ActionProblem
 	@ManyToOne
-	@JoinColumn(name="actionproblem2Id")
+	@JoinColumn(name="actionproblem2Id", nullable=false)
 	public ActionProblem getActionProblem1() {
 		return this.actionProblem1;
 	}
@@ -79,7 +105,7 @@ public class ActionProblem2ActionProblem implements Serializable {
 
 	//bi-directional many-to-one association to ActionProblem
 	@ManyToOne
-	@JoinColumn(name="actionproblemId")
+	@JoinColumn(name="actionproblemId", nullable=false)
 	public ActionProblem getActionProblem2() {
 		return this.actionProblem2;
 	}
@@ -92,8 +118,8 @@ public class ActionProblem2ActionProblem implements Serializable {
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="actionproblem2actionproblemId", referencedColumnName="entityNormId"),
-		@JoinColumn(name="entityName", referencedColumnName="entityName")
+		@JoinColumn(name="actionproblem2actionproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

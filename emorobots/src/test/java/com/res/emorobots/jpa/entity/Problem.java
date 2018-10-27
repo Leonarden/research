@@ -12,10 +12,13 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="Problem")
 @NamedQuery(name="Problem.findAll", query="SELECT p FROM Problem p")
 public class Problem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String problemId;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -28,6 +31,8 @@ public class Problem implements Serializable {
 	private List<Problem2Problem> problem2problems2;
 	private List<Solution> solutions;
 	private List<SubjectProblem> subjectProblems;
+	private List<ProblemDefinition> problemDefinitions;
+	private List<ProblemSolution> problemSolutions;
 
 	public Problem() {
 	}
@@ -35,12 +40,33 @@ public class Problem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getProblemId() {
 		return this.problemId;
 	}
 
 	public void setProblemId(String problemId) {
 		this.problemId = problemId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
+	}
+
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -54,6 +80,7 @@ public class Problem implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -63,6 +90,7 @@ public class Problem implements Serializable {
 	}
 
 
+	@Column(length=200)
 	public String getText() {
 		return this.text;
 	}
@@ -175,8 +203,8 @@ public class Problem implements Serializable {
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName"),
-		@JoinColumn(name="problemId", referencedColumnName="entityNormId")
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="problemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;
@@ -284,6 +312,56 @@ public class Problem implements Serializable {
 		subjectProblem.setProblem(null);
 
 		return subjectProblem;
+	}
+
+
+	//bi-directional many-to-one association to ProblemDefinition
+	@OneToMany(mappedBy="problem")
+	public List<ProblemDefinition> getProblemDefinitions() {
+		return this.problemDefinitions;
+	}
+
+	public void setProblemDefinitions(List<ProblemDefinition> problemDefinitions) {
+		this.problemDefinitions = problemDefinitions;
+	}
+
+	public ProblemDefinition addProblemDefinition(ProblemDefinition problemDefinition) {
+		getProblemDefinitions().add(problemDefinition);
+		problemDefinition.setProblem(this);
+
+		return problemDefinition;
+	}
+
+	public ProblemDefinition removeProblemDefinition(ProblemDefinition problemDefinition) {
+		getProblemDefinitions().remove(problemDefinition);
+		problemDefinition.setProblem(null);
+
+		return problemDefinition;
+	}
+
+
+	//bi-directional many-to-one association to ProblemSolution
+	@OneToMany(mappedBy="problem")
+	public List<ProblemSolution> getProblemSolutions() {
+		return this.problemSolutions;
+	}
+
+	public void setProblemSolutions(List<ProblemSolution> problemSolutions) {
+		this.problemSolutions = problemSolutions;
+	}
+
+	public ProblemSolution addProblemSolution(ProblemSolution problemSolution) {
+		getProblemSolutions().add(problemSolution);
+		problemSolution.setProblem(this);
+
+		return problemSolution;
+	}
+
+	public ProblemSolution removeProblemSolution(ProblemSolution problemSolution) {
+		getProblemSolutions().remove(problemSolution);
+		problemSolution.setProblem(null);
+
+		return problemSolution;
 	}
 
 }

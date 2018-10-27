@@ -11,10 +11,13 @@ import java.math.BigInteger;
  * 
  */
 @Entity
+@Table(name="Problem2Problem")
 @NamedQuery(name="Problem2Problem.findAll", query="SELECT p FROM Problem2Problem p")
 public class Problem2Problem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String problem2problemId;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -28,12 +31,33 @@ public class Problem2Problem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getProblem2problemId() {
 		return this.problem2problemId;
 	}
 
 	public void setProblem2problemId(String problem2problemId) {
 		this.problem2problemId = problem2problemId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
+	}
+
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -47,6 +71,7 @@ public class Problem2Problem implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -56,6 +81,7 @@ public class Problem2Problem implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -67,7 +93,7 @@ public class Problem2Problem implements Serializable {
 
 	//bi-directional many-to-one association to Problem
 	@ManyToOne
-	@JoinColumn(name="problem2Id")
+	@JoinColumn(name="problem2Id", nullable=false)
 	public Problem getProblem1() {
 		return this.problem1;
 	}
@@ -79,7 +105,7 @@ public class Problem2Problem implements Serializable {
 
 	//bi-directional many-to-one association to Problem
 	@ManyToOne
-	@JoinColumn(name="problemId")
+	@JoinColumn(name="problemId", nullable=false)
 	public Problem getProblem2() {
 		return this.problem2;
 	}
@@ -93,7 +119,7 @@ public class Problem2Problem implements Serializable {
 	@ManyToOne
 	@JoinColumns({
 		@JoinColumn(name="entityName", referencedColumnName="entityName"),
-		@JoinColumn(name="problem2problemId", referencedColumnName="entityNormId")
+		@JoinColumn(name="problem2problemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

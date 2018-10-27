@@ -12,10 +12,13 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="ObserverProblem")
 @NamedQuery(name="ObserverProblem.findAll", query="SELECT o FROM ObserverProblem o")
 public class ObserverProblem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String observerproblemId;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -31,12 +34,33 @@ public class ObserverProblem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getObserverproblemId() {
 		return this.observerproblemId;
 	}
 
 	public void setObserverproblemId(String observerproblemId) {
 		this.observerproblemId = observerproblemId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
+	}
+
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -50,6 +74,7 @@ public class ObserverProblem implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -59,6 +84,7 @@ public class ObserverProblem implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -70,7 +96,7 @@ public class ObserverProblem implements Serializable {
 
 	//bi-directional many-to-one association to Observer
 	@ManyToOne
-	@JoinColumn(name="observerId")
+	@JoinColumn(name="observerId", nullable=false)
 	public Observer getObserver() {
 		return this.observer;
 	}
@@ -82,7 +108,7 @@ public class ObserverProblem implements Serializable {
 
 	//bi-directional many-to-one association to Problem
 	@ManyToOne
-	@JoinColumn(name="problemId")
+	@JoinColumn(name="problemId", nullable=false)
 	public Problem getProblem() {
 		return this.problem;
 	}
@@ -95,8 +121,8 @@ public class ObserverProblem implements Serializable {
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName"),
-		@JoinColumn(name="observerproblemId", referencedColumnName="entityNormId")
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="observerproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

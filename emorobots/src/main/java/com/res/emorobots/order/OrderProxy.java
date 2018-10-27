@@ -12,8 +12,11 @@ import com.res.emorobots.command.CommandBean;
 import com.res.emorobots.command.CommandProxy;
 import com.res.emorobots.command.RobotAction;
 import com.res.emorobots.command.RobotCommandProxy;
+import com.res.emorobots.interpreter.Definition;
+import com.res.emorobots.interpreter.Problem;
+import com.res.emorobots.interpreter.Solution;
 
-public class OrderProxy<T,T1> implements Serializable{
+public class OrderProxy<T extends Problem<Definition<T>, T1 >,T1 extends Solution<T>> implements Serializable{
 
 	/**
 	 * 

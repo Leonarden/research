@@ -12,16 +12,19 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="Subject")
 @NamedQuery(name="Subject.findAll", query="SELECT s FROM Subject s")
 public class Subject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String subjectId;
 	private BigInteger applicationId;
-	private String entityName;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
 	private List<Observer> observers;
+	private WeightNorm weightNorm;
 	private List<SubjectProblem> subjectProblems;
 
 	public Subject() {
@@ -30,6 +33,7 @@ public class Subject implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getSubjectId() {
 		return this.subjectId;
 	}
@@ -48,12 +52,23 @@ public class Subject implements Serializable {
 	}
 
 
-	public String getEntityName() {
-		return this.entityName;
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
 	}
 
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -67,6 +82,7 @@ public class Subject implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -76,6 +92,7 @@ public class Subject implements Serializable {
 	}
 
 
+	@Column(length=20)
 	public String getText() {
 		return this.text;
 	}
@@ -107,6 +124,21 @@ public class Subject implements Serializable {
 		observer.setSubject(null);
 
 		return observer;
+	}
+
+
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="subjectId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
 	}
 
 

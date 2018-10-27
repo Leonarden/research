@@ -12,10 +12,13 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="Sentence")
 @NamedQuery(name="Sentence.findAll", query="SELECT s FROM Sentence s")
 public class Sentence implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String sentenceId;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -29,12 +32,33 @@ public class Sentence implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getSentenceId() {
 		return this.sentenceId;
 	}
 
 	public void setSentenceId(String sentenceId) {
 		this.sentenceId = sentenceId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
+	}
+
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -48,6 +72,7 @@ public class Sentence implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -57,6 +82,7 @@ public class Sentence implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -69,8 +95,8 @@ public class Sentence implements Serializable {
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName"),
-		@JoinColumn(name="sentenceId", referencedColumnName="entityNormId")
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="sentenceId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

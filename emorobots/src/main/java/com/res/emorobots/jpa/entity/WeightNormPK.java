@@ -11,20 +11,13 @@ import javax.persistence.*;
 public class WeightNormPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-	private String weightNormId;
 	private String entityNormId;
 	private String entityName;
 
 	public WeightNormPK() {
 	}
 
-	public String getWeightNormId() {
-		return this.weightNormId;
-	}
-	public void setWeightNormId(String weightNormId) {
-		this.weightNormId = weightNormId;
-	}
-
+	@Column(unique=true, nullable=false)
 	public String getEntityNormId() {
 		return this.entityNormId;
 	}
@@ -32,6 +25,7 @@ public class WeightNormPK implements Serializable {
 		this.entityNormId = entityNormId;
 	}
 
+	@Column(unique=true, nullable=false, length=30)
 	public String getEntityName() {
 		return this.entityName;
 	}
@@ -48,15 +42,13 @@ public class WeightNormPK implements Serializable {
 		}
 		WeightNormPK castOther = (WeightNormPK)other;
 		return 
-			this.weightNormId.equals(castOther.weightNormId)
-			&& this.entityNormId.equals(castOther.entityNormId)
+			this.entityNormId.equals(castOther.entityNormId)
 			&& this.entityName.equals(castOther.entityName);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.weightNormId.hashCode();
 		hash = hash * prime + this.entityNormId.hashCode();
 		hash = hash * prime + this.entityName.hashCode();
 		

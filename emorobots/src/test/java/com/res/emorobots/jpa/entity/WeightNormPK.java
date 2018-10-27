@@ -17,6 +17,7 @@ public class WeightNormPK implements Serializable {
 	public WeightNormPK() {
 	}
 
+	@Column(unique=true, nullable=false)
 	public String getEntityNormId() {
 		return this.entityNormId;
 	}
@@ -24,6 +25,7 @@ public class WeightNormPK implements Serializable {
 		this.entityNormId = entityNormId;
 	}
 
+	@Column(unique=true, nullable=false, length=30)
 	public String getEntityName() {
 		return this.entityName;
 	}

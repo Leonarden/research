@@ -12,10 +12,13 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="Action")
 @NamedQuery(name="Action.findAll", query="SELECT a FROM Action a")
 public class Action implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String actionId;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -29,12 +32,33 @@ public class Action implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getActionId() {
 		return this.actionId;
 	}
 
 	public void setActionId(String actionId) {
 		this.actionId = actionId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
+	}
+
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -48,6 +72,7 @@ public class Action implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -57,6 +82,7 @@ public class Action implements Serializable {
 	}
 
 
+	@Column(length=20)
 	public String getText() {
 		return this.text;
 	}
@@ -68,7 +94,7 @@ public class Action implements Serializable {
 
 	//bi-directional many-to-one association to Command
 	@ManyToOne
-	@JoinColumn(name="commandId")
+	@JoinColumn(name="commandId", nullable=false)
 	public Command getCommand() {
 		return this.command;
 	}
@@ -81,8 +107,8 @@ public class Action implements Serializable {
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="actionId", referencedColumnName="entityNormId"),
-		@JoinColumn(name="entityName", referencedColumnName="entityName")
+		@JoinColumn(name="actionId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

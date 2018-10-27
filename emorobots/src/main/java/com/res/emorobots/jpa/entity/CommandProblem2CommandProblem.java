@@ -11,16 +11,19 @@ import java.math.BigInteger;
  * 
  */
 @Entity
+@Table(name="CommandProblem2CommandProblem")
 @NamedQuery(name="CommandProblem2CommandProblem.findAll", query="SELECT c FROM CommandProblem2CommandProblem c")
 public class CommandProblem2CommandProblem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String commandproblem2commandproblemId;
-	private String entityName;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
 	private CommandProblem commandProblem1;
 	private CommandProblem commandProblem2;
+	private WeightNorm weightNorm;
 
 	public CommandProblem2CommandProblem() {
 	}
@@ -28,6 +31,7 @@ public class CommandProblem2CommandProblem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getCommandproblem2commandproblemId() {
 		return this.commandproblem2commandproblemId;
 	}
@@ -37,12 +41,23 @@ public class CommandProblem2CommandProblem implements Serializable {
 	}
 
 
-	public String getEntityName() {
-		return this.entityName;
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
 	}
 
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -56,6 +71,7 @@ public class CommandProblem2CommandProblem implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -65,6 +81,7 @@ public class CommandProblem2CommandProblem implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -76,7 +93,7 @@ public class CommandProblem2CommandProblem implements Serializable {
 
 	//bi-directional many-to-one association to CommandProblem
 	@ManyToOne
-	@JoinColumn(name="commandproblem2Id")
+	@JoinColumn(name="commandproblem2Id", nullable=false)
 	public CommandProblem getCommandProblem1() {
 		return this.commandProblem1;
 	}
@@ -88,13 +105,28 @@ public class CommandProblem2CommandProblem implements Serializable {
 
 	//bi-directional many-to-one association to CommandProblem
 	@ManyToOne
-	@JoinColumn(name="commandproblemId")
+	@JoinColumn(name="commandproblemId", nullable=false)
 	public CommandProblem getCommandProblem2() {
 		return this.commandProblem2;
 	}
 
 	public void setCommandProblem2(CommandProblem commandProblem2) {
 		this.commandProblem2 = commandProblem2;
+	}
+
+
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="commandproblem2commandproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
 	}
 
 }

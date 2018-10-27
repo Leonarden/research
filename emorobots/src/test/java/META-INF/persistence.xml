@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="emorobots">
-		<class>com.res.emorobots.jpa.entity.Action</class>
-		<class>com.res.emorobots.jpa.entity.ActionProblem</class>
-		<class>com.res.emorobots.jpa.entity.ActionProblem2ActionProblem</class>
-		<class>com.res.emorobots.jpa.entity.Command</class>
-		<class>com.res.emorobots.jpa.entity.CommandProblem</class>
-		<class>com.res.emorobots.jpa.entity.CommandProblem2CommandProblem</class>
-		<class>com.res.emorobots.jpa.entity.Definition</class>
-		<class>com.res.emorobots.jpa.entity.Definition2Definition</class>
-		<class>com.res.emorobots.jpa.entity.Observer</class>
-		<class>com.res.emorobots.jpa.entity.ObserverProblem</class>
-		<class>com.res.emorobots.jpa.entity.ObserverProblem2ObserverProblem</class>
-		<class>com.res.emorobots.jpa.entity.Problem</class>
-		<class>com.res.emorobots.jpa.entity.Problem2Problem</class>
-		<class>com.res.emorobots.jpa.entity.Sentence</class>
-		<class>com.res.emorobots.jpa.entity.Sentence2Sentence</class>
-		<class>com.res.emorobots.jpa.entity.Solution</class>
-		<class>com.res.emorobots.jpa.entity.Solution2Solution</class>
-		<class>com.res.emorobots.jpa.entity.Subject</class>
-		<class>com.res.emorobots.jpa.entity.SubjectProblem</class>
-		<class>com.res.emorobots.jpa.entity.SubjectProblem2SubjectProblem</class>
-		<class>com.res.emorobots.jpa.entity.Symbol</class>
-		<class>com.res.emorobots.jpa.entity.WeightNorm</class>
-		<class>com.res.emorobots.jpa.entity.WeightNormPK</class>
-		<class>com.res.emorobots.jpa.entity.Word</class>
+		<class>com.res.emorobots.jpa.entity.ObserverThreshold</class>
+		<class>com.res.emorobots.jpa.entity.ObserverThreshold2ObserverThreshold</class>
+		<class>com.res.emorobots.jpa.entity.ProblemDefinition</class>
+		<class>com.res.emorobots.jpa.entity.ProblemDefinition2ProblemDefinition</class>
+		<class>com.res.emorobots.jpa.entity.ProblemSolution</class>
+		<class>com.res.emorobots.jpa.entity.ProblemSolution2ProblemSolution</class>
+		<class>com.res.emorobots.jpa.entity.Threshold</class>
+		<class>com.res.emorobots.jpa.entity.ThresholdPK</class>
+		<class>com.res.emorobots.jpa.entity.Weight</class>
+		<class>com.res.emorobots.jpa.entity.WeightPK</class>
 	</persistence-unit>
 </persistence>

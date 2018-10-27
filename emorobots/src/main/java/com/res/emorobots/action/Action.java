@@ -3,6 +3,9 @@ package com.res.emorobots.action;
 import java.util.Collection;
 import java.util.List;
 
+import com.res.emorobots.interpreter.Definition;
+import com.res.emorobots.interpreter.Problem;
+import com.res.emorobots.interpreter.Solution;
 import com.res.emorobots.order.Order;
 
 

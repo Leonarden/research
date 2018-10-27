@@ -12,16 +12,19 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="SubjectProblem")
 @NamedQuery(name="SubjectProblem.findAll", query="SELECT s FROM SubjectProblem s")
 public class SubjectProblem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String subjectproblemId;
-	private String entityName;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
 	private Problem problem;
 	private Subject subject;
+	private WeightNorm weightNorm;
 	private List<SubjectProblem2SubjectProblem> subjectProblem2subjectProblems1;
 	private List<SubjectProblem2SubjectProblem> subjectProblem2subjectProblems2;
 
@@ -31,6 +34,7 @@ public class SubjectProblem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getSubjectproblemId() {
 		return this.subjectproblemId;
 	}
@@ -40,12 +44,23 @@ public class SubjectProblem implements Serializable {
 	}
 
 
-	public String getEntityName() {
-		return this.entityName;
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
 	}
 
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -59,6 +74,7 @@ public class SubjectProblem implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -68,6 +84,7 @@ public class SubjectProblem implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -79,7 +96,7 @@ public class SubjectProblem implements Serializable {
 
 	//bi-directional many-to-one association to Problem
 	@ManyToOne
-	@JoinColumn(name="problemId")
+	@JoinColumn(name="problemId", nullable=false)
 	public Problem getProblem() {
 		return this.problem;
 	}
@@ -91,13 +108,28 @@ public class SubjectProblem implements Serializable {
 
 	//bi-directional many-to-one association to Subject
 	@ManyToOne
-	@JoinColumn(name="subjectId")
+	@JoinColumn(name="subjectId", nullable=false)
 	public Subject getSubject() {
 		return this.subject;
 	}
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="subjectproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
 	}
 
 

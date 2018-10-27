@@ -11,10 +11,13 @@ import java.math.BigInteger;
  * 
  */
 @Entity
+@Table(name="Definition2Definition")
 @NamedQuery(name="Definition2Definition.findAll", query="SELECT d FROM Definition2Definition d")
 public class Definition2Definition implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String definition2definitionId;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -28,12 +31,33 @@ public class Definition2Definition implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getDefinition2definitionId() {
 		return this.definition2definitionId;
 	}
 
 	public void setDefinition2definitionId(String definition2definitionId) {
 		this.definition2definitionId = definition2definitionId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
+	}
+
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -47,6 +71,7 @@ public class Definition2Definition implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -56,6 +81,7 @@ public class Definition2Definition implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -67,7 +93,7 @@ public class Definition2Definition implements Serializable {
 
 	//bi-directional many-to-one association to Definition
 	@ManyToOne
-	@JoinColumn(name="definition2Id")
+	@JoinColumn(name="definition2Id", nullable=false)
 	public Definition getDefinition1() {
 		return this.definition1;
 	}
@@ -79,7 +105,7 @@ public class Definition2Definition implements Serializable {
 
 	//bi-directional many-to-one association to Definition
 	@ManyToOne
-	@JoinColumn(name="definitionId")
+	@JoinColumn(name="definitionId", nullable=false)
 	public Definition getDefinition2() {
 		return this.definition2;
 	}
@@ -92,8 +118,8 @@ public class Definition2Definition implements Serializable {
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="definition2definitionId", referencedColumnName="entityNormId"),
-		@JoinColumn(name="entityName", referencedColumnName="entityName")
+		@JoinColumn(name="definition2definitionId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

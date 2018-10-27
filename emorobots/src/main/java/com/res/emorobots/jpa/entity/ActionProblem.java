@@ -12,16 +12,19 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="ActionProblem")
 @NamedQuery(name="ActionProblem.findAll", query="SELECT a FROM ActionProblem a")
 public class ActionProblem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String actionproblemId;
-	private String entityName;
+	private BigInteger candidateId;
+	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
 	private Action action;
 	private Problem problem;
+	private WeightNorm weightNorm;
 	private List<ActionProblem2ActionProblem> actionProblem2actionProblems1;
 	private List<ActionProblem2ActionProblem> actionProblem2actionProblems2;
 
@@ -31,6 +34,7 @@ public class ActionProblem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
 	public String getActionproblemId() {
 		return this.actionproblemId;
 	}
@@ -40,12 +44,23 @@ public class ActionProblem implements Serializable {
 	}
 
 
-	public String getEntityName() {
-		return this.entityName;
+	@Column(nullable=false)
+	public BigInteger getCandidateId() {
+		return this.candidateId;
 	}
 
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getCandidateNormId() {
+		return this.candidateNormId;
+	}
+
+	public void setCandidateNormId(BigInteger candidateNormId) {
+		this.candidateNormId = candidateNormId;
 	}
 
 
@@ -59,6 +74,7 @@ public class ActionProblem implements Serializable {
 	}
 
 
+	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -68,6 +84,7 @@ public class ActionProblem implements Serializable {
 	}
 
 
+	@Column(length=300)
 	public String getText() {
 		return this.text;
 	}
@@ -79,7 +96,7 @@ public class ActionProblem implements Serializable {
 
 	//bi-directional many-to-one association to Action
 	@ManyToOne
-	@JoinColumn(name="actionId")
+	@JoinColumn(name="actionId", nullable=false)
 	public Action getAction() {
 		return this.action;
 	}
@@ -91,13 +108,28 @@ public class ActionProblem implements Serializable {
 
 	//bi-directional many-to-one association to Problem
 	@ManyToOne
-	@JoinColumn(name="problemId")
+	@JoinColumn(name="problemId", nullable=false)
 	public Problem getProblem() {
 		return this.problem;
 	}
 
 	public void setProblem(Problem problem) {
 		this.problem = problem;
+	}
+
+
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="actionproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
 	}
 
 
