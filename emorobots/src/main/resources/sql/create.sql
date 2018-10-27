@@ -8,7 +8,7 @@ drop table if exists  WeightNorm;
 ##123456789-TOKEN-13
 
 create table WeightNorm(
-  weightNormId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  /*weightNormId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,*/
   entityNormId BIGINT UNSIGNED NOT NULL,
   entityName Varchar(30) NOT NULL,
   fear FLOAT NOT NULL DEFAULT 0,
@@ -18,7 +18,7 @@ create table WeightNorm(
   peace FLOAT NOT NULL DEFAULT 0,
   love  FLOAT NOT NULL DEFAULT 0,
   lastAccess DATETIME NOT NULL,
- PRIMARY KEY(weightNormId,entityNormId,entityName)
+ PRIMARY KEY(entityNormId,entityName)
 
  );
 
@@ -29,7 +29,11 @@ create table Word(
   wordId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(20),
    entityName Varchar(30) NOT NULL DEFAULT 'WORD',
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+
+
+CONSTRAINT WeightNorm_Word_WeightNorm FOREIGN KEY (wordId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE
 
 
 );
@@ -43,7 +47,11 @@ create table Symbol(
    text  Varchar(20),
   entityName Varchar(30) NOT NULL DEFAULT 'SYMBOL',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime
+lastaccess Datetime,
+
+CONSTRAINT WeightNorm_SY_WeightNorm FOREIGN KEY (symbolId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE
+
 
 
 );
@@ -57,7 +65,10 @@ create table Sentence(
    text  Varchar(300),
   entityName Varchar(30) NOT NULL DEFAULT 'SENTENCE',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime
+lastaccess Datetime,
+CONSTRAINT WeightNorm_SE_WeightNorm FOREIGN KEY (sentenceId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE
+
 
 );
 
@@ -73,6 +84,10 @@ sentenceId BIGINT UNSIGNED NOT NULL ,
   entityName Varchar(30) NOT NULL DEFAULT 'Sentence2Sentence',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
+
+CONSTRAINT WeightNorm_SE2SE_WeightNorm FOREIGN KEY (sentence2sentenceId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
+
 CONSTRAINT s_Sentence21Sentence_s FOREIGN KEY (sentenceId)
     REFERENCES Sentence(sentenceId) ON DELETE CASCADE,
 
@@ -91,7 +106,10 @@ create table Problem(
    text  Varchar(200),
   entityName Varchar(30) NOT NULL DEFAULT 'Problem',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime
+lastaccess Datetime,
+CONSTRAINT WeightNorm_P_WeightNorm FOREIGN KEY (problemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName) 
+
 
 );
 
@@ -106,6 +124,8 @@ create table Definition(
   entityName Varchar(30) NOT NULL DEFAULT 'Definition',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
+CONSTRAINT WeightNorm_def_WeightNorm FOREIGN KEY (definitionId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
  CONSTRAINT de_p_de FOREIGN KEY (problemId)
     REFERENCES Problem(problemId) ON DELETE CASCADE
 
@@ -122,6 +142,8 @@ create table Solution(
   entityName Varchar(30) NOT NULL DEFAULT 'SOLUTION',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
+CONSTRAINT WeightNorm_sol_WeightNorm FOREIGN KEY (solutionId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
 
     CONSTRAINT p_s_p FOREIGN KEY (problemId)
     REFERENCES Problem(problemId) 
@@ -143,6 +165,10 @@ create table Problem2Problem(
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
 
+
+   
+CONSTRAINT WeightNorm_p2p_WeightNorm FOREIGN KEY (problem2problemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
   
     CONSTRAINT p_p2p_p FOREIGN KEY (problemId)
     REFERENCES Problem(problemId),
@@ -169,11 +195,13 @@ entityName Varchar(50) NOT NULL DEFAULT 'definition2definition',
    lastaccess DATETIME,
   
 
+   CONSTRAINT WeightNorm_de2de_WeightNorm FOREIGN KEY (definition2definitionId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
 
-    CONSTRAINT d1_de2de_d FOREIGN KEY (definitionId)
+    CONSTRAINT d_def2def_d FOREIGN KEY (definitionId)
     REFERENCES Definition(definitionId) ,
     
-    CONSTRAINT d2_de2de_d FOREIGN KEY (definition2Id)
+    CONSTRAINT d_de2de2_d FOREIGN KEY (definition2Id)
     REFERENCES Definition(definitionId) 
    
 
@@ -196,6 +224,9 @@ create table Solution2Solution(
  
    
 
+   CONSTRAINT WeightNorm_so2so_WeightNorm FOREIGN KEY (solution2solutionId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
+  
     CONSTRAINT s_so2so_s FOREIGN KEY (solution2Id)
     REFERENCES Solution(solutionId) ,
     
@@ -215,7 +246,11 @@ create table Subject(
    text  Varchar(20),
   entityName Varchar(30) NOT NULL DEFAULT 'subject',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime
+lastaccess Datetime,
+
+   CONSTRAINT WeightNorm_sub_WeightNorm FOREIGN KEY (subjectId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName)
+
 
 );
 
@@ -229,6 +264,9 @@ create table Observer(
   entityName Varchar(50) NOT NULL DEFAULT 'observer',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
+
+   CONSTRAINT WeightNorm_obs_WeightNorm FOREIGN KEY (observerId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
 
     CONSTRAINT o_s_o FOREIGN KEY (subjectId)
     REFERENCES Subject(subjectId) 
@@ -245,21 +283,26 @@ create table Command(
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
+   CONSTRAINT WeightNorm_com_WeightNorm FOREIGN KEY (commandId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
 CONSTRAINT c_o_c FOREIGN KEY (observerId)
     REFERENCES Observer(observerId) 
 
 );
 
 ###123456789-TOKEN-0
-drop table if exists  Action;
+drop table if exists  `Action`;
 ###123456789-TOKEN-1
-create table Action(
+create table `Action`(
   actionId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   commandId BIGINT UNSIGNED NOT NULL,
    text  Varchar(20),
   entityName Varchar(30) NOT NULL DEFAULT 'action',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
+
+   CONSTRAINT WeightNorm_act_WeightNorm FOREIGN KEY (actionId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
 CONSTRAINT a_c_a FOREIGN KEY (commandId)
     REFERENCES Command(commandId) 
 
@@ -279,11 +322,14 @@ entityName Varchar(50) NOT NULL DEFAULT 'subjectproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
+
+    CONSTRAINT WeightNorm_sp_WeightNorm FOREIGN KEY (subjectproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
     
     CONSTRAINT p_sp_p FOREIGN KEY (problemId)
-    REFERENCES Problem(problemId) ON DELETE CASCADE,
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
     CONSTRAINT s_sp_s FOREIGN KEY (subjectId)
-    REFERENCES Subject(subjectId) ON DELETE CASCADE
+    REFERENCES Subject(subjectId) ON DELETE CASCADE 
 
 
 
@@ -301,11 +347,14 @@ entityName Varchar(50) NOT NULL DEFAULT 'Observerproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
+
+    CONSTRAINT WeightNorm_obsP_WeightNorm FOREIGN KEY (observerproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT p_op_p FOREIGN KEY (problemId)
-    REFERENCES Problem(problemId) ON DELETE CASCADE,
-    CONSTRAINT s_op_s FOREIGN KEY (ObserverId)
-    REFERENCES Observer(ObserverId) ON DELETE CASCADE
+    CONSTRAINT p_op1_p FOREIGN KEY (problemId)
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
+    CONSTRAINT s_op1_s FOREIGN KEY (ObserverId)
+    REFERENCES Observer(ObserverId) ON DELETE CASCADE 
 
 
 
@@ -324,11 +373,14 @@ entityName Varchar(50) NOT NULL DEFAULT 'Commandproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
+
+    CONSTRAINT WeightNorm_comp_WeightNorm FOREIGN KEY (commandproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
     
     CONSTRAINT p_comp_p FOREIGN KEY (problemId)
-    REFERENCES Problem(problemId) ON DELETE CASCADE,
-    CONSTRAINT s_cp_s FOREIGN KEY (CommandId)
-    REFERENCES Command(CommandId) ON DELETE CASCADE
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
+    CONSTRAINT c_cp_c FOREIGN KEY (CommandId)
+    REFERENCES Command(CommandId) ON DELETE CASCADE 
 
 
 
@@ -347,13 +399,13 @@ entityName Varchar(50) NOT NULL DEFAULT 'Actionproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
+
+    CONSTRAINT WeightNorm_actp_WeightNorm FOREIGN KEY (actionproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT p_act_p FOREIGN KEY (problemId)
-    REFERENCES Problem(problemId) ON DELETE CASCADE,
-    CONSTRAINT a_act_a FOREIGN KEY (ActionId)
-    REFERENCES Action(ActionId) ON DELETE CASCADE
-
-
+    CONSTRAINT p_actp_p FOREIGN KEY (problemId)
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
+    CONSTRAINT a_actp11_a FOREIGN KEY (actionId)  REFERENCES  `Action`(actionId) 
 
 );
 
@@ -374,11 +426,13 @@ entityName Varchar(50) NOT NULL DEFAULT 'SubjectProblem2SubjectProblem',
    lastaccess DATETIME,
    
 
+    CONSTRAINT WeightNorm_sp2sp_WeightNorm FOREIGN KEY (subjectproblem2subjectproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
     
     CONSTRAINT sp_sp2sp_sp FOREIGN KEY (subjectproblemId)
-    REFERENCES SubjectProblem(subjectproblemId) ON DELETE CASCADE,
+    REFERENCES SubjectProblem(subjectproblemId) ON DELETE CASCADE ,
     CONSTRAINT sp1_sp2sp_sp1 FOREIGN KEY (subjectproblem2Id)
-    REFERENCES SubjectProblem(subjectproblemId) ON DELETE CASCADE
+    REFERENCES SubjectProblem(subjectproblemId) ON DELETE CASCADE 
     
 
 );
@@ -397,10 +451,13 @@ entityName Varchar(50) NOT NULL DEFAULT 'ObserverProblem2ObserverProblem',
    lastaccess DATETIME,
    
 
+    CONSTRAINT WeightNorm_op2op_WeightNorm FOREIGN KEY (observerproblem2observerproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
+    
     CONSTRAINT op_op2op_op FOREIGN KEY (observerproblemId)
-    REFERENCES ObserverProblem(observerproblemId) ON DELETE CASCADE,
+    REFERENCES ObserverProblem(observerproblemId) ON DELETE CASCADE ,
     CONSTRAINT op1_op2op_op1 FOREIGN KEY (observerproblem2Id)
-    REFERENCES ObserverProblem(observerproblemId) ON DELETE CASCADE
+    REFERENCES ObserverProblem(observerproblemId) ON DELETE CASCADE 
     
 
 );
@@ -420,11 +477,14 @@ entityName Varchar(50) NOT NULL DEFAULT 'CommandProblem2CommandProblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
    
+
+    CONSTRAINT WeightNorm_cp2cp_WeightNorm FOREIGN KEY (commandproblem2commandproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
     
     CONSTRAINT cp_cp2cp_cp FOREIGN KEY (commandproblemId)
-    REFERENCES CommandProblem(commandproblemId) ON DELETE CASCADE,
+    REFERENCES CommandProblem(commandproblemId) ON DELETE CASCADE ,
     CONSTRAINT cp1_cp2sp_cp1 FOREIGN KEY (commandproblem2Id)
-    REFERENCES CommandProblem(commandproblemId) ON DELETE CASCADE
+    REFERENCES CommandProblem(commandproblemId) ON DELETE CASCADE 
     
 
 );
@@ -445,11 +505,15 @@ entityName Varchar(50) NOT NULL DEFAULT 'ActionProblem2ActionProblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
    
+
+    CONSTRAINT WeightNorm_ap2ap_WeightNorm FOREIGN KEY (actionproblem2actionproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT ap_cp2ap_cp FOREIGN KEY (actionproblemId)
-    REFERENCES ActionProblem(actionproblemId) ON DELETE CASCADE,
-    CONSTRAINT ap1_cp2sp_cp1 FOREIGN KEY (actionproblem2Id)
-    REFERENCES ActionProblem(actionproblemId) ON DELETE CASCADE
+    CONSTRAINT ap_ap2ap_ap FOREIGN KEY (actionproblemId)
+    REFERENCES ActionProblem(actionproblemId) ON DELETE CASCADE ,
+    CONSTRAINT ap1_ap2ap_ap1 FOREIGN KEY (actionproblem2Id)
+    REFERENCES ActionProblem(actionproblemId) ON DELETE CASCADE 
     
 
 );
+
