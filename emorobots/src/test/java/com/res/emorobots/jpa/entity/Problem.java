@@ -29,10 +29,10 @@ public class Problem implements Serializable {
 	private WeightNorm weightNorm;
 	private List<Problem2Problem> problem2problems1;
 	private List<Problem2Problem> problem2problems2;
-	private List<Solution> solutions;
-	private List<SubjectProblem> subjectProblems;
 	private List<ProblemDefinition> problemDefinitions;
 	private List<ProblemSolution> problemSolutions;
+	private List<Solution> solutions;
+	private List<SubjectProblem> subjectProblems;
 
 	public Problem() {
 	}
@@ -265,56 +265,6 @@ public class Problem implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Solution
-	@OneToMany(mappedBy="problem")
-	public List<Solution> getSolutions() {
-		return this.solutions;
-	}
-
-	public void setSolutions(List<Solution> solutions) {
-		this.solutions = solutions;
-	}
-
-	public Solution addSolution(Solution solution) {
-		getSolutions().add(solution);
-		solution.setProblem(this);
-
-		return solution;
-	}
-
-	public Solution removeSolution(Solution solution) {
-		getSolutions().remove(solution);
-		solution.setProblem(null);
-
-		return solution;
-	}
-
-
-	//bi-directional many-to-one association to SubjectProblem
-	@OneToMany(mappedBy="problem")
-	public List<SubjectProblem> getSubjectProblems() {
-		return this.subjectProblems;
-	}
-
-	public void setSubjectProblems(List<SubjectProblem> subjectProblems) {
-		this.subjectProblems = subjectProblems;
-	}
-
-	public SubjectProblem addSubjectProblem(SubjectProblem subjectProblem) {
-		getSubjectProblems().add(subjectProblem);
-		subjectProblem.setProblem(this);
-
-		return subjectProblem;
-	}
-
-	public SubjectProblem removeSubjectProblem(SubjectProblem subjectProblem) {
-		getSubjectProblems().remove(subjectProblem);
-		subjectProblem.setProblem(null);
-
-		return subjectProblem;
-	}
-
-
 	//bi-directional many-to-one association to ProblemDefinition
 	@OneToMany(mappedBy="problem")
 	public List<ProblemDefinition> getProblemDefinitions() {
@@ -362,6 +312,56 @@ public class Problem implements Serializable {
 		problemSolution.setProblem(null);
 
 		return problemSolution;
+	}
+
+
+	//bi-directional many-to-one association to Solution
+	@OneToMany(mappedBy="problem")
+	public List<Solution> getSolutions() {
+		return this.solutions;
+	}
+
+	public void setSolutions(List<Solution> solutions) {
+		this.solutions = solutions;
+	}
+
+	public Solution addSolution(Solution solution) {
+		getSolutions().add(solution);
+		solution.setProblem(this);
+
+		return solution;
+	}
+
+	public Solution removeSolution(Solution solution) {
+		getSolutions().remove(solution);
+		solution.setProblem(null);
+
+		return solution;
+	}
+
+
+	//bi-directional many-to-one association to SubjectProblem
+	@OneToMany(mappedBy="problem")
+	public List<SubjectProblem> getSubjectProblems() {
+		return this.subjectProblems;
+	}
+
+	public void setSubjectProblems(List<SubjectProblem> subjectProblems) {
+		this.subjectProblems = subjectProblems;
+	}
+
+	public SubjectProblem addSubjectProblem(SubjectProblem subjectProblem) {
+		getSubjectProblems().add(subjectProblem);
+		subjectProblem.setProblem(this);
+
+		return subjectProblem;
+	}
+
+	public SubjectProblem removeSubjectProblem(SubjectProblem subjectProblem) {
+		getSubjectProblems().remove(subjectProblem);
+		subjectProblem.setProblem(null);
+
+		return subjectProblem;
 	}
 
 }

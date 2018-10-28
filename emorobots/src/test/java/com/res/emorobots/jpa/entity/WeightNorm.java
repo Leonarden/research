@@ -17,16 +17,16 @@ import java.util.List;
 public class WeightNorm implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private WeightNormPK id;
-	private float anger;
 	private BigInteger candidateId;
 	private float candidatethreshold;
-	private float fear;
-	private float happy;
+	private float item0Id;
+	private float item1Id;
+	private float item2Id;
+	private float item3Id;
+	private float item4Id;
+	private float item5Id;
 	private Date lastAccess;
-	private float love;
 	private BigInteger numaccess;
-	private float peace;
-	private float sad;
 	private List<Action> actions;
 	private List<ActionProblem> actionProblems;
 	private List<ActionProblem2ActionProblem> actionProblem2actionProblems;
@@ -38,8 +38,14 @@ public class WeightNorm implements Serializable {
 	private List<Observer> observers;
 	private List<ObserverProblem> observerProblems;
 	private List<ObserverProblem2ObserverProblem> observerProblem2observerProblems;
+	private List<ObserverThreshold> observerThresholds;
+	private List<ObserverThreshold2ObserverThreshold> observerThreshold2observerThresholds;
 	private List<Problem> problems;
 	private List<Problem2Problem> problem2problems;
+	private List<ProblemDefinition> problemDefinitions;
+	private List<ProblemDefinition2ProblemDefinition> problemDefinition2problemDefinitions;
+	private List<ProblemSolution> problemSolutions;
+	private List<ProblemSolution2ProblemSolution> problemSolution2problemSolutions;
 	private List<Sentence> sentences;
 	private List<Sentence2Sentence> sentence2sentences;
 	private List<Solution> solutions;
@@ -49,11 +55,6 @@ public class WeightNorm implements Serializable {
 	private List<SubjectProblem2SubjectProblem> subjectProblem2subjectProblems;
 	private List<Symbol> symbols;
 	private List<Word> words;
-	private List<ObserverThreshold2ObserverThreshold> observerThreshold2observerThresholds;
-	private List<ProblemDefinition> problemDefinitions;
-	private List<ProblemDefinition2ProblemDefinition> problemDefinition2problemDefinitions;
-	private List<ProblemSolution> problemSolutions;
-	private List<ProblemSolution2ProblemSolution> problemSolution2problemSolutions;
 
 	public WeightNorm() {
 	}
@@ -66,16 +67,6 @@ public class WeightNorm implements Serializable {
 
 	public void setId(WeightNormPK id) {
 		this.id = id;
-	}
-
-
-	@Column(nullable=false)
-	public float getAnger() {
-		return this.anger;
-	}
-
-	public void setAnger(float anger) {
-		this.anger = anger;
 	}
 
 
@@ -100,22 +91,62 @@ public class WeightNorm implements Serializable {
 
 
 	@Column(nullable=false)
-	public float getFear() {
-		return this.fear;
+	public float getItem0Id() {
+		return this.item0Id;
 	}
 
-	public void setFear(float fear) {
-		this.fear = fear;
+	public void setItem0Id(float item0Id) {
+		this.item0Id = item0Id;
 	}
 
 
 	@Column(nullable=false)
-	public float getHappy() {
-		return this.happy;
+	public float getItem1Id() {
+		return this.item1Id;
 	}
 
-	public void setHappy(float happy) {
-		this.happy = happy;
+	public void setItem1Id(float item1Id) {
+		this.item1Id = item1Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem2Id() {
+		return this.item2Id;
+	}
+
+	public void setItem2Id(float item2Id) {
+		this.item2Id = item2Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem3Id() {
+		return this.item3Id;
+	}
+
+	public void setItem3Id(float item3Id) {
+		this.item3Id = item3Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem4Id() {
+		return this.item4Id;
+	}
+
+	public void setItem4Id(float item4Id) {
+		this.item4Id = item4Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem5Id() {
+		return this.item5Id;
+	}
+
+	public void setItem5Id(float item5Id) {
+		this.item5Id = item5Id;
 	}
 
 
@@ -131,42 +162,12 @@ public class WeightNorm implements Serializable {
 
 
 	@Column(nullable=false)
-	public float getLove() {
-		return this.love;
-	}
-
-	public void setLove(float love) {
-		this.love = love;
-	}
-
-
-	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
 
 	public void setNumaccess(BigInteger numaccess) {
 		this.numaccess = numaccess;
-	}
-
-
-	@Column(nullable=false)
-	public float getPeace() {
-		return this.peace;
-	}
-
-	public void setPeace(float peace) {
-		this.peace = peace;
-	}
-
-
-	@Column(nullable=false)
-	public float getSad() {
-		return this.sad;
-	}
-
-	public void setSad(float sad) {
-		this.sad = sad;
 	}
 
 
@@ -445,6 +446,56 @@ public class WeightNorm implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to ObserverThreshold
+	@OneToMany(mappedBy="weightNorm")
+	public List<ObserverThreshold> getObserverThresholds() {
+		return this.observerThresholds;
+	}
+
+	public void setObserverThresholds(List<ObserverThreshold> observerThresholds) {
+		this.observerThresholds = observerThresholds;
+	}
+
+	public ObserverThreshold addObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().add(observerThreshold);
+		observerThreshold.setWeightNorm(this);
+
+		return observerThreshold;
+	}
+
+	public ObserverThreshold removeObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().remove(observerThreshold);
+		observerThreshold.setWeightNorm(null);
+
+		return observerThreshold;
+	}
+
+
+	//bi-directional many-to-one association to ObserverThreshold2ObserverThreshold
+	@OneToMany(mappedBy="weightNorm")
+	public List<ObserverThreshold2ObserverThreshold> getObserverThreshold2observerThresholds() {
+		return this.observerThreshold2observerThresholds;
+	}
+
+	public void setObserverThreshold2observerThresholds(List<ObserverThreshold2ObserverThreshold> observerThreshold2observerThresholds) {
+		this.observerThreshold2observerThresholds = observerThreshold2observerThresholds;
+	}
+
+	public ObserverThreshold2ObserverThreshold addObserverThreshold2observerThreshold(ObserverThreshold2ObserverThreshold observerThreshold2observerThreshold) {
+		getObserverThreshold2observerThresholds().add(observerThreshold2observerThreshold);
+		observerThreshold2observerThreshold.setWeightNorm(this);
+
+		return observerThreshold2observerThreshold;
+	}
+
+	public ObserverThreshold2ObserverThreshold removeObserverThreshold2observerThreshold(ObserverThreshold2ObserverThreshold observerThreshold2observerThreshold) {
+		getObserverThreshold2observerThresholds().remove(observerThreshold2observerThreshold);
+		observerThreshold2observerThreshold.setWeightNorm(null);
+
+		return observerThreshold2observerThreshold;
+	}
+
+
 	//bi-directional many-to-one association to Problem
 	@OneToMany(mappedBy="weightNorm")
 	public List<Problem> getProblems() {
@@ -492,6 +543,106 @@ public class WeightNorm implements Serializable {
 		problem2problem.setWeightNorm(null);
 
 		return problem2problem;
+	}
+
+
+	//bi-directional many-to-one association to ProblemDefinition
+	@OneToMany(mappedBy="weightNorm")
+	public List<ProblemDefinition> getProblemDefinitions() {
+		return this.problemDefinitions;
+	}
+
+	public void setProblemDefinitions(List<ProblemDefinition> problemDefinitions) {
+		this.problemDefinitions = problemDefinitions;
+	}
+
+	public ProblemDefinition addProblemDefinition(ProblemDefinition problemDefinition) {
+		getProblemDefinitions().add(problemDefinition);
+		problemDefinition.setWeightNorm(this);
+
+		return problemDefinition;
+	}
+
+	public ProblemDefinition removeProblemDefinition(ProblemDefinition problemDefinition) {
+		getProblemDefinitions().remove(problemDefinition);
+		problemDefinition.setWeightNorm(null);
+
+		return problemDefinition;
+	}
+
+
+	//bi-directional many-to-one association to ProblemDefinition2ProblemDefinition
+	@OneToMany(mappedBy="weightNorm")
+	public List<ProblemDefinition2ProblemDefinition> getProblemDefinition2problemDefinitions() {
+		return this.problemDefinition2problemDefinitions;
+	}
+
+	public void setProblemDefinition2problemDefinitions(List<ProblemDefinition2ProblemDefinition> problemDefinition2problemDefinitions) {
+		this.problemDefinition2problemDefinitions = problemDefinition2problemDefinitions;
+	}
+
+	public ProblemDefinition2ProblemDefinition addProblemDefinition2problemDefinition(ProblemDefinition2ProblemDefinition problemDefinition2problemDefinition) {
+		getProblemDefinition2problemDefinitions().add(problemDefinition2problemDefinition);
+		problemDefinition2problemDefinition.setWeightNorm(this);
+
+		return problemDefinition2problemDefinition;
+	}
+
+	public ProblemDefinition2ProblemDefinition removeProblemDefinition2problemDefinition(ProblemDefinition2ProblemDefinition problemDefinition2problemDefinition) {
+		getProblemDefinition2problemDefinitions().remove(problemDefinition2problemDefinition);
+		problemDefinition2problemDefinition.setWeightNorm(null);
+
+		return problemDefinition2problemDefinition;
+	}
+
+
+	//bi-directional many-to-one association to ProblemSolution
+	@OneToMany(mappedBy="weightNorm")
+	public List<ProblemSolution> getProblemSolutions() {
+		return this.problemSolutions;
+	}
+
+	public void setProblemSolutions(List<ProblemSolution> problemSolutions) {
+		this.problemSolutions = problemSolutions;
+	}
+
+	public ProblemSolution addProblemSolution(ProblemSolution problemSolution) {
+		getProblemSolutions().add(problemSolution);
+		problemSolution.setWeightNorm(this);
+
+		return problemSolution;
+	}
+
+	public ProblemSolution removeProblemSolution(ProblemSolution problemSolution) {
+		getProblemSolutions().remove(problemSolution);
+		problemSolution.setWeightNorm(null);
+
+		return problemSolution;
+	}
+
+
+	//bi-directional many-to-one association to ProblemSolution2ProblemSolution
+	@OneToMany(mappedBy="weightNorm")
+	public List<ProblemSolution2ProblemSolution> getProblemSolution2problemSolutions() {
+		return this.problemSolution2problemSolutions;
+	}
+
+	public void setProblemSolution2problemSolutions(List<ProblemSolution2ProblemSolution> problemSolution2problemSolutions) {
+		this.problemSolution2problemSolutions = problemSolution2problemSolutions;
+	}
+
+	public ProblemSolution2ProblemSolution addProblemSolution2problemSolution(ProblemSolution2ProblemSolution problemSolution2problemSolution) {
+		getProblemSolution2problemSolutions().add(problemSolution2problemSolution);
+		problemSolution2problemSolution.setWeightNorm(this);
+
+		return problemSolution2problemSolution;
+	}
+
+	public ProblemSolution2ProblemSolution removeProblemSolution2problemSolution(ProblemSolution2ProblemSolution problemSolution2problemSolution) {
+		getProblemSolution2problemSolutions().remove(problemSolution2problemSolution);
+		problemSolution2problemSolution.setWeightNorm(null);
+
+		return problemSolution2problemSolution;
 	}
 
 
@@ -717,131 +868,6 @@ public class WeightNorm implements Serializable {
 		word.setWeightNorm(null);
 
 		return word;
-	}
-
-
-	//bi-directional many-to-one association to ObserverThreshold2ObserverThreshold
-	@OneToMany(mappedBy="weightNorm")
-	public List<ObserverThreshold2ObserverThreshold> getObserverThreshold2observerThresholds() {
-		return this.observerThreshold2observerThresholds;
-	}
-
-	public void setObserverThreshold2observerThresholds(List<ObserverThreshold2ObserverThreshold> observerThreshold2observerThresholds) {
-		this.observerThreshold2observerThresholds = observerThreshold2observerThresholds;
-	}
-
-	public ObserverThreshold2ObserverThreshold addObserverThreshold2observerThreshold(ObserverThreshold2ObserverThreshold observerThreshold2observerThreshold) {
-		getObserverThreshold2observerThresholds().add(observerThreshold2observerThreshold);
-		observerThreshold2observerThreshold.setWeightNorm(this);
-
-		return observerThreshold2observerThreshold;
-	}
-
-	public ObserverThreshold2ObserverThreshold removeObserverThreshold2observerThreshold(ObserverThreshold2ObserverThreshold observerThreshold2observerThreshold) {
-		getObserverThreshold2observerThresholds().remove(observerThreshold2observerThreshold);
-		observerThreshold2observerThreshold.setWeightNorm(null);
-
-		return observerThreshold2observerThreshold;
-	}
-
-
-	//bi-directional many-to-one association to ProblemDefinition
-	@OneToMany(mappedBy="weightNorm")
-	public List<ProblemDefinition> getProblemDefinitions() {
-		return this.problemDefinitions;
-	}
-
-	public void setProblemDefinitions(List<ProblemDefinition> problemDefinitions) {
-		this.problemDefinitions = problemDefinitions;
-	}
-
-	public ProblemDefinition addProblemDefinition(ProblemDefinition problemDefinition) {
-		getProblemDefinitions().add(problemDefinition);
-		problemDefinition.setWeightNorm(this);
-
-		return problemDefinition;
-	}
-
-	public ProblemDefinition removeProblemDefinition(ProblemDefinition problemDefinition) {
-		getProblemDefinitions().remove(problemDefinition);
-		problemDefinition.setWeightNorm(null);
-
-		return problemDefinition;
-	}
-
-
-	//bi-directional many-to-one association to ProblemDefinition2ProblemDefinition
-	@OneToMany(mappedBy="weightNorm")
-	public List<ProblemDefinition2ProblemDefinition> getProblemDefinition2problemDefinitions() {
-		return this.problemDefinition2problemDefinitions;
-	}
-
-	public void setProblemDefinition2problemDefinitions(List<ProblemDefinition2ProblemDefinition> problemDefinition2problemDefinitions) {
-		this.problemDefinition2problemDefinitions = problemDefinition2problemDefinitions;
-	}
-
-	public ProblemDefinition2ProblemDefinition addProblemDefinition2problemDefinition(ProblemDefinition2ProblemDefinition problemDefinition2problemDefinition) {
-		getProblemDefinition2problemDefinitions().add(problemDefinition2problemDefinition);
-		problemDefinition2problemDefinition.setWeightNorm(this);
-
-		return problemDefinition2problemDefinition;
-	}
-
-	public ProblemDefinition2ProblemDefinition removeProblemDefinition2problemDefinition(ProblemDefinition2ProblemDefinition problemDefinition2problemDefinition) {
-		getProblemDefinition2problemDefinitions().remove(problemDefinition2problemDefinition);
-		problemDefinition2problemDefinition.setWeightNorm(null);
-
-		return problemDefinition2problemDefinition;
-	}
-
-
-	//bi-directional many-to-one association to ProblemSolution
-	@OneToMany(mappedBy="weightNorm")
-	public List<ProblemSolution> getProblemSolutions() {
-		return this.problemSolutions;
-	}
-
-	public void setProblemSolutions(List<ProblemSolution> problemSolutions) {
-		this.problemSolutions = problemSolutions;
-	}
-
-	public ProblemSolution addProblemSolution(ProblemSolution problemSolution) {
-		getProblemSolutions().add(problemSolution);
-		problemSolution.setWeightNorm(this);
-
-		return problemSolution;
-	}
-
-	public ProblemSolution removeProblemSolution(ProblemSolution problemSolution) {
-		getProblemSolutions().remove(problemSolution);
-		problemSolution.setWeightNorm(null);
-
-		return problemSolution;
-	}
-
-
-	//bi-directional many-to-one association to ProblemSolution2ProblemSolution
-	@OneToMany(mappedBy="weightNorm")
-	public List<ProblemSolution2ProblemSolution> getProblemSolution2problemSolutions() {
-		return this.problemSolution2problemSolutions;
-	}
-
-	public void setProblemSolution2problemSolutions(List<ProblemSolution2ProblemSolution> problemSolution2problemSolutions) {
-		this.problemSolution2problemSolutions = problemSolution2problemSolutions;
-	}
-
-	public ProblemSolution2ProblemSolution addProblemSolution2problemSolution(ProblemSolution2ProblemSolution problemSolution2problemSolution) {
-		getProblemSolution2problemSolutions().add(problemSolution2problemSolution);
-		problemSolution2problemSolution.setWeightNorm(this);
-
-		return problemSolution2problemSolution;
-	}
-
-	public ProblemSolution2ProblemSolution removeProblemSolution2problemSolution(ProblemSolution2ProblemSolution problemSolution2problemSolution) {
-		getProblemSolution2problemSolutions().remove(problemSolution2problemSolution);
-		problemSolution2problemSolution.setWeightNorm(null);
-
-		return problemSolution2problemSolution;
 	}
 
 }

@@ -1,11 +1,12 @@
 package com.res.emorobot.streaming.remote;
 
-package com.res.emorobot.streaming.remote;
 
+
+import com.res.emorobot.streaming.action.ActionRequest;
 import com.res.emorobot.streaming.interpreter.InterpreterRequest;
 
-public class RemoteInterpreterRequest extends RemoteRequest implements ActionRequest<Action,Solution> {
+public class RemoteActionRequest extends RemoteRequest implements ActionRequest<Action,Problem> {
 
-	Action actionRequest(Solution s);
+	Action actionRequest(Problem p, Action blocking);
 
 }

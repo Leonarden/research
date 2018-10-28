@@ -26,6 +26,7 @@ public class Observer implements Serializable {
 	private Subject subject;
 	private WeightNorm weightNorm;
 	private List<ObserverProblem> observerProblems;
+	private List<ObserverThreshold> observerThresholds;
 
 	public Observer() {
 	}
@@ -167,6 +168,31 @@ public class Observer implements Serializable {
 		observerProblem.setObserver(null);
 
 		return observerProblem;
+	}
+
+
+	//bi-directional many-to-one association to ObserverThreshold
+	@OneToMany(mappedBy="observer")
+	public List<ObserverThreshold> getObserverThresholds() {
+		return this.observerThresholds;
+	}
+
+	public void setObserverThresholds(List<ObserverThreshold> observerThresholds) {
+		this.observerThresholds = observerThresholds;
+	}
+
+	public ObserverThreshold addObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().add(observerThreshold);
+		observerThreshold.setObserver(this);
+
+		return observerThreshold;
+	}
+
+	public ObserverThreshold removeObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().remove(observerThreshold);
+		observerThreshold.setObserver(null);
+
+		return observerThreshold;
 	}
 
 }

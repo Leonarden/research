@@ -15,39 +15,33 @@ import java.math.BigInteger;
 @NamedQuery(name="Weight.findAll", query="SELECT w FROM Weight w")
 public class Weight implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private WeightPK id;
-	private float anger;
+	private String weightId;
 	private BigInteger candidateId;
 	private float candidatethreshold;
-	private float fear;
-	private float happy;
+	private BigInteger entityId;
+	private String entityName;
+	private float item0Id;
+	private float item1Id;
+	private float item2Id;
+	private float item3Id;
+	private float item4Id;
+	private float item5Id;
 	private Date lastAccess;
-	private float love;
 	private BigInteger numaccess;
-	private float peace;
-	private float sad;
 
 	public Weight() {
 	}
 
 
-	@EmbeddedId
-	public WeightPK getId() {
-		return this.id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
+	public String getWeightId() {
+		return this.weightId;
 	}
 
-	public void setId(WeightPK id) {
-		this.id = id;
-	}
-
-
-	@Column(nullable=false)
-	public float getAnger() {
-		return this.anger;
-	}
-
-	public void setAnger(float anger) {
-		this.anger = anger;
+	public void setWeightId(String weightId) {
+		this.weightId = weightId;
 	}
 
 
@@ -72,22 +66,82 @@ public class Weight implements Serializable {
 
 
 	@Column(nullable=false)
-	public float getFear() {
-		return this.fear;
+	public BigInteger getEntityId() {
+		return this.entityId;
 	}
 
-	public void setFear(float fear) {
-		this.fear = fear;
+	public void setEntityId(BigInteger entityId) {
+		this.entityId = entityId;
+	}
+
+
+	@Column(nullable=false, length=30)
+	public String getEntityName() {
+		return this.entityName;
+	}
+
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
 	}
 
 
 	@Column(nullable=false)
-	public float getHappy() {
-		return this.happy;
+	public float getItem0Id() {
+		return this.item0Id;
 	}
 
-	public void setHappy(float happy) {
-		this.happy = happy;
+	public void setItem0Id(float item0Id) {
+		this.item0Id = item0Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem1Id() {
+		return this.item1Id;
+	}
+
+	public void setItem1Id(float item1Id) {
+		this.item1Id = item1Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem2Id() {
+		return this.item2Id;
+	}
+
+	public void setItem2Id(float item2Id) {
+		this.item2Id = item2Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem3Id() {
+		return this.item3Id;
+	}
+
+	public void setItem3Id(float item3Id) {
+		this.item3Id = item3Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem4Id() {
+		return this.item4Id;
+	}
+
+	public void setItem4Id(float item4Id) {
+		this.item4Id = item4Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem5Id() {
+		return this.item5Id;
+	}
+
+	public void setItem5Id(float item5Id) {
+		this.item5Id = item5Id;
 	}
 
 
@@ -103,42 +157,12 @@ public class Weight implements Serializable {
 
 
 	@Column(nullable=false)
-	public float getLove() {
-		return this.love;
-	}
-
-	public void setLove(float love) {
-		this.love = love;
-	}
-
-
-	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
 
 	public void setNumaccess(BigInteger numaccess) {
 		this.numaccess = numaccess;
-	}
-
-
-	@Column(nullable=false)
-	public float getPeace() {
-		return this.peace;
-	}
-
-	public void setPeace(float peace) {
-		this.peace = peace;
-	}
-
-
-	@Column(nullable=false)
-	public float getSad() {
-		return this.sad;
-	}
-
-	public void setSad(float sad) {
-		this.sad = sad;
 	}
 
 }

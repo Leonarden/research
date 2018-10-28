@@ -5,6 +5,7 @@ use emorobots;
 ##Weight structure is for the purpose of the application: a better design would let implement your own computation tables
 ## Here we work with probabilites FLOAT of having that emotion but it could be Money costs, probs, compositions of a product...
 
+
 ##123456789-TOKEN-12
 drop table if exists  WeightNorm;
 ##123456789-TOKEN-13
@@ -13,316 +14,68 @@ create table WeightNorm(
   /*weightNormId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,*/
   entityNormId BIGINT UNSIGNED NOT NULL,
   entityName Varchar(30) NOT NULL,
-  
-  item0Id FLOAT NOT NULL DEFAULT 0, /*fear*/
-  item1Id FLOAT NOT NULL DEFAULT 0, /*happy */
-  item2Id FLOAT NOT NULL DEFAULT 0, /* anger */
-  item3Id FLOAT NOT NULL DEFAULT 0,   /* sad */
-  item4Id FLOAT NOT NULL DEFAULT 0,  /* peace */
-  item5Id  FLOAT NOT NULL DEFAULT 0,  /* love */
-  /* itemiId  FLOAT NOT NULL DEFAULT 0, */
+  fear FLOAT NOT NULL DEFAULT 0,
+  happy FLOAT NOT NULL DEFAULT 0,
+  anger FLOAT NOT NULL DEFAULT 0,
+  sad FLOAT NOT NULL DEFAULT 0,
+  peace FLOAT NOT NULL DEFAULT 0,
+  love  FLOAT NOT NULL DEFAULT 0,
   numaccess BIGINT UNSIGNED NOT NULL default 0,
   lastAccess DATETIME NOT NULL,
- 
  candidateId BIGINT NOT NULL DEFAULT 0,
  candidatethreshold FLOAT NOT NULL DEFAULT 0,
   PRIMARY KEY(entityNormId,entityName)
 
  );
 
- 
-##123456789-TOKEN-12
-drop table if exists  NormProbChainItem0;
-##123456789-TOKEN-13
-
-create table NormProbChainItem0(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  NormProbChainItem1;
-##123456789-TOKEN-13
-
-create table NormProbChainItem1(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  NormProbChainItem2;
-##123456789-TOKEN-13
-
-create table NormProbChainItem2(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  NormProbChainItem3;
-##123456789-TOKEN-13
-
-create table NormProbChainItem3(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  NormProbChainItem4;
-##123456789-TOKEN-13
-
-create table NormProbChainItem4(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  NormProbChainItem5;
-##123456789-TOKEN-13
-
-create table NormProbChainItem5(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  Weight;
-##123456789-TOKEN-13
-
-create table Weight(
-  weightId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  entityId BIGINT UNSIGNED NOT NULL,
-  entityName Varchar(30) NOT NULL,
-  
-  item0Id FLOAT NOT NULL DEFAULT 0, /*fear*/
-  item1Id FLOAT NOT NULL DEFAULT 0, /*happy */
-  item2Id FLOAT NOT NULL DEFAULT 0, /* anger */
-  item3Id FLOAT NOT NULL DEFAULT 0,   /* sad */
-  item4Id FLOAT NOT NULL DEFAULT 0,  /* peace */
-  item5Id  FLOAT NOT NULL DEFAULT 0,  /* love */
-  /* itemiId  FLOAT NOT NULL DEFAULT 0, */
-  numaccess BIGINT UNSIGNED NOT NULL default 0,
-  lastAccess DATETIME NOT NULL,
- 
- candidateId BIGINT NOT NULL DEFAULT 0,
- candidatethreshold FLOAT NOT NULL DEFAULT 0
-
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ProbChainItem0;
-##123456789-TOKEN-13
-
-create table ProbChainItem0(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ProbChainItem1;
-##123456789-TOKEN-13
-
-create table ProbChainItem1(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ProbChainItem2;
-##123456789-TOKEN-13
-
-create table ProbChainItem2(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ProbChainItem3;
-##123456789-TOKEN-13
-
-create table ProbChainItem3(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ProbChainItem4;
-##123456789-TOKEN-13
-
-create table ProbChainItem4(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ProbChainItem5;
-##123456789-TOKEN-13
-
-create table ProbChainItem5(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-
- 
     /* in computation we might encounter many calculations of the same entity some values will be deprecated candidate= -1, some not "used" candidate = 0, some saved until better option: priority->chosen the higest value */
     /* cleanning process delete where candidate = -1 */
  /* candidatethreshold: we are gonna work with probabilities Float, and threshold will depend of the problem, in this case delegated to entities */
  /* the question is if for performance would be better to create its own table:YES     but in future  */
  
- 
+##123456789-TOKEN-12
+drop table if exists  Weight;
+##123456789-TOKEN-13
+
+#No normalized 
+create table Weight(
+  weightId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  candidateId BIGINT NOT NULL default 0,     
+  candidatethreshold FLOAT NOT NULL DEFAULT 0,
+  entityId BIGINT UNSIGNED NOT NULL,   
+  entityName Varchar(30) NOT NULL,
+  fear FLOAT NOT NULL DEFAULT 0,
+  happy FLOAT NOT NULL DEFAULT 0,
+  anger FLOAT NOT NULL DEFAULT 0,
+  sad FLOAT NOT NULL DEFAULT 0,
+  peace FLOAT NOT NULL DEFAULT 0,
+  love  FLOAT NOT NULL DEFAULT 0,
+ numaccess BIGINT UNSIGNED NOT NULL default 0,
+  lastAccess DATETIME NOT NULL,
+ PRIMARY KEY(weightId,entityId,entityName)
+
+ );
+#Base entity values of weights
 ##123456789-TOKEN-12
 drop table if exists  Threshold;
 ##123456789-TOKEN-13
 
 create table Threshold(
-  thresholdId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  entityNormId BIGINT UNSIGNED NOT NULL,
+  thresholdId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  entityId BIGINT UNSIGNED NOT NULL,   
   entityName Varchar(30) NOT NULL,
-  
-  item0Id FLOAT NOT NULL DEFAULT 0, /*fear*/
-  item1Id FLOAT NOT NULL DEFAULT 0, /*happy */
-  item2Id FLOAT NOT NULL DEFAULT 0, /* anger */
-  item3Id FLOAT NOT NULL DEFAULT 0,   /* sad */
-  item4Id FLOAT NOT NULL DEFAULT 0,  /* peace */
-  item5Id  FLOAT NOT NULL DEFAULT 0,  /* love */
-  /* itemiId  FLOAT NOT NULL DEFAULT 0, */
-  numaccess BIGINT UNSIGNED NOT NULL default 0,
+  fear FLOAT NOT NULL DEFAULT 0,
+  happy FLOAT NOT NULL DEFAULT 0,
+  anger FLOAT NOT NULL DEFAULT 0,
+  sad FLOAT NOT NULL DEFAULT 0,
+  peace FLOAT NOT NULL DEFAULT 0,
+  love  FLOAT NOT NULL DEFAULT 0,
+ numaccess BIGINT UNSIGNED NOT NULL default 0,
   lastAccess DATETIME NOT NULL,
- 
- candidateId BIGINT NOT NULL DEFAULT 0,
- candidatethreshold FLOAT NOT NULL DEFAULT 0
+ PRIMARY KEY(thresholdId,entityId,entityName)
 
  );
 
- 
-##123456789-TOKEN-12
-drop table if exists  ThresProbChainItem0;
-##123456789-TOKEN-13
-
-create table ThresProbChainItem0(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ThresProbChainItem1;
-##123456789-TOKEN-13
-
-create table ThresProbChainItem1(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ThresProbChainItem2;
-##123456789-TOKEN-13
-
-create table ThresProbChainItem2(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ThresProbChainItem3;
-##123456789-TOKEN-13
-
-create table ThresProbChainItem3(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ThresProbChainItem4;
-##123456789-TOKEN-13
-
-create table ThresProbChainItem4(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
-##123456789-TOKEN-12
-drop table if exists  ThresProbChainItem5;
-##123456789-TOKEN-13
-
-create table ThresProbChainItem5(
-  probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  itemvalue  FLOAT NOT NULL DEFAULT 0,
-  anomaly INT NOT NULL DEFAULT 0,
- next BIGINT UNSIGNED
-  
- );
-
- 
  
  ###123456789-TOKEN-0
 drop table if exists  Word;
