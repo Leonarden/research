@@ -67,7 +67,7 @@ public class Threshold implements Serializable {
 	}
 
 
-	@Column(nullable=false, length=30)
+	@Column(nullable=false, length=80)
 	public String getEntityName() {
 		return this.entityName;
 	}

@@ -20,6 +20,7 @@ public class Word implements Serializable {
 	private BigInteger numaccess;
 	private String text;
 	private WeightNorm weightNorm;
+	private Synonym synonym;
 
 	public Word() {
 	}
@@ -89,6 +90,18 @@ public class Word implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to Synonym
+	@ManyToOne
+	@JoinColumn(name="synonymId", nullable=false)
+	public Synonym getSynonym() {
+		return this.synonym;
+	}
+
+	public void setSynonym(Synonym synonym) {
+		this.synonym = synonym;
 	}
 
 }

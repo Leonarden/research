@@ -55,6 +55,7 @@ public class WeightNorm implements Serializable {
 	private List<SubjectProblem2SubjectProblem> subjectProblem2subjectProblems;
 	private List<Symbol> symbols;
 	private List<Word> words;
+	private List<Synonym> synonyms;
 
 	public WeightNorm() {
 	}
@@ -868,6 +869,31 @@ public class WeightNorm implements Serializable {
 		word.setWeightNorm(null);
 
 		return word;
+	}
+
+
+	//bi-directional many-to-one association to Synonym
+	@OneToMany(mappedBy="weightNorm")
+	public List<Synonym> getSynonyms() {
+		return this.synonyms;
+	}
+
+	public void setSynonyms(List<Synonym> synonyms) {
+		this.synonyms = synonyms;
+	}
+
+	public Synonym addSynonym(Synonym synonym) {
+		getSynonyms().add(synonym);
+		synonym.setWeightNorm(this);
+
+		return synonym;
+	}
+
+	public Synonym removeSynonym(Synonym synonym) {
+		getSynonyms().remove(synonym);
+		synonym.setWeightNorm(null);
+
+		return synonym;
 	}
 
 }

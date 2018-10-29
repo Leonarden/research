@@ -25,7 +25,7 @@ public class WeightNormPK implements Serializable {
 		this.entityNormId = entityNormId;
 	}
 
-	@Column(unique=true, nullable=false, length=30)
+	@Column(unique=true, nullable=false, length=80)
 	public String getEntityName() {
 		return this.entityName;
 	}
