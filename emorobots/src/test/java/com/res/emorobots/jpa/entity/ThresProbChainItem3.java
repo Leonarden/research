@@ -2,7 +2,7 @@ package com.res.emorobots.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.List;
 
 
 /**
@@ -16,8 +16,10 @@ public class ThresProbChainItem3 implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String probchainItemId;
 	private int anomaly;
+	private int indexinchain;
 	private float itemvalue;
-	private BigInteger next;
+	private ThresProbChainItem3 thresProbChainItem3;
+	private List<ThresProbChainItem3> thresProbChainItem3s;
 
 	public ThresProbChainItem3() {
 	}
@@ -45,6 +47,15 @@ public class ThresProbChainItem3 implements Serializable {
 	}
 
 
+	public int getIndexinchain() {
+		return this.indexinchain;
+	}
+
+	public void setIndexinchain(int indexinchain) {
+		this.indexinchain = indexinchain;
+	}
+
+
 	@Column(nullable=false)
 	public float getItemvalue() {
 		return this.itemvalue;
@@ -55,12 +66,40 @@ public class ThresProbChainItem3 implements Serializable {
 	}
 
 
-	public BigInteger getNext() {
-		return this.next;
+	//bi-directional many-to-one association to ThresProbChainItem3
+	@ManyToOne
+	@JoinColumn(name="nextId")
+	public ThresProbChainItem3 getThresProbChainItem3() {
+		return this.thresProbChainItem3;
 	}
 
-	public void setNext(BigInteger next) {
-		this.next = next;
+	public void setThresProbChainItem3(ThresProbChainItem3 thresProbChainItem3) {
+		this.thresProbChainItem3 = thresProbChainItem3;
+	}
+
+
+	//bi-directional many-to-one association to ThresProbChainItem3
+	@OneToMany(mappedBy="thresProbChainItem3")
+	public List<ThresProbChainItem3> getThresProbChainItem3s() {
+		return this.thresProbChainItem3s;
+	}
+
+	public void setThresProbChainItem3s(List<ThresProbChainItem3> thresProbChainItem3s) {
+		this.thresProbChainItem3s = thresProbChainItem3s;
+	}
+
+	public ThresProbChainItem3 addThresProbChainItem3(ThresProbChainItem3 thresProbChainItem3) {
+		getThresProbChainItem3s().add(thresProbChainItem3);
+		thresProbChainItem3.setThresProbChainItem3(this);
+
+		return thresProbChainItem3;
+	}
+
+	public ThresProbChainItem3 removeThresProbChainItem3(ThresProbChainItem3 thresProbChainItem3) {
+		getThresProbChainItem3s().remove(thresProbChainItem3);
+		thresProbChainItem3.setThresProbChainItem3(null);
+
+		return thresProbChainItem3;
 	}
 
 }

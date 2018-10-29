@@ -25,7 +25,7 @@ public class Command implements Serializable {
 	private List<Action> actions;
 	private Observer observer;
 	private WeightNorm weightNorm;
-	private List<CommandProblem> commandProblems;
+	private List<CommandOrder> commandOrders;
 
 	public Command() {
 	}
@@ -145,28 +145,28 @@ public class Command implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to CommandProblem
+	//bi-directional many-to-one association to CommandOrder
 	@OneToMany(mappedBy="command")
-	public List<CommandProblem> getCommandProblems() {
-		return this.commandProblems;
+	public List<CommandOrder> getCommandOrders() {
+		return this.commandOrders;
 	}
 
-	public void setCommandProblems(List<CommandProblem> commandProblems) {
-		this.commandProblems = commandProblems;
+	public void setCommandOrders(List<CommandOrder> commandOrders) {
+		this.commandOrders = commandOrders;
 	}
 
-	public CommandProblem addCommandProblem(CommandProblem commandProblem) {
-		getCommandProblems().add(commandProblem);
-		commandProblem.setCommand(this);
+	public CommandOrder addCommandOrder(CommandOrder commandOrder) {
+		getCommandOrders().add(commandOrder);
+		commandOrder.setCommand(this);
 
-		return commandProblem;
+		return commandOrder;
 	}
 
-	public CommandProblem removeCommandProblem(CommandProblem commandProblem) {
-		getCommandProblems().remove(commandProblem);
-		commandProblem.setCommand(null);
+	public CommandOrder removeCommandOrder(CommandOrder commandOrder) {
+		getCommandOrders().remove(commandOrder);
+		commandOrder.setCommand(null);
 
-		return commandProblem;
+		return commandOrder;
 	}
 
 }

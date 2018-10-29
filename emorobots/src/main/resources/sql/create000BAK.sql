@@ -339,8 +339,6 @@ drop table if exists  Synonym;
 create table Synonym(
   synonymId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(35),
-   lang Varchar(10),
-   encoding Varchar(10),
    entityName Varchar(80) NOT NULL DEFAULT 'Synonym',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    frequency FLOAT NOT NULL DEFAULT 0, /* we want an estimation of % of use of this word*/
@@ -363,8 +361,6 @@ create table Word(
   wordId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(20),
    entityName Varchar(80) NOT NULL DEFAULT 'WORD',
-   lang Varchar(10),
-   encoding Varchar(10),
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
  synonymId BIGINT UNSIGNED NOT NULL,
  candidateId BIGINT NOT NULL default 0,
@@ -389,8 +385,6 @@ drop table if exists  Symbol;
 create table Symbol(
   symbolId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(20),
-   lang Varchar(10),
-   encoding Varchar(10),
   entityName Varchar(80) NOT NULL DEFAULT 'SYMBOL',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
@@ -411,8 +405,6 @@ drop table if exists  Sentence;
 create table Sentence(
   sentenceId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(300),
-   lang Varchar(10),
-   encoding Varchar(10),
   entityName Varchar(80) NOT NULL DEFAULT 'SENTENCE',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
@@ -452,6 +444,163 @@ CONSTRAINT s_Sentence2Sentence_s FOREIGN KEY (sentence2Id)
 
 );
 
+
+
+
+
+###123456789-TOKEN-0
+drop table if exists  `Order`;
+###123456789-TOKEN-1
+create table `Order`(
+  orderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ ordertypeId BIGINT UNSIGNED NOT NULL DEFAULT 0,
+  text  Varchar(200),
+  status Varchar(20) NOT NULL, /* completed, deprecated, unknown */
+  entityName Varchar(80) NOT NULL DEFAULT 'Order',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+CONSTRAINT WeightNorm_Order_WeightNorm FOREIGN KEY (orderId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
+    
+CONSTRAINT ot_Order_ot FOREIGN KEY (ordertypeId)
+    REFERENCES OrderType(ordertypeId)
+
+    
+    
+
+);
+
+
+
+###123456789-TOKEN-0
+drop table if exists  Context;
+###123456789-TOKEN-1
+create table Context(
+  contextId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  contextownerId BIGINT UNSIGNED,  /* may be created and not assigned */ 
+  text  Varchar(200),
+  status Varchar(20) NOT NULL, /*  */
+  entityName Varchar(80) NOT NULL DEFAULT 'Context',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+CONSTRAINT WeightNorm_Context_WeightNorm FOREIGN KEY (orderId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
+    
+CONSTRAINT conO_Cont_contO FOREIGN KEY (contextOwnerId)
+    REFERENCES ContextOwner(contextownerId)    
+    
+
+);
+
+
+###123456789-TOKEN-0
+drop table if exists  ContextOwner;
+###123456789-TOKEN-1
+create table ContextOwner(
+  contextownerId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ownerId BIGINT UNSIGNED,  /* may be created and not assigned */ 
+  ownerName Varchar(80),
+  text  Varchar(200),
+  status Varchar(20) NOT NULL, /*  */
+  entityName Varchar(80) NOT NULL DEFAULT 'ContextOwner',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+CONSTRAINT WeightNorm_Context_WeightNorm FOREIGN KEY (orderId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName)
+ 
+    
+    
+
+);
+
+
+###123456789-TOKEN-0
+drop table if exists OrderContext;
+###123456789-TOKEN-1
+create table OrderContext(
+  ordercontextId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  contextId BIGINT UNSIGNED NOT NULL, 
+  orderId BIGINT NOT NULL,
+  text  Varchar(200),
+  status Varchar(20) NOT NULL, /*  */
+  entityName Varchar(80) NOT NULL DEFAULT 'OrderContext',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+CONSTRAINT WeightNorm_Context_WeightNorm FOREIGN KEY (ordercontextId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName)
+ /*   
+CONSTRAINT conO_ContOw_contO FOREIGN KEY (ownerId,ownerName)
+    REFERENCES ContextOwner(contextownerId)    
+*/
+        
+
+);
+
+###123456789-TOKEN-0
+drop table if exists OrderType;
+###123456789-TOKEN-1
+create table OrderContext(
+  ordertypeId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  typeName Varchar(30) NOT NULL,
+  text  Varchar(200),
+  entityName Varchar(80) NOT NULL DEFAULT 'OrderType',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime
+
+);
+
+###123456789-TOKEN-0
+drop table if exists OrderProblem;
+###123456789-TOKEN-1
+create table OrderProblem(
+  orderproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, 
+  orderId BIGINT NOT NULL,
+  problemId BIGINT NOT NULL,
+  text  Varchar(200),
+  status Varchar(20) NOT NULL, /*  */
+  entityName Varchar(80) NOT NULL DEFAULT 'OrderProblem',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+CONSTRAINT WeightNorm_Context_WeightNorm FOREIGN KEY (orderproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
+
+    CONSTRAINT pr_Op_pr FOREIGN KEY (problemId)
+    REFERENCES Problem(problemId),
+    CONSTRAINT ord_Op_ord FOREIGN KEY (orderId)
+    REFERENCES Order(orderId)
+
+ /*   
+CONSTRAINT conO_ContOw_contO FOREIGN KEY (ownerId,ownerName)
+    REFERENCES ContextOwner(contextownerId)    
+*/
+        
+
+);
 
 
 ###123456789-TOKEN-0
@@ -853,165 +1002,6 @@ entityName Varchar(80) NOT NULL DEFAULT 'ProblemSolution2ProblemSolution',
 
 ####
 
-###123456789-TOKEN-0
-drop table if exists OrderType;
-###123456789-TOKEN-1
-create table OrderType(
-  ordertypeId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  typeName Varchar(30) NOT NULL,
-  text  Varchar(200),
-  entityName Varchar(80) NOT NULL DEFAULT 'OrderType',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime
-
-);
-
-
-
-
-###123456789-TOKEN-0
-drop table if exists  `Order`;
-###123456789-TOKEN-1
-create table `Order`(
-  orderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  contextId BIGINT UNSIGNED NOT NULL DEFAULT 0,
-  ordertypeId BIGINT UNSIGNED NOT NULL DEFAULT 0,
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, /* completed, deprecated, unknown */
-  entityName Varchar(80) NOT NULL DEFAULT 'Order',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Order_WeightNorm FOREIGN KEY (orderId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName),
-    
-CONSTRAINT ot_Order_ot FOREIGN KEY (ordertypeId)
-    REFERENCES OrderType(ordertypeId)
-
-    
-    
-
-);
-
-
-###123456789-TOKEN-0
-drop table if exists OrderProblem;
-###123456789-TOKEN-1
-create table OrderProblem(
-  orderproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  orderId BIGINT ,
-  problemId BIGINT,
-  priority INT DEFAULT 0,
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, /*  */
-  entityName Varchar(80) NOT NULL DEFAULT 'OrderProblem',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_op11_WeightNorm FOREIGN KEY (orderproblemId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName)
-
-   /* CONSTRAINT pro1_Opro1_pro1 FOREIGN KEY (problemId) REFERENCES Problem(problemId), 
-	
-    
-    CONSTRAINT ord2_Opro2_ord2 FOREIGN KEY (orderId) REFERENCES `Order`(orderId) 
-*/
-        
-
-
-);
-
-
-/*
-###123456789-TOKEN-0
-drop table if exists  ContextOwner;
-###123456789-TOKEN-1
-create table ContextOwner(
-  contextownerId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  ownerId BIGINT UNSIGNED,  
-  ownerName Varchar(80),
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, 
-  entityName Varchar(80) NOT NULL DEFAULT 'ContextOwner',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Context_WeightNorm FOREIGN KEY (orderId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName)
- 
-  
-    
-
-);
-*/
-
-
-###123456789-TOKEN-0
-drop table if exists  Context;
-###123456789-TOKEN-1
-create table Context(
-  contextId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  ownerId BIGINT UNSIGNED ,  /* may be created and not assigned */ 
-  ownerName Varchar(80) ,
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, 
-  /* Analysys pend */
-  entityName Varchar(80) NOT NULL DEFAULT 'Context',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Context1_WeightNorm FOREIGN KEY (contextId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName)
-    
-   
-);
-
-###123456789-TOKEN-0
-drop table if exists  ContextOrder;
-###123456789-TOKEN-1
-create table ContextOrder(
-  contextorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  contextId BIGINT UNSIGNED ,  
-  orderId BIGINT UNSIGNED,
-  priority INT DEFAULT 0,
-  /* Analysys pend */
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, /*  */
-  entityName Varchar(80) NOT NULL DEFAULT 'ContextOrder',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_ContextO2_WeightNorm FOREIGN KEY (contextorderId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName),
-     CONSTRAINT c1_co1_c1 FOREIGN KEY (contextId) REFERENCES Context(contextId),
-    CONSTRAINT o1_co1_o1 FOREIGN KEY (orderId) REFERENCES `Order`(orderId)
-
-    
-   
-);
-
-
-
 
 ##123456789-TOKEN-10
 drop table if exists  SubjectOrder;  
@@ -1029,13 +1019,15 @@ entityName Varchar(80) NOT NULL DEFAULT 'subjectorder',
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 
-    CONSTRAINT WeightNorm_sord_WeightNorm FOREIGN KEY (subjectorderId,entityName)
+    CONSTRAINT WeightNorm_sp_WeightNorm FOREIGN KEY (subjectorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT o_suo_o FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId)  ,
-    CONSTRAINT s_suo_s FOREIGN KEY (subjectId)
-    REFERENCES Subject(subjectId)  
+    CONSTRAINT p_sp_p FOREIGN KEY (orderId)
+    REFERENCES Order(orderId) ON DELETE CASCADE ,
+    CONSTRAINT s_sp_s FOREIGN KEY (subjectId)
+    REFERENCES Subject(subjectId) ON DELETE CASCADE 
+
+
 
 );
 ##123456789-TOKEN-10
@@ -1054,13 +1046,13 @@ entityName Varchar(80) NOT NULL DEFAULT 'Observerorder',
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_obsord_WeightNorm FOREIGN KEY (observerorderId,entityName)
+    CONSTRAINT WeightNorm_obsP_WeightNorm FOREIGN KEY (observerorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT ord_obs_ord FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId)  ,
-    CONSTRAINT ord_obs1_ord FOREIGN KEY (ObserverId)
-    REFERENCES Observer(ObserverId)  
+    CONSTRAINT p_op1_p FOREIGN KEY (orderId)
+    REFERENCES Order(orderId) ON DELETE CASCADE ,
+    CONSTRAINT s_op1_s FOREIGN KEY (ObserverId)
+    REFERENCES Observer(ObserverId) ON DELETE CASCADE 
 
 
 
@@ -1075,20 +1067,20 @@ create table CommandOrder(
   commandId BIGINT UNSIGNED NOT NULL,
   orderId  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'CommandOrder',
+entityName Varchar(80) NOT NULL DEFAULT 'Commandorder',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_cord_WeightNorm FOREIGN KEY (commandorderId,entityName)
+    CONSTRAINT WeightNorm_comp_WeightNorm FOREIGN KEY (commandorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT o_cord_o FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId) ,
-    CONSTRAINT c_cord_c FOREIGN KEY (CommandId)
-    REFERENCES Command(CommandId)  
+    CONSTRAINT p_comp_p FOREIGN KEY (orderId)
+    REFERENCES Order(orderId) ON DELETE CASCADE ,
+    CONSTRAINT c_cp_c FOREIGN KEY (CommandId)
+    REFERENCES Command(CommandId) ON DELETE CASCADE 
 
 
 
@@ -1110,12 +1102,12 @@ entityName Varchar(80) NOT NULL DEFAULT 'Actionorder',
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_acord_WeightNorm FOREIGN KEY (actionorderId,entityName)
+    CONSTRAINT WeightNorm_actp_WeightNorm FOREIGN KEY (actionorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT o_aord_o FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId)  ,
-    CONSTRAINT a_aord_a FOREIGN KEY (actionId)  REFERENCES  `Action`(actionId) 
+    CONSTRAINT p_actp_p FOREIGN KEY (orderId)
+    REFERENCES Order(orderId) ON DELETE CASCADE ,
+    CONSTRAINT a_actp11_a FOREIGN KEY (actionId)  REFERENCES  `Action`(actionId) 
 
 );
 
@@ -1138,12 +1130,12 @@ entityName Varchar(80) NOT NULL DEFAULT 'SubjectOrder2SubjectOrder',
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_sord2sord_WeightNorm FOREIGN KEY (subjectorder2subjectorderId,entityName)
+    CONSTRAINT WeightNorm_sp2sp_WeightNorm FOREIGN KEY (subjectorder2subjectorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT sord_sord2sord_sord FOREIGN KEY (subjectorderId)
+    CONSTRAINT sp_sp2sp_sp FOREIGN KEY (subjectorderId)
     REFERENCES SubjectOrder(subjectorderId) ON DELETE CASCADE ,
-    CONSTRAINT sord1_sord2sord_sord1 FOREIGN KEY (subjectorder2Id)
+    CONSTRAINT sp1_sp2sp_sp1 FOREIGN KEY (subjectorder2Id)
     REFERENCES SubjectOrder(subjectorderId) ON DELETE CASCADE 
     
 
@@ -1165,12 +1157,12 @@ entityName Varchar(80) NOT NULL DEFAULT 'ObserverOrder2ObserverOrder',
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_oob2oo_WeightNorm FOREIGN KEY (observerorder2observerorderId,entityName)
+    CONSTRAINT WeightNorm_op2op_WeightNorm FOREIGN KEY (observerorder2observerorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT oo1_oo2oo_op1 FOREIGN KEY (observerorderId)
+    CONSTRAINT op_op2op_op FOREIGN KEY (observerorderId)
     REFERENCES ObserverOrder(observerorderId) ON DELETE CASCADE ,
-    CONSTRAINT oo2_oo2oo_op2 FOREIGN KEY (observerorder2Id)
+    CONSTRAINT op1_op2op_op1 FOREIGN KEY (observerorder2Id)
     REFERENCES ObserverOrder(observerorderId) ON DELETE CASCADE 
     
 
@@ -1194,12 +1186,12 @@ entityName Varchar(80) NOT NULL DEFAULT 'CommandOrder2CommandOrder',
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 
-    CONSTRAINT WeightNorm_cord2cord_WeightNorm FOREIGN KEY (commandorder2commandorderId,entityName)
+    CONSTRAINT WeightNorm_cp2cp_WeightNorm FOREIGN KEY (commandorder2commandorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT cord_co2co_cord FOREIGN KEY (commandorderId)
+    CONSTRAINT cp_cp2cp_cp FOREIGN KEY (commandorderId)
     REFERENCES CommandOrder(commandorderId) ON DELETE CASCADE ,
-    CONSTRAINT cord1_co2co_cord1 FOREIGN KEY (commandorder2Id)
+    CONSTRAINT cp1_cp2sp_cp1 FOREIGN KEY (commandorder2Id)
     REFERENCES CommandOrder(commandorderId) ON DELETE CASCADE 
     
 
@@ -1224,12 +1216,12 @@ entityName Varchar(80) NOT NULL DEFAULT 'ActionOrder2ActionOrder',
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 
-    CONSTRAINT WeightNorm_ao2ao_WeightNorm FOREIGN KEY (actionorder2actionorderId,entityName)
+    CONSTRAINT WeightNorm_ap2ap_WeightNorm FOREIGN KEY (actionorder2actionorderId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT ao_ao2ao_ao FOREIGN KEY (actionorderId)
+    CONSTRAINT ap_ap2ap_ap FOREIGN KEY (actionorderId)
     REFERENCES ActionOrder(actionorderId) ON DELETE CASCADE ,
-    CONSTRAINT ao1_ao2ao_ao1 FOREIGN KEY (actionorder2Id)
+    CONSTRAINT ap1_ap2ap_ap1 FOREIGN KEY (actionorder2Id)
     REFERENCES ActionOrder(actionorderId) ON DELETE CASCADE 
     
 

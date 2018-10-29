@@ -17,10 +17,12 @@ public class Word implements Serializable {
 	private String wordId;
 	private BigInteger candidateId;
 	private BigInteger candidateNormId;
+	private String encoding;
+	private String lang;
 	private BigInteger numaccess;
 	private String text;
-	private WeightNorm weightNorm;
 	private Synonym synonym;
+	private WeightNorm weightNorm;
 
 	public Word() {
 	}
@@ -58,6 +60,26 @@ public class Word implements Serializable {
 	}
 
 
+	@Column(length=10)
+	public String getEncoding() {
+		return this.encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+
+	@Column(length=10)
+	public String getLang() {
+		return this.lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
+
+
 	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
@@ -78,6 +100,18 @@ public class Word implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to Synonym
+	@ManyToOne
+	@JoinColumn(name="synonymId", nullable=false)
+	public Synonym getSynonym() {
+		return this.synonym;
+	}
+
+	public void setSynonym(Synonym synonym) {
+		this.synonym = synonym;
+	}
+
+
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -90,18 +124,6 @@ public class Word implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
-	}
-
-
-	//bi-directional many-to-one association to Synonym
-	@ManyToOne
-	@JoinColumn(name="synonymId", nullable=false)
-	public Synonym getSynonym() {
-		return this.synonym;
-	}
-
-	public void setSynonym(Synonym synonym) {
-		this.synonym = synonym;
 	}
 
 }

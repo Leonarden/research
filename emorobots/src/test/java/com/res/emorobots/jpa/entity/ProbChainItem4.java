@@ -2,7 +2,7 @@ package com.res.emorobots.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.List;
 
 
 /**
@@ -16,8 +16,10 @@ public class ProbChainItem4 implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String probchainItemId;
 	private int anomaly;
+	private int indexinchain;
 	private float itemvalue;
-	private BigInteger next;
+	private ProbChainItem4 probChainItem4;
+	private List<ProbChainItem4> probChainItem4s;
 
 	public ProbChainItem4() {
 	}
@@ -45,6 +47,15 @@ public class ProbChainItem4 implements Serializable {
 	}
 
 
+	public int getIndexinchain() {
+		return this.indexinchain;
+	}
+
+	public void setIndexinchain(int indexinchain) {
+		this.indexinchain = indexinchain;
+	}
+
+
 	@Column(nullable=false)
 	public float getItemvalue() {
 		return this.itemvalue;
@@ -55,12 +66,40 @@ public class ProbChainItem4 implements Serializable {
 	}
 
 
-	public BigInteger getNext() {
-		return this.next;
+	//bi-directional many-to-one association to ProbChainItem4
+	@ManyToOne
+	@JoinColumn(name="nextId")
+	public ProbChainItem4 getProbChainItem4() {
+		return this.probChainItem4;
 	}
 
-	public void setNext(BigInteger next) {
-		this.next = next;
+	public void setProbChainItem4(ProbChainItem4 probChainItem4) {
+		this.probChainItem4 = probChainItem4;
+	}
+
+
+	//bi-directional many-to-one association to ProbChainItem4
+	@OneToMany(mappedBy="probChainItem4")
+	public List<ProbChainItem4> getProbChainItem4s() {
+		return this.probChainItem4s;
+	}
+
+	public void setProbChainItem4s(List<ProbChainItem4> probChainItem4s) {
+		this.probChainItem4s = probChainItem4s;
+	}
+
+	public ProbChainItem4 addProbChainItem4(ProbChainItem4 probChainItem4) {
+		getProbChainItem4s().add(probChainItem4);
+		probChainItem4.setProbChainItem4(this);
+
+		return probChainItem4;
+	}
+
+	public ProbChainItem4 removeProbChainItem4(ProbChainItem4 probChainItem4) {
+		getProbChainItem4s().remove(probChainItem4);
+		probChainItem4.setProbChainItem4(null);
+
+		return probChainItem4;
 	}
 
 }

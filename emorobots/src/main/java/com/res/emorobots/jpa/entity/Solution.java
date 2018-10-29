@@ -22,11 +22,11 @@ public class Solution implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
+	private List<ProblemSolution> problemSolutions;
 	private Problem problem;
 	private WeightNorm weightNorm;
 	private List<Solution2Solution> solution2solutions1;
 	private List<Solution2Solution> solution2solutions2;
-	private List<ProblemSolution> problemSolutions;
 
 	public Solution() {
 	}
@@ -91,6 +91,31 @@ public class Solution implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+
+	//bi-directional many-to-one association to ProblemSolution
+	@OneToMany(mappedBy="solution")
+	public List<ProblemSolution> getProblemSolutions() {
+		return this.problemSolutions;
+	}
+
+	public void setProblemSolutions(List<ProblemSolution> problemSolutions) {
+		this.problemSolutions = problemSolutions;
+	}
+
+	public ProblemSolution addProblemSolution(ProblemSolution problemSolution) {
+		getProblemSolutions().add(problemSolution);
+		problemSolution.setSolution(this);
+
+		return problemSolution;
+	}
+
+	public ProblemSolution removeProblemSolution(ProblemSolution problemSolution) {
+		getProblemSolutions().remove(problemSolution);
+		problemSolution.setSolution(null);
+
+		return problemSolution;
 	}
 
 
@@ -168,31 +193,6 @@ public class Solution implements Serializable {
 		solution2solutions2.setSolution2(null);
 
 		return solution2solutions2;
-	}
-
-
-	//bi-directional many-to-one association to ProblemSolution
-	@OneToMany(mappedBy="solution")
-	public List<ProblemSolution> getProblemSolutions() {
-		return this.problemSolutions;
-	}
-
-	public void setProblemSolutions(List<ProblemSolution> problemSolutions) {
-		this.problemSolutions = problemSolutions;
-	}
-
-	public ProblemSolution addProblemSolution(ProblemSolution problemSolution) {
-		getProblemSolutions().add(problemSolution);
-		problemSolution.setSolution(this);
-
-		return problemSolution;
-	}
-
-	public ProblemSolution removeProblemSolution(ProblemSolution problemSolution) {
-		getProblemSolutions().remove(problemSolution);
-		problemSolution.setSolution(null);
-
-		return problemSolution;
 	}
 
 }

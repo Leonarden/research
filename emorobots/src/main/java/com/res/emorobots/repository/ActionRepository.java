@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.res.emorobots.jpa.entity.Action;
 
-public interface ActionRepository extends CrudRepository<Action, Long> {
+public interface ActionRepository extends CrudRepository<Action, String> {
 
 }

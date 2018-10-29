@@ -12,7 +12,7 @@ drop table if exists  WeightNorm;
 create table WeightNorm(
   /*weightNormId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,*/
   entityNormId BIGINT UNSIGNED NOT NULL,
-  entityName Varchar(80) NOT NULL,
+  entityName Varchar(30) NOT NULL,
   
   item0Id FLOAT NOT NULL DEFAULT 0, /*fear*/
   item1Id FLOAT NOT NULL DEFAULT 0, /*happy */
@@ -20,9 +20,7 @@ create table WeightNorm(
   item3Id FLOAT NOT NULL DEFAULT 0,   /* sad */
   item4Id FLOAT NOT NULL DEFAULT 0,  /* peace */
   item5Id  FLOAT NOT NULL DEFAULT 0,  /* love */
-  
-  /* itemiId  FLOAT NOT NULL DEFAULT 0, */ /* ???? */
-  
+  /* itemiId  FLOAT NOT NULL DEFAULT 0, */
   numaccess BIGINT UNSIGNED NOT NULL default 0,
   lastAccess DATETIME NOT NULL,
  
@@ -41,9 +39,7 @@ create table NormProbChainItem0(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, 
- nextId BIGINT UNSIGNED, 
- CONSTRAINT next_0_next FOREIGN KEY(nextId) REFERENCES NormProbChainItem0(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -56,9 +52,7 @@ create table NormProbChainItem1(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, 
- nextId BIGINT UNSIGNED,
- CONSTRAINT next_1_next FOREIGN KEY(nextId) REFERENCES NormProbChainItem1(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -71,9 +65,7 @@ create table NormProbChainItem2(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, 
- nextId BIGINT UNSIGNED, 
- CONSTRAINT next_2_next FOREIGN KEY(nextId) REFERENCES NormProbChainItem2(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -86,9 +78,7 @@ create table NormProbChainItem3(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, 
- nextId BIGINT UNSIGNED, 
- CONSTRAINT next_3_next FOREIGN KEY(nextId) REFERENCES NormProbChainItem3(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -101,7 +91,7 @@ create table NormProbChainItem4(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_4_next FOREIGN KEY(nextId) REFERENCES NormProbChainItem4(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -114,7 +104,7 @@ create table NormProbChainItem5(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_5_next FOREIGN KEY(nextId) REFERENCES NormProbChainItem5(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -126,7 +116,7 @@ drop table if exists  Weight;
 create table Weight(
   weightId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   entityId BIGINT UNSIGNED NOT NULL,
-  entityName Varchar(80) NOT NULL,
+  entityName Varchar(30) NOT NULL,
   
   item0Id FLOAT NOT NULL DEFAULT 0, /*fear*/
   item1Id FLOAT NOT NULL DEFAULT 0, /*happy */
@@ -152,7 +142,7 @@ create table ProbChainItem0(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_W0_next FOREIGN KEY(nextId) REFERENCES ProbChainItem0(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -165,7 +155,7 @@ create table ProbChainItem1(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_w1_next FOREIGN KEY(nextId) REFERENCES ProbChainItem0(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -178,7 +168,7 @@ create table ProbChainItem2(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_w2_next FOREIGN KEY(nextId) REFERENCES ProbChainItem2(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -191,7 +181,7 @@ create table ProbChainItem3(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_w3_next FOREIGN KEY(nextId) REFERENCES ProbChainItem3(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -204,7 +194,7 @@ create table ProbChainItem4(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_w4_next FOREIGN KEY(nextId) REFERENCES ProbChainItem4(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -217,7 +207,7 @@ create table ProbChainItem5(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_w5_next FOREIGN KEY(nextId) REFERENCES ProbChainItem5(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -237,7 +227,7 @@ drop table if exists  Threshold;
 create table Threshold(
   thresholdId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   entityNormId BIGINT UNSIGNED NOT NULL,
-  entityName Varchar(80) NOT NULL,
+  entityName Varchar(30) NOT NULL,
   
   item0Id FLOAT NOT NULL DEFAULT 0, /*fear*/
   item1Id FLOAT NOT NULL DEFAULT 0, /*happy */
@@ -263,7 +253,7 @@ create table ThresProbChainItem0(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_t0_next FOREIGN KEY(nextId) REFERENCES ThresProbChainItem0(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -276,7 +266,7 @@ create table ThresProbChainItem1(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_t1_next FOREIGN KEY(nextId) REFERENCES ThresProbChainItem1(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -289,7 +279,7 @@ create table ThresProbChainItem2(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_t2_next FOREIGN KEY(nextId) REFERENCES ThresProbChainItem2(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -302,7 +292,7 @@ create table ThresProbChainItem3(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_t3_next FOREIGN KEY(nextId) REFERENCES ThresProbChainItem3(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
@@ -315,10 +305,11 @@ create table ThresProbChainItem4(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED, CONSTRAINT next_t4_next FOREIGN KEY(nextId) REFERENCES ThresProbChainItem4(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
 
+ 
 ##123456789-TOKEN-12
 drop table if exists  ThresProbChainItem5;
 ##123456789-TOKEN-13
@@ -327,60 +318,28 @@ create table ThresProbChainItem5(
   probchainItemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   itemvalue  FLOAT NOT NULL DEFAULT 0,
   anomaly INT NOT NULL DEFAULT 0,
- indexinchain INT, nextId BIGINT UNSIGNED,
- CONSTRAINT next_t5_next FOREIGN KEY(nextId) REFERENCES ThresProbChainItem5(probchainItemId) ON DELETE CASCADE
+ next BIGINT UNSIGNED
   
  );
+
  
-
- ###123456789-TOKEN-0
-drop table if exists  Synonym;
-###123456789-TOKEN-1
-create table Synonym(
-  synonymId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   text  Varchar(35),
-   lang Varchar(10),
-   encoding Varchar(10),
-   entityName Varchar(80) NOT NULL DEFAULT 'Synonym',
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-   frequency FLOAT NOT NULL DEFAULT 0, /* we want an estimation of % of use of this word*/
-    nextsynId BIGINT UNSIGNED,
- indexinchain INT,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Synonym_WeightNorm FOREIGN KEY (synonymId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE
-
-    
-
-);
-
-  
+ 
  ###123456789-TOKEN-0
 drop table if exists  Word;
 ###123456789-TOKEN-1
 create table Word(
   wordId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(20),
-   entityName Varchar(80) NOT NULL DEFAULT 'WORD',
-   lang Varchar(10),
-   encoding Varchar(10),
+   entityName Varchar(30) NOT NULL DEFAULT 'WORD',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
- synonymId BIGINT UNSIGNED NOT NULL,
+
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 CONSTRAINT WeightNorm_Word_WeightNorm FOREIGN KEY (wordId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE,
-    
-    CONSTRAINT SYN_Word_SYN FOREIGN KEY (synonymId)
-    REFERENCES Synonym(synonymId)
-    
-
+    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE
 
 
 );
-
-
 
 
 ###123456789-TOKEN-0
@@ -389,12 +348,10 @@ drop table if exists  Symbol;
 create table Symbol(
   symbolId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(20),
-   lang Varchar(10),
-   encoding Varchar(10),
-  entityName Varchar(80) NOT NULL DEFAULT 'SYMBOL',
+  entityName Varchar(30) NOT NULL DEFAULT 'SYMBOL',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
- 
+
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 CONSTRAINT WeightNorm_SY_WeightNorm FOREIGN KEY (symbolId,entityName)
@@ -411,9 +368,7 @@ drop table if exists  Sentence;
 create table Sentence(
   sentenceId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(300),
-   lang Varchar(10),
-   encoding Varchar(10),
-  entityName Varchar(80) NOT NULL DEFAULT 'SENTENCE',   
+  entityName Varchar(30) NOT NULL DEFAULT 'SENTENCE',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -434,7 +389,7 @@ sentence2sentenceId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 sentenceId BIGINT UNSIGNED NOT NULL ,
   sentence2Id BIGINT UNSIGNED NOT NULL ,
    text  Varchar(20),
-  entityName Varchar(80) NOT NULL DEFAULT 'Sentence2Sentence',   
+  entityName Varchar(30) NOT NULL DEFAULT 'Sentence2Sentence',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -453,20 +408,16 @@ CONSTRAINT s_Sentence2Sentence_s FOREIGN KEY (sentence2Id)
 );
 
 
-
 ###123456789-TOKEN-0
 drop table if exists  Problem;
 ###123456789-TOKEN-1
 create table Problem(
   problemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    text  Varchar(200),
-  entityName Varchar(80) NOT NULL DEFAULT 'Problem',   
+  entityName Varchar(30) NOT NULL DEFAULT 'Problem',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-status Varchar(30) , /*  solved, unsolved. null = not processed*/
-  lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+lastaccess Datetime,
+
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 CONSTRAINT WeightNorm_P_WeightNorm FOREIGN KEY (problemId,entityName)
@@ -486,7 +437,7 @@ create table Definition(
   candidatethreshold FLOAT NOT NULL DEFAULT 0, /* this is a kind of "reverse" */
   
    text  Varchar(200),
-  entityName Varchar(80) NOT NULL DEFAULT 'Definition',   
+  entityName Varchar(30) NOT NULL DEFAULT 'Definition',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -508,7 +459,7 @@ create table Solution(
   candidatethreshold FLOAT NOT NULL DEFAULT 0, /* needed */
   
   text  Varchar(200),
-  entityName Varchar(80) NOT NULL DEFAULT 'SOLUTION',   
+  entityName Varchar(30) NOT NULL DEFAULT 'SOLUTION',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -530,7 +481,7 @@ create table Problem2Problem(
   
   problemId  BIGINT UNSIGNED NOT NULL,
   problem2Id  BIGINT UNSIGNED NOT NULL,
-  entityName Varchar(80) default 'problem2problem',
+  entityName Varchar(50) default 'problem2problem',
    text  Varchar(300) ,
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
@@ -560,7 +511,7 @@ create table Definition2Definition(
   definition2Id  BIGINT UNSIGNED NOT NULL,
  
   text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'definition2definition',
+entityName Varchar(50) NOT NULL DEFAULT 'definition2definition',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
@@ -590,7 +541,7 @@ create table Solution2Solution(
   solutionId  BIGINT UNSIGNED NOT NULL,
   solution2Id  BIGINT UNSIGNED NOT NULL,
   text  Varchar(300) ,
-  entityName Varchar(80) NOT NULL DEFAULT 'solution2solution',
+  entityName Varchar(50) NOT NULL DEFAULT 'solution2solution',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
  
@@ -618,7 +569,7 @@ create table Subject(
   subjectId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    applicationId  BIGINT UNSIGNED,
    text  Varchar(20),
-  entityName Varchar(80) NOT NULL DEFAULT 'subject',   
+  entityName Varchar(30) NOT NULL DEFAULT 'subject',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -637,7 +588,7 @@ create table Observer(
   observerId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   subjectId BIGINT UNSIGNED NOT NULL,
    text  Varchar(20),
-  entityName Varchar(80) NOT NULL DEFAULT 'observer',   
+  entityName Varchar(50) NOT NULL DEFAULT 'observer',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -660,7 +611,7 @@ create table ObserverThreshold(
   observerId BIGINT UNSIGNED NOT NULL,
   thresholdId BIGINT UNSIGNED NOT NULL,  
    text  Varchar(20),
-  entityName Varchar(80) NOT NULL DEFAULT 'observerthreshold',   
+  entityName Varchar(50) NOT NULL DEFAULT 'observerthreshold',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -685,7 +636,7 @@ create table ObserverThreshold2ObserverThreshold(
   observerthresholdId BIGINT UNSIGNED NOT NULL,
   observerthreshold2Id BIGINT UNSIGNED NOT NULL,  
    text  Varchar(20),
-  entityName Varchar(80) NOT NULL DEFAULT 'ObserverThreshold2ObserverThreshold',   
+  entityName Varchar(50) NOT NULL DEFAULT 'ObserverThreshold2ObserverThreshold',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -709,7 +660,7 @@ create table Command(
   commandId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   observerId BIGINT UNSIGNED NOT NULL,
    text  Varchar(20),
-  entityName Varchar(80) NOT NULL DEFAULT 'command',   
+  entityName Varchar(30) NOT NULL DEFAULT 'command',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -729,7 +680,7 @@ create table `Action`(
   actionId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   commandId BIGINT UNSIGNED NOT NULL,
    text  Varchar(20),
-  entityName Varchar(80) NOT NULL DEFAULT 'action',   
+  entityName Varchar(30) NOT NULL DEFAULT 'action',   
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
 lastaccess Datetime,
 
@@ -751,7 +702,7 @@ create table ProblemDefinition(
   definitionId BIGINT UNSIGNED NOT NULL,
   problemId  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'Problemdefinion',
+entityName Varchar(50) NOT NULL DEFAULT 'Problemdefinion',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
@@ -778,7 +729,7 @@ create table ProblemDefinition2ProblemDefinition(
  problemdefinitionId BIGINT UNSIGNED NOT NULL,
   problemdefinition2Id  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'ProblemDefinition2ProblemDefinition',
+entityName Varchar(50) NOT NULL DEFAULT 'ProblemDefinition2ProblemDefinition',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
    
@@ -806,7 +757,7 @@ create table ProblemSolution(
   solutionId BIGINT UNSIGNED NOT NULL,
   problemId  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'Problemdefinion',
+entityName Varchar(50) NOT NULL DEFAULT 'Problemdefinion',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
@@ -833,7 +784,7 @@ create table ProblemSolution2ProblemSolution(
  problemsolutionId BIGINT UNSIGNED NOT NULL,
   problemsolution2Id  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'ProblemSolution2ProblemSolution',
+entityName Varchar(50) NOT NULL DEFAULT 'ProblemSolution2ProblemSolution',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
    
@@ -851,271 +802,112 @@ entityName Varchar(80) NOT NULL DEFAULT 'ProblemSolution2ProblemSolution',
 
 );
 
-####
-
-###123456789-TOKEN-0
-drop table if exists OrderType;
-###123456789-TOKEN-1
-create table OrderType(
-  ordertypeId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  typeName Varchar(30) NOT NULL,
-  text  Varchar(200),
-  entityName Varchar(80) NOT NULL DEFAULT 'OrderType',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime
-
-);
-
-
-
-
-###123456789-TOKEN-0
-drop table if exists  `Order`;
-###123456789-TOKEN-1
-create table `Order`(
-  orderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  contextId BIGINT UNSIGNED NOT NULL DEFAULT 0,
-  ordertypeId BIGINT UNSIGNED NOT NULL DEFAULT 0,
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, /* completed, deprecated, unknown */
-  entityName Varchar(80) NOT NULL DEFAULT 'Order',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Order_WeightNorm FOREIGN KEY (orderId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName),
-    
-CONSTRAINT ot_Order_ot FOREIGN KEY (ordertypeId)
-    REFERENCES OrderType(ordertypeId)
-
-    
-    
-
-);
-
-
-###123456789-TOKEN-0
-drop table if exists OrderProblem;
-###123456789-TOKEN-1
-create table OrderProblem(
-  orderproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  orderId BIGINT ,
-  problemId BIGINT,
-  priority INT DEFAULT 0,
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, /*  */
-  entityName Varchar(80) NOT NULL DEFAULT 'OrderProblem',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_op11_WeightNorm FOREIGN KEY (orderproblemId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName)
-
-   /* CONSTRAINT pro1_Opro1_pro1 FOREIGN KEY (problemId) REFERENCES Problem(problemId), 
-	
-    
-    CONSTRAINT ord2_Opro2_ord2 FOREIGN KEY (orderId) REFERENCES `Order`(orderId) 
-*/
-        
-
-
-);
-
-
-/*
-###123456789-TOKEN-0
-drop table if exists  ContextOwner;
-###123456789-TOKEN-1
-create table ContextOwner(
-  contextownerId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  ownerId BIGINT UNSIGNED,  
-  ownerName Varchar(80),
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, 
-  entityName Varchar(80) NOT NULL DEFAULT 'ContextOwner',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Context_WeightNorm FOREIGN KEY (orderId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName)
- 
-  
-    
-
-);
-*/
-
-
-###123456789-TOKEN-0
-drop table if exists  Context;
-###123456789-TOKEN-1
-create table Context(
-  contextId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  ownerId BIGINT UNSIGNED ,  /* may be created and not assigned */ 
-  ownerName Varchar(80) ,
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, 
-  /* Analysys pend */
-  entityName Varchar(80) NOT NULL DEFAULT 'Context',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Context1_WeightNorm FOREIGN KEY (contextId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName)
-    
-   
-);
-
-###123456789-TOKEN-0
-drop table if exists  ContextOrder;
-###123456789-TOKEN-1
-create table ContextOrder(
-  contextorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  contextId BIGINT UNSIGNED ,  
-  orderId BIGINT UNSIGNED,
-  priority INT DEFAULT 0,
-  /* Analysys pend */
-  text  Varchar(200),
-  status Varchar(20) NOT NULL, /*  */
-  entityName Varchar(80) NOT NULL DEFAULT 'ContextOrder',   
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-lastaccess Datetime,
-started TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ended TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-telapsed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_ContextO2_WeightNorm FOREIGN KEY (contextorderId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName),
-     CONSTRAINT c1_co1_c1 FOREIGN KEY (contextId) REFERENCES Context(contextId),
-    CONSTRAINT o1_co1_o1 FOREIGN KEY (orderId) REFERENCES `Order`(orderId)
-
-    
-   
-);
-
-
-
 
 ##123456789-TOKEN-10
-drop table if exists  SubjectOrder;  
+drop table if exists  SubjectProblem;  
 ##123456789-TOKEN-11
 
-create table SubjectOrder(
-  subjectorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+create table SubjectProblem(
+  subjectproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   subjectId BIGINT UNSIGNED NOT NULL,
-  orderId  BIGINT UNSIGNED NOT NULL,
+  problemId  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'subjectorder',
+entityName Varchar(50) NOT NULL DEFAULT 'subjectproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 
-    CONSTRAINT WeightNorm_sord_WeightNorm FOREIGN KEY (subjectorderId,entityName)
+    CONSTRAINT WeightNorm_sp_WeightNorm FOREIGN KEY (subjectproblemId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT o_suo_o FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId)  ,
-    CONSTRAINT s_suo_s FOREIGN KEY (subjectId)
-    REFERENCES Subject(subjectId)  
+    CONSTRAINT p_sp_p FOREIGN KEY (problemId)
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
+    CONSTRAINT s_sp_s FOREIGN KEY (subjectId)
+    REFERENCES Subject(subjectId) ON DELETE CASCADE 
+
+
 
 );
 ##123456789-TOKEN-10
-drop table if exists  ObserverOrder;  
+drop table if exists  ObserverProblem;  
 ##123456789-TOKEN-11
 
-create table ObserverOrder(
-  observerorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+create table ObserverProblem(
+  observerproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   observerId BIGINT UNSIGNED NOT NULL,
-  orderId  BIGINT UNSIGNED NOT NULL,
+  problemId  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'Observerorder',
+entityName Varchar(50) NOT NULL DEFAULT 'Observerproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_obsord_WeightNorm FOREIGN KEY (observerorderId,entityName)
+    CONSTRAINT WeightNorm_obsP_WeightNorm FOREIGN KEY (observerproblemId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT ord_obs_ord FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId)  ,
-    CONSTRAINT ord_obs1_ord FOREIGN KEY (ObserverId)
-    REFERENCES Observer(ObserverId)  
+    CONSTRAINT p_op1_p FOREIGN KEY (problemId)
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
+    CONSTRAINT s_op1_s FOREIGN KEY (ObserverId)
+    REFERENCES Observer(ObserverId) ON DELETE CASCADE 
 
 
 
 );
 
 ##123456789-TOKEN-10
-drop table if exists  CommandOrder;  
+drop table if exists  CommandProblem;  
 ##123456789-TOKEN-11
 
-create table CommandOrder(
-  commandorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+create table CommandProblem(
+  commandproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   commandId BIGINT UNSIGNED NOT NULL,
-  orderId  BIGINT UNSIGNED NOT NULL,
+  problemId  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'CommandOrder',
+entityName Varchar(50) NOT NULL DEFAULT 'Commandproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_cord_WeightNorm FOREIGN KEY (commandorderId,entityName)
+    CONSTRAINT WeightNorm_comp_WeightNorm FOREIGN KEY (commandproblemId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT o_cord_o FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId) ,
-    CONSTRAINT c_cord_c FOREIGN KEY (CommandId)
-    REFERENCES Command(CommandId)  
+    CONSTRAINT p_comp_p FOREIGN KEY (problemId)
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
+    CONSTRAINT c_cp_c FOREIGN KEY (CommandId)
+    REFERENCES Command(CommandId) ON DELETE CASCADE 
 
 
 
 );
 
 ##123456789-TOKEN-10
-drop table if exists  ActionOrder;  
+drop table if exists  ActionProblem;  
 ##123456789-TOKEN-11
 
-create table ActionOrder(
-  actionorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+create table ActionProblem(
+  actionproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   actionId BIGINT UNSIGNED NOT NULL,
-  orderId  BIGINT UNSIGNED NOT NULL,
+  problemId  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'Actionorder',
+entityName Varchar(50) NOT NULL DEFAULT 'Actionproblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
   
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_acord_WeightNorm FOREIGN KEY (actionorderId,entityName)
+    CONSTRAINT WeightNorm_actp_WeightNorm FOREIGN KEY (actionproblemId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT o_aord_o FOREIGN KEY (orderId)
-    REFERENCES `Order`(orderId)  ,
-    CONSTRAINT a_aord_a FOREIGN KEY (actionId)  REFERENCES  `Action`(actionId) 
+    CONSTRAINT p_actp_p FOREIGN KEY (problemId)
+    REFERENCES Problem(problemId) ON DELETE CASCADE ,
+    CONSTRAINT a_actp11_a FOREIGN KEY (actionId)  REFERENCES  `Action`(actionId) 
 
 );
 
@@ -1123,114 +915,114 @@ entityName Varchar(80) NOT NULL DEFAULT 'Actionorder',
 
 
 ##123456789-TOKEN-10
-drop table if exists  SubjectOrder2SubjectOrder;  
+drop table if exists  SubjectProblem2SubjectProblem;  
 ##123456789-TOKEN-11
 
-create table SubjectOrder2SubjectOrder(
- subjectorder2subjectorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
- subjectorderId BIGINT UNSIGNED NOT NULL,
-  subjectorder2Id  BIGINT UNSIGNED NOT NULL,
+create table SubjectProblem2SubjectProblem(
+ subjectproblem2subjectproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ subjectproblemId BIGINT UNSIGNED NOT NULL,
+  subjectproblem2Id  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'SubjectOrder2SubjectOrder',
+entityName Varchar(50) NOT NULL DEFAULT 'SubjectProblem2SubjectProblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
    
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_sord2sord_WeightNorm FOREIGN KEY (subjectorder2subjectorderId,entityName)
+    CONSTRAINT WeightNorm_sp2sp_WeightNorm FOREIGN KEY (subjectproblem2subjectproblemId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT sord_sord2sord_sord FOREIGN KEY (subjectorderId)
-    REFERENCES SubjectOrder(subjectorderId) ON DELETE CASCADE ,
-    CONSTRAINT sord1_sord2sord_sord1 FOREIGN KEY (subjectorder2Id)
-    REFERENCES SubjectOrder(subjectorderId) ON DELETE CASCADE 
+    CONSTRAINT sp_sp2sp_sp FOREIGN KEY (subjectproblemId)
+    REFERENCES SubjectProblem(subjectproblemId) ON DELETE CASCADE ,
+    CONSTRAINT sp1_sp2sp_sp1 FOREIGN KEY (subjectproblem2Id)
+    REFERENCES SubjectProblem(subjectproblemId) ON DELETE CASCADE 
     
 
 );
 
 ##123456789-TOKEN-10
-drop table if exists  ObserverOrder2ObserverOrder;  
+drop table if exists  ObserverProblem2ObserverProblem;  
 ##123456789-TOKEN-11
 
-create table ObserverOrder2ObserverOrder(
- observerorder2observerorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
- observerorderId BIGINT UNSIGNED NOT NULL,
-  observerorder2Id  BIGINT UNSIGNED NOT NULL,
+create table ObserverProblem2ObserverProblem(
+ observerproblem2observerproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ observerproblemId BIGINT UNSIGNED NOT NULL,
+  observerproblem2Id  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'ObserverOrder2ObserverOrder',
+entityName Varchar(50) NOT NULL DEFAULT 'ObserverProblem2ObserverProblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
    
 
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-    CONSTRAINT WeightNorm_oob2oo_WeightNorm FOREIGN KEY (observerorder2observerorderId,entityName)
+    CONSTRAINT WeightNorm_op2op_WeightNorm FOREIGN KEY (observerproblem2observerproblemId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT oo1_oo2oo_op1 FOREIGN KEY (observerorderId)
-    REFERENCES ObserverOrder(observerorderId) ON DELETE CASCADE ,
-    CONSTRAINT oo2_oo2oo_op2 FOREIGN KEY (observerorder2Id)
-    REFERENCES ObserverOrder(observerorderId) ON DELETE CASCADE 
-    
-
-);
-
-
-
-##123456789-TOKEN-10
-drop table if exists  CommandOrder2CommandOrder;  
-##123456789-TOKEN-11
-
-create table CommandOrder2CommandOrder(
- commandorder2commandorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
- commandorderId BIGINT UNSIGNED NOT NULL,
-  commandorder2Id  BIGINT UNSIGNED NOT NULL,
-   text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'CommandOrder2CommandOrder',
-   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
-   lastaccess DATETIME,
-   
- candidateId BIGINT NOT NULL default 0,
- candidateNormId BIGINT NOT NULL default 0,
-
-    CONSTRAINT WeightNorm_cord2cord_WeightNorm FOREIGN KEY (commandorder2commandorderId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName),
-    
-    CONSTRAINT cord_co2co_cord FOREIGN KEY (commandorderId)
-    REFERENCES CommandOrder(commandorderId) ON DELETE CASCADE ,
-    CONSTRAINT cord1_co2co_cord1 FOREIGN KEY (commandorder2Id)
-    REFERENCES CommandOrder(commandorderId) ON DELETE CASCADE 
+    CONSTRAINT op_op2op_op FOREIGN KEY (observerproblemId)
+    REFERENCES ObserverProblem(observerproblemId) ON DELETE CASCADE ,
+    CONSTRAINT op1_op2op_op1 FOREIGN KEY (observerproblem2Id)
+    REFERENCES ObserverProblem(observerproblemId) ON DELETE CASCADE 
     
 
 );
 
 
 
-
 ##123456789-TOKEN-10
-drop table if exists  ActionOrder2ActionOrder;  
+drop table if exists  CommandProblem2CommandProblem;  
 ##123456789-TOKEN-11
 
-create table ActionOrder2ActionOrder(
- actionorder2actionorderId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
- actionorderId BIGINT UNSIGNED NOT NULL,
-  actionorder2Id  BIGINT UNSIGNED NOT NULL,
+create table CommandProblem2CommandProblem(
+ commandproblem2commandproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ commandproblemId BIGINT UNSIGNED NOT NULL,
+  commandproblem2Id  BIGINT UNSIGNED NOT NULL,
    text  Varchar(300) ,
-entityName Varchar(80) NOT NULL DEFAULT 'ActionOrder2ActionOrder',
+entityName Varchar(50) NOT NULL DEFAULT 'CommandProblem2CommandProblem',
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
    lastaccess DATETIME,
    
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 
-    CONSTRAINT WeightNorm_ao2ao_WeightNorm FOREIGN KEY (actionorder2actionorderId,entityName)
+    CONSTRAINT WeightNorm_cp2cp_WeightNorm FOREIGN KEY (commandproblem2commandproblemId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName),
     
-    CONSTRAINT ao_ao2ao_ao FOREIGN KEY (actionorderId)
-    REFERENCES ActionOrder(actionorderId) ON DELETE CASCADE ,
-    CONSTRAINT ao1_ao2ao_ao1 FOREIGN KEY (actionorder2Id)
-    REFERENCES ActionOrder(actionorderId) ON DELETE CASCADE 
+    CONSTRAINT cp_cp2cp_cp FOREIGN KEY (commandproblemId)
+    REFERENCES CommandProblem(commandproblemId) ON DELETE CASCADE ,
+    CONSTRAINT cp1_cp2sp_cp1 FOREIGN KEY (commandproblem2Id)
+    REFERENCES CommandProblem(commandproblemId) ON DELETE CASCADE 
+    
+
+);
+
+
+
+
+##123456789-TOKEN-10
+drop table if exists  ActionProblem2ActionProblem;  
+##123456789-TOKEN-11
+
+create table ActionProblem2ActionProblem(
+ actionproblem2actionproblemId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ actionproblemId BIGINT UNSIGNED NOT NULL,
+  actionproblem2Id  BIGINT UNSIGNED NOT NULL,
+   text  Varchar(300) ,
+entityName Varchar(50) NOT NULL DEFAULT 'ActionProblem2ActionProblem',
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+   lastaccess DATETIME,
+   
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+
+    CONSTRAINT WeightNorm_ap2ap_WeightNorm FOREIGN KEY (actionproblem2actionproblemId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName),
+    
+    CONSTRAINT ap_ap2ap_ap FOREIGN KEY (actionproblemId)
+    REFERENCES ActionProblem(actionproblemId) ON DELETE CASCADE ,
+    CONSTRAINT ap1_ap2ap_ap1 FOREIGN KEY (actionproblem2Id)
+    REFERENCES ActionProblem(actionproblemId) ON DELETE CASCADE 
     
 
 );

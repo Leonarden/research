@@ -7,37 +7,37 @@ import java.math.BigInteger;
 
 
 /**
- * The persistent class for the SubjectProblem2SubjectProblem database table.
+ * The persistent class for the SubjectOrder2SubjectOrder database table.
  * 
  */
 @Entity
-@Table(name="SubjectProblem2SubjectProblem")
-@NamedQuery(name="SubjectProblem2SubjectProblem.findAll", query="SELECT s FROM SubjectProblem2SubjectProblem s")
-public class SubjectProblem2SubjectProblem implements Serializable {
+@Table(name="SubjectOrder2SubjectOrder")
+@NamedQuery(name="SubjectOrder2SubjectOrder.findAll", query="SELECT s FROM SubjectOrder2SubjectOrder s")
+public class SubjectOrder2SubjectOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String subjectproblem2subjectproblemId;
+	private String subjectorder2subjectorderId;
 	private BigInteger candidateId;
 	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
-	private SubjectProblem subjectProblem1;
-	private SubjectProblem subjectProblem2;
+	private SubjectOrder subjectOrder1;
+	private SubjectOrder subjectOrder2;
 	private WeightNorm weightNorm;
 
-	public SubjectProblem2SubjectProblem() {
+	public SubjectOrder2SubjectOrder() {
 	}
 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	public String getSubjectproblem2subjectproblemId() {
-		return this.subjectproblem2subjectproblemId;
+	public String getSubjectorder2subjectorderId() {
+		return this.subjectorder2subjectorderId;
 	}
 
-	public void setSubjectproblem2subjectproblemId(String subjectproblem2subjectproblemId) {
-		this.subjectproblem2subjectproblemId = subjectproblem2subjectproblemId;
+	public void setSubjectorder2subjectorderId(String subjectorder2subjectorderId) {
+		this.subjectorder2subjectorderId = subjectorder2subjectorderId;
 	}
 
 
@@ -91,27 +91,27 @@ public class SubjectProblem2SubjectProblem implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to SubjectProblem
+	//bi-directional many-to-one association to SubjectOrder
 	@ManyToOne
-	@JoinColumn(name="subjectproblem2Id", nullable=false)
-	public SubjectProblem getSubjectProblem1() {
-		return this.subjectProblem1;
+	@JoinColumn(name="subjectorder2Id", nullable=false)
+	public SubjectOrder getSubjectOrder1() {
+		return this.subjectOrder1;
 	}
 
-	public void setSubjectProblem1(SubjectProblem subjectProblem1) {
-		this.subjectProblem1 = subjectProblem1;
+	public void setSubjectOrder1(SubjectOrder subjectOrder1) {
+		this.subjectOrder1 = subjectOrder1;
 	}
 
 
-	//bi-directional many-to-one association to SubjectProblem
+	//bi-directional many-to-one association to SubjectOrder
 	@ManyToOne
-	@JoinColumn(name="subjectproblemId", nullable=false)
-	public SubjectProblem getSubjectProblem2() {
-		return this.subjectProblem2;
+	@JoinColumn(name="subjectorderId", nullable=false)
+	public SubjectOrder getSubjectOrder2() {
+		return this.subjectOrder2;
 	}
 
-	public void setSubjectProblem2(SubjectProblem subjectProblem2) {
-		this.subjectProblem2 = subjectProblem2;
+	public void setSubjectOrder2(SubjectOrder subjectOrder2) {
+		this.subjectOrder2 = subjectOrder2;
 	}
 
 
@@ -119,7 +119,7 @@ public class SubjectProblem2SubjectProblem implements Serializable {
 	@ManyToOne
 	@JoinColumns({
 		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="subjectproblem2subjectproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		@JoinColumn(name="subjectorder2subjectorderId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

@@ -28,18 +28,22 @@ public class WeightNorm implements Serializable {
 	private Date lastAccess;
 	private BigInteger numaccess;
 	private List<Action> actions;
-	private List<ActionProblem> actionProblems;
-	private List<ActionProblem2ActionProblem> actionProblem2actionProblems;
+	private List<ActionOrder> actionOrders;
+	private List<ActionOrder2ActionOrder> actionOrder2actionOrders;
 	private List<Command> commands;
-	private List<CommandProblem> commandProblems;
-	private List<CommandProblem2CommandProblem> commandProblem2commandProblems;
+	private List<CommandOrder> commandOrders;
+	private List<CommandOrder2CommandOrder> commandOrder2commandOrders;
+	private List<Context> contexts1;
+	private List<Context> contexts2;
 	private List<Definition> definitions;
 	private List<Definition2Definition> definition2definitions;
 	private List<Observer> observers;
-	private List<ObserverProblem> observerProblems;
-	private List<ObserverProblem2ObserverProblem> observerProblem2observerProblems;
+	private List<ObserverOrder> observerOrders;
+	private List<ObserverOrder2ObserverOrder> observerOrder2observerOrders;
 	private List<ObserverThreshold> observerThresholds;
 	private List<ObserverThreshold2ObserverThreshold> observerThreshold2observerThresholds;
+	private List<Order> orders;
+	private List<OrderProblem> orderProblems;
 	private List<Problem> problems;
 	private List<Problem2Problem> problem2problems;
 	private List<ProblemDefinition> problemDefinitions;
@@ -51,11 +55,12 @@ public class WeightNorm implements Serializable {
 	private List<Solution> solutions;
 	private List<Solution2Solution> solution2solutions;
 	private List<Subject> subjects;
-	private List<SubjectProblem> subjectProblems;
-	private List<SubjectProblem2SubjectProblem> subjectProblem2subjectProblems;
+	private List<SubjectOrder> subjectOrders;
+	private List<SubjectOrder2SubjectOrder> subjectOrder2subjectOrders;
 	private List<Symbol> symbols;
-	private List<Word> words;
 	private List<Synonym> synonyms;
+	private List<Word> words;
+	private List<ContextOrder> contextOrders;
 
 	public WeightNorm() {
 	}
@@ -197,53 +202,53 @@ public class WeightNorm implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to ActionProblem
+	//bi-directional many-to-one association to ActionOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<ActionProblem> getActionProblems() {
-		return this.actionProblems;
+	public List<ActionOrder> getActionOrders() {
+		return this.actionOrders;
 	}
 
-	public void setActionProblems(List<ActionProblem> actionProblems) {
-		this.actionProblems = actionProblems;
+	public void setActionOrders(List<ActionOrder> actionOrders) {
+		this.actionOrders = actionOrders;
 	}
 
-	public ActionProblem addActionProblem(ActionProblem actionProblem) {
-		getActionProblems().add(actionProblem);
-		actionProblem.setWeightNorm(this);
+	public ActionOrder addActionOrder(ActionOrder actionOrder) {
+		getActionOrders().add(actionOrder);
+		actionOrder.setWeightNorm(this);
 
-		return actionProblem;
+		return actionOrder;
 	}
 
-	public ActionProblem removeActionProblem(ActionProblem actionProblem) {
-		getActionProblems().remove(actionProblem);
-		actionProblem.setWeightNorm(null);
+	public ActionOrder removeActionOrder(ActionOrder actionOrder) {
+		getActionOrders().remove(actionOrder);
+		actionOrder.setWeightNorm(null);
 
-		return actionProblem;
+		return actionOrder;
 	}
 
 
-	//bi-directional many-to-one association to ActionProblem2ActionProblem
+	//bi-directional many-to-one association to ActionOrder2ActionOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<ActionProblem2ActionProblem> getActionProblem2actionProblems() {
-		return this.actionProblem2actionProblems;
+	public List<ActionOrder2ActionOrder> getActionOrder2actionOrders() {
+		return this.actionOrder2actionOrders;
 	}
 
-	public void setActionProblem2actionProblems(List<ActionProblem2ActionProblem> actionProblem2actionProblems) {
-		this.actionProblem2actionProblems = actionProblem2actionProblems;
+	public void setActionOrder2actionOrders(List<ActionOrder2ActionOrder> actionOrder2actionOrders) {
+		this.actionOrder2actionOrders = actionOrder2actionOrders;
 	}
 
-	public ActionProblem2ActionProblem addActionProblem2actionProblem(ActionProblem2ActionProblem actionProblem2actionProblem) {
-		getActionProblem2actionProblems().add(actionProblem2actionProblem);
-		actionProblem2actionProblem.setWeightNorm(this);
+	public ActionOrder2ActionOrder addActionOrder2actionOrder(ActionOrder2ActionOrder actionOrder2actionOrder) {
+		getActionOrder2actionOrders().add(actionOrder2actionOrder);
+		actionOrder2actionOrder.setWeightNorm(this);
 
-		return actionProblem2actionProblem;
+		return actionOrder2actionOrder;
 	}
 
-	public ActionProblem2ActionProblem removeActionProblem2actionProblem(ActionProblem2ActionProblem actionProblem2actionProblem) {
-		getActionProblem2actionProblems().remove(actionProblem2actionProblem);
-		actionProblem2actionProblem.setWeightNorm(null);
+	public ActionOrder2ActionOrder removeActionOrder2actionOrder(ActionOrder2ActionOrder actionOrder2actionOrder) {
+		getActionOrder2actionOrders().remove(actionOrder2actionOrder);
+		actionOrder2actionOrder.setWeightNorm(null);
 
-		return actionProblem2actionProblem;
+		return actionOrder2actionOrder;
 	}
 
 
@@ -272,53 +277,103 @@ public class WeightNorm implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to CommandProblem
+	//bi-directional many-to-one association to CommandOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<CommandProblem> getCommandProblems() {
-		return this.commandProblems;
+	public List<CommandOrder> getCommandOrders() {
+		return this.commandOrders;
 	}
 
-	public void setCommandProblems(List<CommandProblem> commandProblems) {
-		this.commandProblems = commandProblems;
+	public void setCommandOrders(List<CommandOrder> commandOrders) {
+		this.commandOrders = commandOrders;
 	}
 
-	public CommandProblem addCommandProblem(CommandProblem commandProblem) {
-		getCommandProblems().add(commandProblem);
-		commandProblem.setWeightNorm(this);
+	public CommandOrder addCommandOrder(CommandOrder commandOrder) {
+		getCommandOrders().add(commandOrder);
+		commandOrder.setWeightNorm(this);
 
-		return commandProblem;
+		return commandOrder;
 	}
 
-	public CommandProblem removeCommandProblem(CommandProblem commandProblem) {
-		getCommandProblems().remove(commandProblem);
-		commandProblem.setWeightNorm(null);
+	public CommandOrder removeCommandOrder(CommandOrder commandOrder) {
+		getCommandOrders().remove(commandOrder);
+		commandOrder.setWeightNorm(null);
 
-		return commandProblem;
+		return commandOrder;
 	}
 
 
-	//bi-directional many-to-one association to CommandProblem2CommandProblem
+	//bi-directional many-to-one association to CommandOrder2CommandOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<CommandProblem2CommandProblem> getCommandProblem2commandProblems() {
-		return this.commandProblem2commandProblems;
+	public List<CommandOrder2CommandOrder> getCommandOrder2commandOrders() {
+		return this.commandOrder2commandOrders;
 	}
 
-	public void setCommandProblem2commandProblems(List<CommandProblem2CommandProblem> commandProblem2commandProblems) {
-		this.commandProblem2commandProblems = commandProblem2commandProblems;
+	public void setCommandOrder2commandOrders(List<CommandOrder2CommandOrder> commandOrder2commandOrders) {
+		this.commandOrder2commandOrders = commandOrder2commandOrders;
 	}
 
-	public CommandProblem2CommandProblem addCommandProblem2commandProblem(CommandProblem2CommandProblem commandProblem2commandProblem) {
-		getCommandProblem2commandProblems().add(commandProblem2commandProblem);
-		commandProblem2commandProblem.setWeightNorm(this);
+	public CommandOrder2CommandOrder addCommandOrder2commandOrder(CommandOrder2CommandOrder commandOrder2commandOrder) {
+		getCommandOrder2commandOrders().add(commandOrder2commandOrder);
+		commandOrder2commandOrder.setWeightNorm(this);
 
-		return commandProblem2commandProblem;
+		return commandOrder2commandOrder;
 	}
 
-	public CommandProblem2CommandProblem removeCommandProblem2commandProblem(CommandProblem2CommandProblem commandProblem2commandProblem) {
-		getCommandProblem2commandProblems().remove(commandProblem2commandProblem);
-		commandProblem2commandProblem.setWeightNorm(null);
+	public CommandOrder2CommandOrder removeCommandOrder2commandOrder(CommandOrder2CommandOrder commandOrder2commandOrder) {
+		getCommandOrder2commandOrders().remove(commandOrder2commandOrder);
+		commandOrder2commandOrder.setWeightNorm(null);
 
-		return commandProblem2commandProblem;
+		return commandOrder2commandOrder;
+	}
+
+
+	//bi-directional many-to-one association to Context
+	@OneToMany(mappedBy="weightNorm1")
+	public List<Context> getContexts1() {
+		return this.contexts1;
+	}
+
+	public void setContexts1(List<Context> contexts1) {
+		this.contexts1 = contexts1;
+	}
+
+	public Context addContexts1(Context contexts1) {
+		getContexts1().add(contexts1);
+		contexts1.setWeightNorm1(this);
+
+		return contexts1;
+	}
+
+	public Context removeContexts1(Context contexts1) {
+		getContexts1().remove(contexts1);
+		contexts1.setWeightNorm1(null);
+
+		return contexts1;
+	}
+
+
+	//bi-directional many-to-one association to Context
+	@OneToMany(mappedBy="weightNorm2")
+	public List<Context> getContexts2() {
+		return this.contexts2;
+	}
+
+	public void setContexts2(List<Context> contexts2) {
+		this.contexts2 = contexts2;
+	}
+
+	public Context addContexts2(Context contexts2) {
+		getContexts2().add(contexts2);
+		contexts2.setWeightNorm2(this);
+
+		return contexts2;
+	}
+
+	public Context removeContexts2(Context contexts2) {
+		getContexts2().remove(contexts2);
+		contexts2.setWeightNorm2(null);
+
+		return contexts2;
 	}
 
 
@@ -397,53 +452,53 @@ public class WeightNorm implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to ObserverProblem
+	//bi-directional many-to-one association to ObserverOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<ObserverProblem> getObserverProblems() {
-		return this.observerProblems;
+	public List<ObserverOrder> getObserverOrders() {
+		return this.observerOrders;
 	}
 
-	public void setObserverProblems(List<ObserverProblem> observerProblems) {
-		this.observerProblems = observerProblems;
+	public void setObserverOrders(List<ObserverOrder> observerOrders) {
+		this.observerOrders = observerOrders;
 	}
 
-	public ObserverProblem addObserverProblem(ObserverProblem observerProblem) {
-		getObserverProblems().add(observerProblem);
-		observerProblem.setWeightNorm(this);
+	public ObserverOrder addObserverOrder(ObserverOrder observerOrder) {
+		getObserverOrders().add(observerOrder);
+		observerOrder.setWeightNorm(this);
 
-		return observerProblem;
+		return observerOrder;
 	}
 
-	public ObserverProblem removeObserverProblem(ObserverProblem observerProblem) {
-		getObserverProblems().remove(observerProblem);
-		observerProblem.setWeightNorm(null);
+	public ObserverOrder removeObserverOrder(ObserverOrder observerOrder) {
+		getObserverOrders().remove(observerOrder);
+		observerOrder.setWeightNorm(null);
 
-		return observerProblem;
+		return observerOrder;
 	}
 
 
-	//bi-directional many-to-one association to ObserverProblem2ObserverProblem
+	//bi-directional many-to-one association to ObserverOrder2ObserverOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<ObserverProblem2ObserverProblem> getObserverProblem2observerProblems() {
-		return this.observerProblem2observerProblems;
+	public List<ObserverOrder2ObserverOrder> getObserverOrder2observerOrders() {
+		return this.observerOrder2observerOrders;
 	}
 
-	public void setObserverProblem2observerProblems(List<ObserverProblem2ObserverProblem> observerProblem2observerProblems) {
-		this.observerProblem2observerProblems = observerProblem2observerProblems;
+	public void setObserverOrder2observerOrders(List<ObserverOrder2ObserverOrder> observerOrder2observerOrders) {
+		this.observerOrder2observerOrders = observerOrder2observerOrders;
 	}
 
-	public ObserverProblem2ObserverProblem addObserverProblem2observerProblem(ObserverProblem2ObserverProblem observerProblem2observerProblem) {
-		getObserverProblem2observerProblems().add(observerProblem2observerProblem);
-		observerProblem2observerProblem.setWeightNorm(this);
+	public ObserverOrder2ObserverOrder addObserverOrder2observerOrder(ObserverOrder2ObserverOrder observerOrder2observerOrder) {
+		getObserverOrder2observerOrders().add(observerOrder2observerOrder);
+		observerOrder2observerOrder.setWeightNorm(this);
 
-		return observerProblem2observerProblem;
+		return observerOrder2observerOrder;
 	}
 
-	public ObserverProblem2ObserverProblem removeObserverProblem2observerProblem(ObserverProblem2ObserverProblem observerProblem2observerProblem) {
-		getObserverProblem2observerProblems().remove(observerProblem2observerProblem);
-		observerProblem2observerProblem.setWeightNorm(null);
+	public ObserverOrder2ObserverOrder removeObserverOrder2observerOrder(ObserverOrder2ObserverOrder observerOrder2observerOrder) {
+		getObserverOrder2observerOrders().remove(observerOrder2observerOrder);
+		observerOrder2observerOrder.setWeightNorm(null);
 
-		return observerProblem2observerProblem;
+		return observerOrder2observerOrder;
 	}
 
 
@@ -494,6 +549,56 @@ public class WeightNorm implements Serializable {
 		observerThreshold2observerThreshold.setWeightNorm(null);
 
 		return observerThreshold2observerThreshold;
+	}
+
+
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="weightNorm")
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Order addOrder(Order order) {
+		getOrders().add(order);
+		order.setWeightNorm(this);
+
+		return order;
+	}
+
+	public Order removeOrder(Order order) {
+		getOrders().remove(order);
+		order.setWeightNorm(null);
+
+		return order;
+	}
+
+
+	//bi-directional many-to-one association to OrderProblem
+	@OneToMany(mappedBy="weightNorm")
+	public List<OrderProblem> getOrderProblems() {
+		return this.orderProblems;
+	}
+
+	public void setOrderProblems(List<OrderProblem> orderProblems) {
+		this.orderProblems = orderProblems;
+	}
+
+	public OrderProblem addOrderProblem(OrderProblem orderProblem) {
+		getOrderProblems().add(orderProblem);
+		orderProblem.setWeightNorm(this);
+
+		return orderProblem;
+	}
+
+	public OrderProblem removeOrderProblem(OrderProblem orderProblem) {
+		getOrderProblems().remove(orderProblem);
+		orderProblem.setWeightNorm(null);
+
+		return orderProblem;
 	}
 
 
@@ -772,53 +877,53 @@ public class WeightNorm implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to SubjectProblem
+	//bi-directional many-to-one association to SubjectOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<SubjectProblem> getSubjectProblems() {
-		return this.subjectProblems;
+	public List<SubjectOrder> getSubjectOrders() {
+		return this.subjectOrders;
 	}
 
-	public void setSubjectProblems(List<SubjectProblem> subjectProblems) {
-		this.subjectProblems = subjectProblems;
+	public void setSubjectOrders(List<SubjectOrder> subjectOrders) {
+		this.subjectOrders = subjectOrders;
 	}
 
-	public SubjectProblem addSubjectProblem(SubjectProblem subjectProblem) {
-		getSubjectProblems().add(subjectProblem);
-		subjectProblem.setWeightNorm(this);
+	public SubjectOrder addSubjectOrder(SubjectOrder subjectOrder) {
+		getSubjectOrders().add(subjectOrder);
+		subjectOrder.setWeightNorm(this);
 
-		return subjectProblem;
+		return subjectOrder;
 	}
 
-	public SubjectProblem removeSubjectProblem(SubjectProblem subjectProblem) {
-		getSubjectProblems().remove(subjectProblem);
-		subjectProblem.setWeightNorm(null);
+	public SubjectOrder removeSubjectOrder(SubjectOrder subjectOrder) {
+		getSubjectOrders().remove(subjectOrder);
+		subjectOrder.setWeightNorm(null);
 
-		return subjectProblem;
+		return subjectOrder;
 	}
 
 
-	//bi-directional many-to-one association to SubjectProblem2SubjectProblem
+	//bi-directional many-to-one association to SubjectOrder2SubjectOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<SubjectProblem2SubjectProblem> getSubjectProblem2subjectProblems() {
-		return this.subjectProblem2subjectProblems;
+	public List<SubjectOrder2SubjectOrder> getSubjectOrder2subjectOrders() {
+		return this.subjectOrder2subjectOrders;
 	}
 
-	public void setSubjectProblem2subjectProblems(List<SubjectProblem2SubjectProblem> subjectProblem2subjectProblems) {
-		this.subjectProblem2subjectProblems = subjectProblem2subjectProblems;
+	public void setSubjectOrder2subjectOrders(List<SubjectOrder2SubjectOrder> subjectOrder2subjectOrders) {
+		this.subjectOrder2subjectOrders = subjectOrder2subjectOrders;
 	}
 
-	public SubjectProblem2SubjectProblem addSubjectProblem2subjectProblem(SubjectProblem2SubjectProblem subjectProblem2subjectProblem) {
-		getSubjectProblem2subjectProblems().add(subjectProblem2subjectProblem);
-		subjectProblem2subjectProblem.setWeightNorm(this);
+	public SubjectOrder2SubjectOrder addSubjectOrder2subjectOrder(SubjectOrder2SubjectOrder subjectOrder2subjectOrder) {
+		getSubjectOrder2subjectOrders().add(subjectOrder2subjectOrder);
+		subjectOrder2subjectOrder.setWeightNorm(this);
 
-		return subjectProblem2subjectProblem;
+		return subjectOrder2subjectOrder;
 	}
 
-	public SubjectProblem2SubjectProblem removeSubjectProblem2subjectProblem(SubjectProblem2SubjectProblem subjectProblem2subjectProblem) {
-		getSubjectProblem2subjectProblems().remove(subjectProblem2subjectProblem);
-		subjectProblem2subjectProblem.setWeightNorm(null);
+	public SubjectOrder2SubjectOrder removeSubjectOrder2subjectOrder(SubjectOrder2SubjectOrder subjectOrder2subjectOrder) {
+		getSubjectOrder2subjectOrders().remove(subjectOrder2subjectOrder);
+		subjectOrder2subjectOrder.setWeightNorm(null);
 
-		return subjectProblem2subjectProblem;
+		return subjectOrder2subjectOrder;
 	}
 
 
@@ -847,6 +952,31 @@ public class WeightNorm implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to Synonym
+	@OneToMany(mappedBy="weightNorm")
+	public List<Synonym> getSynonyms() {
+		return this.synonyms;
+	}
+
+	public void setSynonyms(List<Synonym> synonyms) {
+		this.synonyms = synonyms;
+	}
+
+	public Synonym addSynonym(Synonym synonym) {
+		getSynonyms().add(synonym);
+		synonym.setWeightNorm(this);
+
+		return synonym;
+	}
+
+	public Synonym removeSynonym(Synonym synonym) {
+		getSynonyms().remove(synonym);
+		synonym.setWeightNorm(null);
+
+		return synonym;
+	}
+
+
 	//bi-directional many-to-one association to Word
 	@OneToMany(mappedBy="weightNorm")
 	public List<Word> getWords() {
@@ -872,28 +1002,28 @@ public class WeightNorm implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Synonym
+	//bi-directional many-to-one association to ContextOrder
 	@OneToMany(mappedBy="weightNorm")
-	public List<Synonym> getSynonyms() {
-		return this.synonyms;
+	public List<ContextOrder> getContextOrders() {
+		return this.contextOrders;
 	}
 
-	public void setSynonyms(List<Synonym> synonyms) {
-		this.synonyms = synonyms;
+	public void setContextOrders(List<ContextOrder> contextOrders) {
+		this.contextOrders = contextOrders;
 	}
 
-	public Synonym addSynonym(Synonym synonym) {
-		getSynonyms().add(synonym);
-		synonym.setWeightNorm(this);
+	public ContextOrder addContextOrder(ContextOrder contextOrder) {
+		getContextOrders().add(contextOrder);
+		contextOrder.setWeightNorm(this);
 
-		return synonym;
+		return contextOrder;
 	}
 
-	public Synonym removeSynonym(Synonym synonym) {
-		getSynonyms().remove(synonym);
-		synonym.setWeightNorm(null);
+	public ContextOrder removeContextOrder(ContextOrder contextOrder) {
+		getContextOrders().remove(contextOrder);
+		contextOrder.setWeightNorm(null);
 
-		return synonym;
+		return contextOrder;
 	}
 
 }

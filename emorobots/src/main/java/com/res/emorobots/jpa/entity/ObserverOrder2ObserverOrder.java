@@ -7,37 +7,37 @@ import java.math.BigInteger;
 
 
 /**
- * The persistent class for the ActionProblem2ActionProblem database table.
+ * The persistent class for the ObserverOrder2ObserverOrder database table.
  * 
  */
 @Entity
-@Table(name="ActionProblem2ActionProblem")
-@NamedQuery(name="ActionProblem2ActionProblem.findAll", query="SELECT a FROM ActionProblem2ActionProblem a")
-public class ActionProblem2ActionProblem implements Serializable {
+@Table(name="ObserverOrder2ObserverOrder")
+@NamedQuery(name="ObserverOrder2ObserverOrder.findAll", query="SELECT o FROM ObserverOrder2ObserverOrder o")
+public class ObserverOrder2ObserverOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String actionproblem2actionproblemId;
+	private String observerorder2observerorderId;
 	private BigInteger candidateId;
 	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
-	private ActionProblem actionProblem1;
-	private ActionProblem actionProblem2;
+	private ObserverOrder observerOrder1;
+	private ObserverOrder observerOrder2;
 	private WeightNorm weightNorm;
 
-	public ActionProblem2ActionProblem() {
+	public ObserverOrder2ObserverOrder() {
 	}
 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	public String getActionproblem2actionproblemId() {
-		return this.actionproblem2actionproblemId;
+	public String getObserverorder2observerorderId() {
+		return this.observerorder2observerorderId;
 	}
 
-	public void setActionproblem2actionproblemId(String actionproblem2actionproblemId) {
-		this.actionproblem2actionproblemId = actionproblem2actionproblemId;
+	public void setObserverorder2observerorderId(String observerorder2observerorderId) {
+		this.observerorder2observerorderId = observerorder2observerorderId;
 	}
 
 
@@ -91,35 +91,35 @@ public class ActionProblem2ActionProblem implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to ActionProblem
+	//bi-directional many-to-one association to ObserverOrder
 	@ManyToOne
-	@JoinColumn(name="actionproblem2Id", nullable=false)
-	public ActionProblem getActionProblem1() {
-		return this.actionProblem1;
+	@JoinColumn(name="observerorderId", nullable=false)
+	public ObserverOrder getObserverOrder1() {
+		return this.observerOrder1;
 	}
 
-	public void setActionProblem1(ActionProblem actionProblem1) {
-		this.actionProblem1 = actionProblem1;
+	public void setObserverOrder1(ObserverOrder observerOrder1) {
+		this.observerOrder1 = observerOrder1;
 	}
 
 
-	//bi-directional many-to-one association to ActionProblem
+	//bi-directional many-to-one association to ObserverOrder
 	@ManyToOne
-	@JoinColumn(name="actionproblemId", nullable=false)
-	public ActionProblem getActionProblem2() {
-		return this.actionProblem2;
+	@JoinColumn(name="observerorder2Id", nullable=false)
+	public ObserverOrder getObserverOrder2() {
+		return this.observerOrder2;
 	}
 
-	public void setActionProblem2(ActionProblem actionProblem2) {
-		this.actionProblem2 = actionProblem2;
+	public void setObserverOrder2(ObserverOrder observerOrder2) {
+		this.observerOrder2 = observerOrder2;
 	}
 
 
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="actionproblem2actionproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="observerorder2observerorderId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

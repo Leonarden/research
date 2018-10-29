@@ -24,7 +24,7 @@ public class Action implements Serializable {
 	private String text;
 	private Command command;
 	private WeightNorm weightNorm;
-	private List<ActionProblem> actionProblems;
+	private List<ActionOrder> actionOrders;
 
 	public Action() {
 	}
@@ -119,28 +119,28 @@ public class Action implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to ActionProblem
+	//bi-directional many-to-one association to ActionOrder
 	@OneToMany(mappedBy="action")
-	public List<ActionProblem> getActionProblems() {
-		return this.actionProblems;
+	public List<ActionOrder> getActionOrders() {
+		return this.actionOrders;
 	}
 
-	public void setActionProblems(List<ActionProblem> actionProblems) {
-		this.actionProblems = actionProblems;
+	public void setActionOrders(List<ActionOrder> actionOrders) {
+		this.actionOrders = actionOrders;
 	}
 
-	public ActionProblem addActionProblem(ActionProblem actionProblem) {
-		getActionProblems().add(actionProblem);
-		actionProblem.setAction(this);
+	public ActionOrder addActionOrder(ActionOrder actionOrder) {
+		getActionOrders().add(actionOrder);
+		actionOrder.setAction(this);
 
-		return actionProblem;
+		return actionOrder;
 	}
 
-	public ActionProblem removeActionProblem(ActionProblem actionProblem) {
-		getActionProblems().remove(actionProblem);
-		actionProblem.setAction(null);
+	public ActionOrder removeActionOrder(ActionOrder actionOrder) {
+		getActionOrders().remove(actionOrder);
+		actionOrder.setAction(null);
 
-		return actionProblem;
+		return actionOrder;
 	}
 
 }

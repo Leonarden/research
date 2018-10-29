@@ -21,9 +21,9 @@ public class ObserverThreshold2ObserverThreshold implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
-	private WeightNorm weightNorm;
 	private ObserverThreshold observerThreshold1;
 	private ObserverThreshold observerThreshold2;
+	private WeightNorm weightNorm;
 
 	public ObserverThreshold2ObserverThreshold() {
 	}
@@ -91,21 +91,6 @@ public class ObserverThreshold2ObserverThreshold implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="observerthreshold2observerthresholdId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
-		})
-	public WeightNorm getWeightNorm() {
-		return this.weightNorm;
-	}
-
-	public void setWeightNorm(WeightNorm weightNorm) {
-		this.weightNorm = weightNorm;
-	}
-
-
 	//bi-directional many-to-one association to ObserverThreshold
 	@ManyToOne
 	@JoinColumn(name="observerthreshold2Id", nullable=false)
@@ -127,6 +112,21 @@ public class ObserverThreshold2ObserverThreshold implements Serializable {
 
 	public void setObserverThreshold2(ObserverThreshold observerThreshold2) {
 		this.observerThreshold2 = observerThreshold2;
+	}
+
+
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="observerthreshold2observerthresholdId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
 	}
 
 }

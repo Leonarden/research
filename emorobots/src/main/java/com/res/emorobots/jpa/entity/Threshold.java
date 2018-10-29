@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.math.BigInteger;
+import java.util.List;
 
 
 /**
@@ -15,57 +16,134 @@ import java.math.BigInteger;
 @NamedQuery(name="Threshold.findAll", query="SELECT t FROM Threshold t")
 public class Threshold implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private ThresholdPK id;
-	private float anger;
-	private float fear;
-	private float happy;
+	private String thresholdId;
+	private BigInteger candidateId;
+	private float candidatethreshold;
+	private String entityName;
+	private BigInteger entityNormId;
+	private float item0Id;
+	private float item1Id;
+	private float item2Id;
+	private float item3Id;
+	private float item4Id;
+	private float item5Id;
 	private Date lastAccess;
-	private float love;
 	private BigInteger numaccess;
-	private float peace;
-	private float sad;
+	private List<ObserverThreshold> observerThresholds;
 
 	public Threshold() {
 	}
 
 
-	@EmbeddedId
-	public ThresholdPK getId() {
-		return this.id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
+	public String getThresholdId() {
+		return this.thresholdId;
 	}
 
-	public void setId(ThresholdPK id) {
-		this.id = id;
-	}
-
-
-	@Column(nullable=false)
-	public float getAnger() {
-		return this.anger;
-	}
-
-	public void setAnger(float anger) {
-		this.anger = anger;
+	public void setThresholdId(String thresholdId) {
+		this.thresholdId = thresholdId;
 	}
 
 
 	@Column(nullable=false)
-	public float getFear() {
-		return this.fear;
+	public BigInteger getCandidateId() {
+		return this.candidateId;
 	}
 
-	public void setFear(float fear) {
-		this.fear = fear;
+	public void setCandidateId(BigInteger candidateId) {
+		this.candidateId = candidateId;
 	}
 
 
 	@Column(nullable=false)
-	public float getHappy() {
-		return this.happy;
+	public float getCandidatethreshold() {
+		return this.candidatethreshold;
 	}
 
-	public void setHappy(float happy) {
-		this.happy = happy;
+	public void setCandidatethreshold(float candidatethreshold) {
+		this.candidatethreshold = candidatethreshold;
+	}
+
+
+	@Column(nullable=false, length=80)
+	public String getEntityName() {
+		return this.entityName;
+	}
+
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+
+
+	@Column(nullable=false)
+	public BigInteger getEntityNormId() {
+		return this.entityNormId;
+	}
+
+	public void setEntityNormId(BigInteger entityNormId) {
+		this.entityNormId = entityNormId;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem0Id() {
+		return this.item0Id;
+	}
+
+	public void setItem0Id(float item0Id) {
+		this.item0Id = item0Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem1Id() {
+		return this.item1Id;
+	}
+
+	public void setItem1Id(float item1Id) {
+		this.item1Id = item1Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem2Id() {
+		return this.item2Id;
+	}
+
+	public void setItem2Id(float item2Id) {
+		this.item2Id = item2Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem3Id() {
+		return this.item3Id;
+	}
+
+	public void setItem3Id(float item3Id) {
+		this.item3Id = item3Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem4Id() {
+		return this.item4Id;
+	}
+
+	public void setItem4Id(float item4Id) {
+		this.item4Id = item4Id;
+	}
+
+
+	@Column(nullable=false)
+	public float getItem5Id() {
+		return this.item5Id;
+	}
+
+	public void setItem5Id(float item5Id) {
+		this.item5Id = item5Id;
 	}
 
 
@@ -81,16 +159,6 @@ public class Threshold implements Serializable {
 
 
 	@Column(nullable=false)
-	public float getLove() {
-		return this.love;
-	}
-
-	public void setLove(float love) {
-		this.love = love;
-	}
-
-
-	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
 	}
@@ -100,23 +168,28 @@ public class Threshold implements Serializable {
 	}
 
 
-	@Column(nullable=false)
-	public float getPeace() {
-		return this.peace;
+	//bi-directional many-to-one association to ObserverThreshold
+	@OneToMany(mappedBy="threshold")
+	public List<ObserverThreshold> getObserverThresholds() {
+		return this.observerThresholds;
 	}
 
-	public void setPeace(float peace) {
-		this.peace = peace;
+	public void setObserverThresholds(List<ObserverThreshold> observerThresholds) {
+		this.observerThresholds = observerThresholds;
 	}
 
+	public ObserverThreshold addObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().add(observerThreshold);
+		observerThreshold.setThreshold(this);
 
-	@Column(nullable=false)
-	public float getSad() {
-		return this.sad;
+		return observerThreshold;
 	}
 
-	public void setSad(float sad) {
-		this.sad = sad;
+	public ObserverThreshold removeObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().remove(observerThreshold);
+		observerThreshold.setThreshold(null);
+
+		return observerThreshold;
 	}
 
 }

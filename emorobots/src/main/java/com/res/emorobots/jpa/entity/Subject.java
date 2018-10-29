@@ -25,7 +25,7 @@ public class Subject implements Serializable {
 	private String text;
 	private List<Observer> observers;
 	private WeightNorm weightNorm;
-	private List<SubjectProblem> subjectProblems;
+	private List<SubjectOrder> subjectOrders;
 
 	public Subject() {
 	}
@@ -142,28 +142,28 @@ public class Subject implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to SubjectProblem
+	//bi-directional many-to-one association to SubjectOrder
 	@OneToMany(mappedBy="subject")
-	public List<SubjectProblem> getSubjectProblems() {
-		return this.subjectProblems;
+	public List<SubjectOrder> getSubjectOrders() {
+		return this.subjectOrders;
 	}
 
-	public void setSubjectProblems(List<SubjectProblem> subjectProblems) {
-		this.subjectProblems = subjectProblems;
+	public void setSubjectOrders(List<SubjectOrder> subjectOrders) {
+		this.subjectOrders = subjectOrders;
 	}
 
-	public SubjectProblem addSubjectProblem(SubjectProblem subjectProblem) {
-		getSubjectProblems().add(subjectProblem);
-		subjectProblem.setSubject(this);
+	public SubjectOrder addSubjectOrder(SubjectOrder subjectOrder) {
+		getSubjectOrders().add(subjectOrder);
+		subjectOrder.setSubject(this);
 
-		return subjectProblem;
+		return subjectOrder;
 	}
 
-	public SubjectProblem removeSubjectProblem(SubjectProblem subjectProblem) {
-		getSubjectProblems().remove(subjectProblem);
-		subjectProblem.setSubject(null);
+	public SubjectOrder removeSubjectOrder(SubjectOrder subjectOrder) {
+		getSubjectOrders().remove(subjectOrder);
+		subjectOrder.setSubject(null);
 
-		return subjectProblem;
+		return subjectOrder;
 	}
 
 }

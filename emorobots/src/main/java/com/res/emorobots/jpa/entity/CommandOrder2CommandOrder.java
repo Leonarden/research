@@ -7,37 +7,37 @@ import java.math.BigInteger;
 
 
 /**
- * The persistent class for the ObserverProblem2ObserverProblem database table.
+ * The persistent class for the CommandOrder2CommandOrder database table.
  * 
  */
 @Entity
-@Table(name="ObserverProblem2ObserverProblem")
-@NamedQuery(name="ObserverProblem2ObserverProblem.findAll", query="SELECT o FROM ObserverProblem2ObserverProblem o")
-public class ObserverProblem2ObserverProblem implements Serializable {
+@Table(name="CommandOrder2CommandOrder")
+@NamedQuery(name="CommandOrder2CommandOrder.findAll", query="SELECT c FROM CommandOrder2CommandOrder c")
+public class CommandOrder2CommandOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String observerproblem2observerproblemId;
+	private String commandorder2commandorderId;
 	private BigInteger candidateId;
 	private BigInteger candidateNormId;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
-	private ObserverProblem observerProblem1;
-	private ObserverProblem observerProblem2;
+	private CommandOrder commandOrder1;
+	private CommandOrder commandOrder2;
 	private WeightNorm weightNorm;
 
-	public ObserverProblem2ObserverProblem() {
+	public CommandOrder2CommandOrder() {
 	}
 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	public String getObserverproblem2observerproblemId() {
-		return this.observerproblem2observerproblemId;
+	public String getCommandorder2commandorderId() {
+		return this.commandorder2commandorderId;
 	}
 
-	public void setObserverproblem2observerproblemId(String observerproblem2observerproblemId) {
-		this.observerproblem2observerproblemId = observerproblem2observerproblemId;
+	public void setCommandorder2commandorderId(String commandorder2commandorderId) {
+		this.commandorder2commandorderId = commandorder2commandorderId;
 	}
 
 
@@ -91,35 +91,35 @@ public class ObserverProblem2ObserverProblem implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to ObserverProblem
+	//bi-directional many-to-one association to CommandOrder
 	@ManyToOne
-	@JoinColumn(name="observerproblem2Id", nullable=false)
-	public ObserverProblem getObserverProblem1() {
-		return this.observerProblem1;
+	@JoinColumn(name="commandorder2Id", nullable=false)
+	public CommandOrder getCommandOrder1() {
+		return this.commandOrder1;
 	}
 
-	public void setObserverProblem1(ObserverProblem observerProblem1) {
-		this.observerProblem1 = observerProblem1;
+	public void setCommandOrder1(CommandOrder commandOrder1) {
+		this.commandOrder1 = commandOrder1;
 	}
 
 
-	//bi-directional many-to-one association to ObserverProblem
+	//bi-directional many-to-one association to CommandOrder
 	@ManyToOne
-	@JoinColumn(name="observerproblemId", nullable=false)
-	public ObserverProblem getObserverProblem2() {
-		return this.observerProblem2;
+	@JoinColumn(name="commandorderId", nullable=false)
+	public CommandOrder getCommandOrder2() {
+		return this.commandOrder2;
 	}
 
-	public void setObserverProblem2(ObserverProblem observerProblem2) {
-		this.observerProblem2 = observerProblem2;
+	public void setCommandOrder2(CommandOrder commandOrder2) {
+		this.commandOrder2 = commandOrder2;
 	}
 
 
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="observerproblem2observerproblemId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		@JoinColumn(name="commandorder2commandorderId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
 		})
 	public WeightNorm getWeightNorm() {
 		return this.weightNorm;

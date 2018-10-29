@@ -2,7 +2,7 @@ package com.res.emorobots.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.List;
 
 
 /**
@@ -16,8 +16,10 @@ public class NormProbChainItem2 implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String probchainItemId;
 	private int anomaly;
+	private int indexinchain;
 	private float itemvalue;
-	private BigInteger next;
+	private NormProbChainItem2 normProbChainItem2;
+	private List<NormProbChainItem2> normProbChainItem2s;
 
 	public NormProbChainItem2() {
 	}
@@ -45,6 +47,15 @@ public class NormProbChainItem2 implements Serializable {
 	}
 
 
+	public int getIndexinchain() {
+		return this.indexinchain;
+	}
+
+	public void setIndexinchain(int indexinchain) {
+		this.indexinchain = indexinchain;
+	}
+
+
 	@Column(nullable=false)
 	public float getItemvalue() {
 		return this.itemvalue;
@@ -55,12 +66,40 @@ public class NormProbChainItem2 implements Serializable {
 	}
 
 
-	public BigInteger getNext() {
-		return this.next;
+	//bi-directional many-to-one association to NormProbChainItem2
+	@ManyToOne
+	@JoinColumn(name="nextId")
+	public NormProbChainItem2 getNormProbChainItem2() {
+		return this.normProbChainItem2;
 	}
 
-	public void setNext(BigInteger next) {
-		this.next = next;
+	public void setNormProbChainItem2(NormProbChainItem2 normProbChainItem2) {
+		this.normProbChainItem2 = normProbChainItem2;
+	}
+
+
+	//bi-directional many-to-one association to NormProbChainItem2
+	@OneToMany(mappedBy="normProbChainItem2")
+	public List<NormProbChainItem2> getNormProbChainItem2s() {
+		return this.normProbChainItem2s;
+	}
+
+	public void setNormProbChainItem2s(List<NormProbChainItem2> normProbChainItem2s) {
+		this.normProbChainItem2s = normProbChainItem2s;
+	}
+
+	public NormProbChainItem2 addNormProbChainItem2(NormProbChainItem2 normProbChainItem2) {
+		getNormProbChainItem2s().add(normProbChainItem2);
+		normProbChainItem2.setNormProbChainItem2(this);
+
+		return normProbChainItem2;
+	}
+
+	public NormProbChainItem2 removeNormProbChainItem2(NormProbChainItem2 normProbChainItem2) {
+		getNormProbChainItem2s().remove(normProbChainItem2);
+		normProbChainItem2.setNormProbChainItem2(null);
+
+		return normProbChainItem2;
 	}
 
 }

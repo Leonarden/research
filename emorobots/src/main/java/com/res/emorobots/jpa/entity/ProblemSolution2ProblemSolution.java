@@ -21,9 +21,9 @@ public class ProblemSolution2ProblemSolution implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
-	private WeightNorm weightNorm;
 	private ProblemSolution problemSolution1;
 	private ProblemSolution problemSolution2;
+	private WeightNorm weightNorm;
 
 	public ProblemSolution2ProblemSolution() {
 	}
@@ -91,21 +91,6 @@ public class ProblemSolution2ProblemSolution implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="problemsolution2problemsolutionId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
-		})
-	public WeightNorm getWeightNorm() {
-		return this.weightNorm;
-	}
-
-	public void setWeightNorm(WeightNorm weightNorm) {
-		this.weightNorm = weightNorm;
-	}
-
-
 	//bi-directional many-to-one association to ProblemSolution
 	@ManyToOne
 	@JoinColumn(name="problemsolution2Id", nullable=false)
@@ -127,6 +112,21 @@ public class ProblemSolution2ProblemSolution implements Serializable {
 
 	public void setProblemSolution2(ProblemSolution problemSolution2) {
 		this.problemSolution2 = problemSolution2;
+	}
+
+
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="problemsolution2problemsolutionId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
 	}
 
 }

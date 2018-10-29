@@ -25,7 +25,8 @@ public class Observer implements Serializable {
 	private List<Command> commands;
 	private Subject subject;
 	private WeightNorm weightNorm;
-	private List<ObserverProblem> observerProblems;
+	private List<ObserverOrder> observerOrders;
+	private List<ObserverThreshold> observerThresholds;
 
 	public Observer() {
 	}
@@ -145,28 +146,53 @@ public class Observer implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to ObserverProblem
+	//bi-directional many-to-one association to ObserverOrder
 	@OneToMany(mappedBy="observer")
-	public List<ObserverProblem> getObserverProblems() {
-		return this.observerProblems;
+	public List<ObserverOrder> getObserverOrders() {
+		return this.observerOrders;
 	}
 
-	public void setObserverProblems(List<ObserverProblem> observerProblems) {
-		this.observerProblems = observerProblems;
+	public void setObserverOrders(List<ObserverOrder> observerOrders) {
+		this.observerOrders = observerOrders;
 	}
 
-	public ObserverProblem addObserverProblem(ObserverProblem observerProblem) {
-		getObserverProblems().add(observerProblem);
-		observerProblem.setObserver(this);
+	public ObserverOrder addObserverOrder(ObserverOrder observerOrder) {
+		getObserverOrders().add(observerOrder);
+		observerOrder.setObserver(this);
 
-		return observerProblem;
+		return observerOrder;
 	}
 
-	public ObserverProblem removeObserverProblem(ObserverProblem observerProblem) {
-		getObserverProblems().remove(observerProblem);
-		observerProblem.setObserver(null);
+	public ObserverOrder removeObserverOrder(ObserverOrder observerOrder) {
+		getObserverOrders().remove(observerOrder);
+		observerOrder.setObserver(null);
 
-		return observerProblem;
+		return observerOrder;
+	}
+
+
+	//bi-directional many-to-one association to ObserverThreshold
+	@OneToMany(mappedBy="observer")
+	public List<ObserverThreshold> getObserverThresholds() {
+		return this.observerThresholds;
+	}
+
+	public void setObserverThresholds(List<ObserverThreshold> observerThresholds) {
+		this.observerThresholds = observerThresholds;
+	}
+
+	public ObserverThreshold addObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().add(observerThreshold);
+		observerThreshold.setObserver(this);
+
+		return observerThreshold;
+	}
+
+	public ObserverThreshold removeObserverThreshold(ObserverThreshold observerThreshold) {
+		getObserverThresholds().remove(observerThreshold);
+		observerThreshold.setObserver(null);
+
+		return observerThreshold;
 	}
 
 }

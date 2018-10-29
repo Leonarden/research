@@ -18,8 +18,10 @@ public class Synonym implements Serializable {
 	private String synonymId;
 	private BigInteger candidateId;
 	private BigInteger candidateNormId;
+	private String encoding;
 	private float frequency;
 	private int indexinchain;
+	private String lang;
 	private BigInteger nextsynId;
 	private BigInteger numaccess;
 	private String text;
@@ -62,6 +64,16 @@ public class Synonym implements Serializable {
 	}
 
 
+	@Column(length=10)
+	public String getEncoding() {
+		return this.encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+
 	@Column(nullable=false)
 	public float getFrequency() {
 		return this.frequency;
@@ -78,6 +90,16 @@ public class Synonym implements Serializable {
 
 	public void setIndexinchain(int indexinchain) {
 		this.indexinchain = indexinchain;
+	}
+
+
+	@Column(length=10)
+	public String getLang() {
+		return this.lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 
 

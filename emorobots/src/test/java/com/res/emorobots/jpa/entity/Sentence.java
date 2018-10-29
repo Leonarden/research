@@ -19,6 +19,8 @@ public class Sentence implements Serializable {
 	private String sentenceId;
 	private BigInteger candidateId;
 	private BigInteger candidateNormId;
+	private String encoding;
+	private String lang;
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
@@ -59,6 +61,26 @@ public class Sentence implements Serializable {
 
 	public void setCandidateNormId(BigInteger candidateNormId) {
 		this.candidateNormId = candidateNormId;
+	}
+
+
+	@Column(length=10)
+	public String getEncoding() {
+		return this.encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+
+	@Column(length=10)
+	public String getLang() {
+		return this.lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 
 
