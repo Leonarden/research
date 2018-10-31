@@ -1,11 +1,21 @@
 package com.res.emorobots.interpreter;
 
-public class Token<T1,T2> implements Interpretable<T2> {
+public class Token extends InterpretableItem<String> {
 
-	public T2 interpret() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+Interpreter<Context, InterpretableItem> interpreter;
+
+@Override
+public Interpreter<Context, InterpretableItem> getInterpreter(InterpretableItem iItem) {
+	// TODO Auto-generated method stub
+	return super.getInterpreter(iItem);
+}
+
+@Override
+public InterpretableItem interpret(Context context, long index) {
+	// TODO Auto-generated method stub
+	return super.interpret(context, index);
+}
+
 
 	
 	

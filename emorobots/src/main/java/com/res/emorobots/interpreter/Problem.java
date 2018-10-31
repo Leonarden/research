@@ -1,6 +1,8 @@
 package com.res.emorobots.interpreter;
 
-public class Problem<T extends Definition,T1 extends Solution> { //different problems must have concrete Defnintion and Solution Type
+public class Problem<T extends Definition,T1 extends Solution> {
+	
+	//different problems must have concrete Defnintion and Solution Type
 	
 	//!! Need to define more characteristics of a problem
 	Long id;

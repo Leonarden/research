@@ -1,37 +1,72 @@
 package com.res.emorobots.interpreter;
 
 import java.util.Collection;
+import java.util.Map;
 
-public class Sentences<T1,T2>  implements Interpretable<T2> {
+public class Sentences<T extends Map> extends InterpretableItem<String> {
 
-	T1 value;
-	T2 interpretation = null; 
-	Collection<Sentence<T1,T2>> sentences = null;
+	T sentences;
 
-	   public T1 getValue() {
-			return value;
-		}
-
-		public void setValue(T1 value) {
-			this.value = value;
-		}
-
-		public T2 getInterpretation() {
-			return interpretation;
-		}
-
-		public void setInterpretation(T2 interpretation) {
-			this.interpretation = interpretation;
-		}
-		
-	public T2 interpret() {
-		// TODO Auto-generated method stub
-		return null;
+	public T getSentences() {
+		return sentences;
 	}
 
-	   
-	   
-	   
+	public void setSentences(T sentences) {
+		this.sentences = sentences;
+	}
+
+	@Override
+	public Interpreter<Context, InterpretableItem> getInterpreter(InterpretableItem iItem) {
+		// TODO Auto-generated method stub
+		return super.getInterpreter(iItem);
+	}
+
+	@Override
+	public void setIntepreter(Interpreter<Context, InterpretableItem> i) {
+		// TODO Auto-generated method stub
+		super.setIntepreter(i);
+	}
+
+	@Override
+	public InterpretableItem interpret(Context context, long index) {
+		// TODO Auto-generated method stub
+		return super.interpret(context, index);
+	}
+
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return super.getValue();
+	}
+
+	@Override
+	public void setValue(String value) {
+		// TODO Auto-generated method stub
+		super.setValue(value);
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	
+	
+	
+	
+
 
 
 }
