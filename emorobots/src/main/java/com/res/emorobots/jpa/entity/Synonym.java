@@ -22,9 +22,10 @@ public class Synonym implements Serializable {
 	private float frequency;
 	private int indexinchain;
 	private String lang;
-	private BigInteger nextsynId;
 	private BigInteger numaccess;
 	private String text;
+	private Synonym synonym;
+	private List<Synonym> synonyms;
 	private WeightNorm weightNorm;
 	private List<Word> words;
 
@@ -103,15 +104,6 @@ public class Synonym implements Serializable {
 	}
 
 
-	public BigInteger getNextsynId() {
-		return this.nextsynId;
-	}
-
-	public void setNextsynId(BigInteger nextsynId) {
-		this.nextsynId = nextsynId;
-	}
-
-
 	@Column(nullable=false)
 	public BigInteger getNumaccess() {
 		return this.numaccess;
@@ -129,6 +121,43 @@ public class Synonym implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+
+	//bi-directional many-to-one association to Synonym
+	@ManyToOne
+	@JoinColumn(name="nextsynId")
+	public Synonym getSynonym() {
+		return this.synonym;
+	}
+
+	public void setSynonym(Synonym synonym) {
+		this.synonym = synonym;
+	}
+
+
+	//bi-directional many-to-one association to Synonym
+	@OneToMany(mappedBy="synonym")
+	public List<Synonym> getSynonyms() {
+		return this.synonyms;
+	}
+
+	public void setSynonyms(List<Synonym> synonyms) {
+		this.synonyms = synonyms;
+	}
+
+	public Synonym addSynonym(Synonym synonym) {
+		getSynonyms().add(synonym);
+		synonym.setSynonym(this);
+
+		return synonym;
+	}
+
+	public Synonym removeSynonym(Synonym synonym) {
+		getSynonyms().remove(synonym);
+		synonym.setSynonym(null);
+
+		return synonym;
 	}
 
 

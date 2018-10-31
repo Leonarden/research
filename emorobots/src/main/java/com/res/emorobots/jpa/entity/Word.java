@@ -102,7 +102,7 @@ public class Word implements Serializable {
 
 	//bi-directional many-to-one association to Synonym
 	@ManyToOne
-	@JoinColumn(name="synonymId", nullable=false)
+	@JoinColumn(name="synonymId")
 	public Synonym getSynonym() {
 		return this.synonym;
 	}

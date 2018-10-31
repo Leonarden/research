@@ -348,8 +348,11 @@ create table Synonym(
  indexinchain INT,
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
-CONSTRAINT WeightNorm_Synonym_WeightNorm FOREIGN KEY (synonymId,entityName)
-    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE
+CONSTRAINT WeightNorm_Synonym1_WeightNorm FOREIGN KEY (synonymId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE,
+    
+    CONSTRAINT syn1_Syn1_syn1 FOREIGN KEY (nextsynId)
+    REFERENCES Synonym(synonymId) 
 
     
 
@@ -361,20 +364,20 @@ drop table if exists  Word;
 ###123456789-TOKEN-1
 create table Word(
   wordId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   synonymId BIGINT UNSIGNED,
    text  Varchar(20),
    entityName Varchar(80) NOT NULL DEFAULT 'WORD',
    lang Varchar(10),
    encoding Varchar(10),
    numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
- synonymId BIGINT UNSIGNED NOT NULL,
  candidateId BIGINT NOT NULL default 0,
  candidateNormId BIGINT NOT NULL default 0,
 CONSTRAINT WeightNorm_Word_WeightNorm FOREIGN KEY (wordId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE,
-    
-    CONSTRAINT SYN_Word_SYN FOREIGN KEY (synonymId)
-    REFERENCES Synonym(synonymId)
-    
+       
+    CONSTRAINT syn1_word_syn1 FOREIGN KEY (synonymId)
+    REFERENCES Synonym(synonymId) 
+
 
 
 
