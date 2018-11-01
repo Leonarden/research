@@ -1,4 +1,4 @@
-package com.res.emorobots.action;
+package com.res.emorobots.activity.action;
 
 import java.util.HashMap;
 import java.util.Map;

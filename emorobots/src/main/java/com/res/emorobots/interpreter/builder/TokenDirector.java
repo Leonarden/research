@@ -3,9 +3,9 @@ package com.res.emorobots.interpreter.builder;
 import java.util.List;
 
 import com.res.emorobots.interpreter.InterpretableItem;
-import com.res.emorobots.interpreter.Token;
 
-public class TokenDirector<T> extends InterpretableItemDirector<List<String>, InterpretableItem<Token>> {
+
+public class TokenDirector<T,T1> extends InterpretableItemDirector<List<String>, InterpretableItem<T>> {
 
 	@Override
 	public void build() throws Exception {

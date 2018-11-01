@@ -13,10 +13,10 @@ import com.res.emorobots.interpreter.builder.TokenDirector;
 import com.res.emorobots.repository.SynonymRepository;
 
 
-public class TokenFlyweight<T> extends InterpretableItemFlyweight<String,Token> {
+public class TokenFlyweight extends InterpretableItemFlyweight<String,Token> {
 
 	CrudRepository crud;
-	T type;
+	
 	public TokenFlyweight() {
 		
 		try {
@@ -29,19 +29,21 @@ public class TokenFlyweight<T> extends InterpretableItemFlyweight<String,Token> 
 	}
 	
 	@Override
-	public Token getFlyweight(String key) throws Exception {
+	public Token getFlyweight(String key) {
 	
 		TokenDirector director = new TokenDirector();
-		
+	try {	
 		director.setParams(Arrays.asList(key));
 		 director.build();
 			if( type instanceof Word) {
 				
 				this.flyweight = (Token) director.getResult();
 			}
-	
+	}catch(Exception ex) {
+		ex.printStackTrace();
+	}
 		
-	
+	 return null;
 	
 	}
 

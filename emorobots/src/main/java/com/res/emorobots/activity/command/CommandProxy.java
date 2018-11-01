@@ -1,4 +1,4 @@
-package com.res.emorobots.command;
+package com.res.emorobots.activity.command;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;

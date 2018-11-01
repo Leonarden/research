@@ -4,6 +4,7 @@ import com.res.emorobots.jpa.entity.Sentence;
 import com.res.emorobots.jpa.entity.Symbol;
 import com.res.emorobots.jpa.entity.Word;
 
+
 public class InterpretableItemBuilderFactory {
 	
 	
@@ -13,11 +14,11 @@ public class InterpretableItemBuilderFactory {
 	
 		if("word".equals(type)) {
 			
-				builder = new TokenBuilder<Word>();
+				builder = new TokenBuilder<com.res.emorobots.interpreter.Word,Word>();
 			
 		}if("symbol".equals(type)) {
 	
-			builder = new TokenBuilder<Symbol>();
+			builder = new TokenBuilder<com.res.emorobots.interpreter.Symbol,Symbol>();
 			
 			
 		}
@@ -25,7 +26,7 @@ public class InterpretableItemBuilderFactory {
 		
 		if("sentence".equals(type)) {
 		
-			builder = new TokenBuilder<Sentence>();
+			builder = new TokenBuilder<com.res.emorobots.interpreter.Sentence,Sentence>();
 			
 			
 		}
