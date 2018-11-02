@@ -22,10 +22,11 @@ public class Definition implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
-	private Problem problem;
 	private WeightNorm weightNorm;
+	private Problem problem;
 	private List<Definition2Definition> definition2definitions1;
 	private List<Definition2Definition> definition2definitions2;
+	private List<DefinitionInterpretation> definitionInterpretations;
 	private List<ProblemDefinition> problemDefinitions;
 
 	public Definition() {
@@ -33,7 +34,7 @@ public class Definition implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getDefinitionId() {
 		return this.definitionId;
@@ -94,18 +95,6 @@ public class Definition implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Problem
-	@ManyToOne
-	@JoinColumn(name="problemId", nullable=false)
-	public Problem getProblem() {
-		return this.problem;
-	}
-
-	public void setProblem(Problem problem) {
-		this.problem = problem;
-	}
-
-
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -118,6 +107,18 @@ public class Definition implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to Problem
+	@ManyToOne
+	@JoinColumn(name="problemId", nullable=false)
+	public Problem getProblem() {
+		return this.problem;
+	}
+
+	public void setProblem(Problem problem) {
+		this.problem = problem;
 	}
 
 
@@ -168,6 +169,31 @@ public class Definition implements Serializable {
 		definition2definitions2.setDefinition2(null);
 
 		return definition2definitions2;
+	}
+
+
+	//bi-directional many-to-one association to DefinitionInterpretation
+	@OneToMany(mappedBy="definition")
+	public List<DefinitionInterpretation> getDefinitionInterpretations() {
+		return this.definitionInterpretations;
+	}
+
+	public void setDefinitionInterpretations(List<DefinitionInterpretation> definitionInterpretations) {
+		this.definitionInterpretations = definitionInterpretations;
+	}
+
+	public DefinitionInterpretation addDefinitionInterpretation(DefinitionInterpretation definitionInterpretation) {
+		getDefinitionInterpretations().add(definitionInterpretation);
+		definitionInterpretation.setDefinition(this);
+
+		return definitionInterpretation;
+	}
+
+	public DefinitionInterpretation removeDefinitionInterpretation(DefinitionInterpretation definitionInterpretation) {
+		getDefinitionInterpretations().remove(definitionInterpretation);
+		definitionInterpretation.setDefinition(null);
+
+		return definitionInterpretation;
 	}
 
 

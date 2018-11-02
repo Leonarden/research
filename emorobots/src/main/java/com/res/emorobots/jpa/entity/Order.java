@@ -32,8 +32,8 @@ public class Order implements Serializable {
 	private List<CommandOrder> commandOrders;
 	private List<ContextOrder> contextOrders;
 	private List<ObserverOrder> observerOrders;
-	private OrderType orderType;
 	private WeightNorm weightNorm;
+	private OrderType orderType;
 	private List<SubjectOrder> subjectOrders;
 
 	public Order() {
@@ -41,7 +41,7 @@ public class Order implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getOrderId() {
 		return this.orderId;
@@ -252,18 +252,6 @@ public class Order implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to OrderType
-	@ManyToOne
-	@JoinColumn(name="ordertypeId", nullable=false)
-	public OrderType getOrderType() {
-		return this.orderType;
-	}
-
-	public void setOrderType(OrderType orderType) {
-		this.orderType = orderType;
-	}
-
-
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -276,6 +264,18 @@ public class Order implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to OrderType
+	@ManyToOne
+	@JoinColumn(name="ordertypeId", nullable=false)
+	public OrderType getOrderType() {
+		return this.orderType;
+	}
+
+	public void setOrderType(OrderType orderType) {
+		this.orderType = orderType;
 	}
 
 

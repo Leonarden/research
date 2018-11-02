@@ -22,8 +22,8 @@ public class Action implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
-	private Command command;
 	private WeightNorm weightNorm;
+	private Command command;
 	private List<ActionOrder> actionOrders;
 
 	public Action() {
@@ -31,7 +31,7 @@ public class Action implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getActionId() {
 		return this.actionId;
@@ -92,18 +92,6 @@ public class Action implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Command
-	@ManyToOne
-	@JoinColumn(name="commandId", nullable=false)
-	public Command getCommand() {
-		return this.command;
-	}
-
-	public void setCommand(Command command) {
-		this.command = command;
-	}
-
-
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -116,6 +104,18 @@ public class Action implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to Command
+	@ManyToOne
+	@JoinColumn(name="commandId", nullable=false)
+	public Command getCommand() {
+		return this.command;
+	}
+
+	public void setCommand(Command command) {
+		this.command = command;
 	}
 
 

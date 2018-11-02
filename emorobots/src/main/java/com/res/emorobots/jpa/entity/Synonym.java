@@ -24,9 +24,9 @@ public class Synonym implements Serializable {
 	private String lang;
 	private BigInteger numaccess;
 	private String text;
+	private WeightNorm weightNorm;
 	private Synonym synonym;
 	private List<Synonym> synonyms;
-	private WeightNorm weightNorm;
 	private List<Word> words;
 
 	public Synonym() {
@@ -34,7 +34,7 @@ public class Synonym implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getSynonymId() {
 		return this.synonymId;
@@ -124,6 +124,21 @@ public class Synonym implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="synonymId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
+	}
+
+
 	//bi-directional many-to-one association to Synonym
 	@ManyToOne
 	@JoinColumn(name="nextsynId")
@@ -158,21 +173,6 @@ public class Synonym implements Serializable {
 		synonym.setSynonym(null);
 
 		return synonym;
-	}
-
-
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="synonymId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
-		})
-	public WeightNorm getWeightNorm() {
-		return this.weightNorm;
-	}
-
-	public void setWeightNorm(WeightNorm weightNorm) {
-		this.weightNorm = weightNorm;
 	}
 
 

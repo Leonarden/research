@@ -3,6 +3,7 @@ package com.res.emorobots.jpa.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.List;
 
 
 /**
@@ -21,15 +22,16 @@ public class Word implements Serializable {
 	private String lang;
 	private BigInteger numaccess;
 	private String text;
-	private Synonym synonym;
 	private WeightNorm weightNorm;
+	private Synonym synonym;
+	private List<WordSentence> wordSentences;
 
 	public Word() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getWordId() {
 		return this.wordId;
@@ -100,18 +102,6 @@ public class Word implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Synonym
-	@ManyToOne
-	@JoinColumn(name="synonymId", nullable=false)
-	public Synonym getSynonym() {
-		return this.synonym;
-	}
-
-	public void setSynonym(Synonym synonym) {
-		this.synonym = synonym;
-	}
-
-
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -124,6 +114,43 @@ public class Word implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to Synonym
+	@ManyToOne
+	@JoinColumn(name="synonymId")
+	public Synonym getSynonym() {
+		return this.synonym;
+	}
+
+	public void setSynonym(Synonym synonym) {
+		this.synonym = synonym;
+	}
+
+
+	//bi-directional many-to-one association to WordSentence
+	@OneToMany(mappedBy="word")
+	public List<WordSentence> getWordSentences() {
+		return this.wordSentences;
+	}
+
+	public void setWordSentences(List<WordSentence> wordSentences) {
+		this.wordSentences = wordSentences;
+	}
+
+	public WordSentence addWordSentence(WordSentence wordSentence) {
+		getWordSentences().add(wordSentence);
+		wordSentence.setWord(this);
+
+		return wordSentence;
+	}
+
+	public WordSentence removeWordSentence(WordSentence wordSentence) {
+		getWordSentences().remove(wordSentence);
+		wordSentence.setWord(null);
+
+		return wordSentence;
 	}
 
 }

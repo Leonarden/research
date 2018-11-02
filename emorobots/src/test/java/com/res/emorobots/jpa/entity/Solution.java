@@ -23,17 +23,18 @@ public class Solution implements Serializable {
 	private BigInteger numaccess;
 	private String text;
 	private List<ProblemSolution> problemSolutions;
-	private Problem problem;
 	private WeightNorm weightNorm;
+	private Problem problem;
 	private List<Solution2Solution> solution2solutions1;
 	private List<Solution2Solution> solution2solutions2;
+	private List<SolutionInterpretation> solutionInterpretations;
 
 	public Solution() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getSolutionId() {
 		return this.solutionId;
@@ -119,18 +120,6 @@ public class Solution implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Problem
-	@ManyToOne
-	@JoinColumn(name="problemId", nullable=false)
-	public Problem getProblem() {
-		return this.problem;
-	}
-
-	public void setProblem(Problem problem) {
-		this.problem = problem;
-	}
-
-
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -143,6 +132,18 @@ public class Solution implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to Problem
+	@ManyToOne
+	@JoinColumn(name="problemId", nullable=false)
+	public Problem getProblem() {
+		return this.problem;
+	}
+
+	public void setProblem(Problem problem) {
+		this.problem = problem;
 	}
 
 
@@ -193,6 +194,31 @@ public class Solution implements Serializable {
 		solution2solutions2.setSolution2(null);
 
 		return solution2solutions2;
+	}
+
+
+	//bi-directional many-to-one association to SolutionInterpretation
+	@OneToMany(mappedBy="solution")
+	public List<SolutionInterpretation> getSolutionInterpretations() {
+		return this.solutionInterpretations;
+	}
+
+	public void setSolutionInterpretations(List<SolutionInterpretation> solutionInterpretations) {
+		this.solutionInterpretations = solutionInterpretations;
+	}
+
+	public SolutionInterpretation addSolutionInterpretation(SolutionInterpretation solutionInterpretation) {
+		getSolutionInterpretations().add(solutionInterpretation);
+		solutionInterpretation.setSolution(this);
+
+		return solutionInterpretation;
+	}
+
+	public SolutionInterpretation removeSolutionInterpretation(SolutionInterpretation solutionInterpretation) {
+		getSolutionInterpretations().remove(solutionInterpretation);
+		solutionInterpretation.setSolution(null);
+
+		return solutionInterpretation;
 	}
 
 }

@@ -26,7 +26,7 @@ public class ProbChainItem5 implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getProbchainItemId() {
 		return this.probchainItemId;

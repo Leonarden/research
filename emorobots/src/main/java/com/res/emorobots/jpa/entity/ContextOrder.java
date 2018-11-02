@@ -27,16 +27,16 @@ public class ContextOrder implements Serializable {
 	private String status;
 	private Timestamp telapsed;
 	private String text;
+	private WeightNorm weightNorm;
 	private Context context;
 	private Order order;
-	private WeightNorm weightNorm;
 
 	public ContextOrder() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getContextorderId() {
 		return this.contextorderId;
@@ -146,6 +146,21 @@ public class ContextOrder implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="contextorderId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
+	}
+
+
 	//bi-directional many-to-one association to Context
 	@ManyToOne
 	@JoinColumn(name="contextId")
@@ -167,21 +182,6 @@ public class ContextOrder implements Serializable {
 
 	public void setOrder(Order order) {
 		this.order = order;
-	}
-
-
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="contextorderId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
-		})
-	public WeightNorm getWeightNorm() {
-		return this.weightNorm;
-	}
-
-	public void setWeightNorm(WeightNorm weightNorm) {
-		this.weightNorm = weightNorm;
 	}
 
 }

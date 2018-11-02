@@ -3,6 +3,7 @@
   <groupId>com.res</groupId>
   <artifactId>emorobots</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
 <!-- https://mvnrepository.com/artifact/junit/junit -->
   
     <packaging>jar</packaging>
@@ -35,6 +36,14 @@
     <version>4.12</version>
     <scope>test</scope>
 </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+            <scope>runtime</scope>
+        </dependency>
+        
         
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -78,16 +87,54 @@
             <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-	<dependency>
-	
+
+
 	<!-- perf measure -->
+
+	<dependency>	
     <groupId>org.picocontainer</groupId>
     <artifactId>picocontainer</artifactId>
     <version>2.15</version>
 	</dependency>
 
 	<!-- spring -->
-     <!-- streams serialization -->
+	        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.2</version>
+            <scope>runtime</scope>
+        </dependency>
+     <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>${spring.framework.version}</version>
+       <scope>compile</scope>
+        </dependency>
+    <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>${spring.framework.version}</version>
+       <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+   <dependency> 
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+            <version>${spring.framework.version}</version>
+            <scope>compile</scope>
+        </dependency>
+	
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
@@ -95,8 +142,7 @@
             <scope>compile</scope>
         </dependency>
         
-<!-- Persistence -->
-         
+
 
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -110,6 +156,9 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+<!-- Persistence -->
+         
         
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -133,13 +182,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
-            <scope>runtime</scope>
-        </dependency>
-        
         
         <dependency>
             <groupId>org.hibernate</groupId>

@@ -21,16 +21,16 @@ public class Definition2Definition implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
+	private WeightNorm weightNorm;
 	private Definition definition1;
 	private Definition definition2;
-	private WeightNorm weightNorm;
 
 	public Definition2Definition() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getDefinition2definitionId() {
 		return this.definition2definitionId;
@@ -91,6 +91,21 @@ public class Definition2Definition implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="definition2definitionId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
+	}
+
+
 	//bi-directional many-to-one association to Definition
 	@ManyToOne
 	@JoinColumn(name="definition2Id", nullable=false)
@@ -112,21 +127,6 @@ public class Definition2Definition implements Serializable {
 
 	public void setDefinition2(Definition definition2) {
 		this.definition2 = definition2;
-	}
-
-
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="definition2definitionId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
-		})
-	public WeightNorm getWeightNorm() {
-		return this.weightNorm;
-	}
-
-	public void setWeightNorm(WeightNorm weightNorm) {
-		this.weightNorm = weightNorm;
 	}
 
 }

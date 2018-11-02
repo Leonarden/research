@@ -23,8 +23,8 @@ public class Observer implements Serializable {
 	private BigInteger numaccess;
 	private String text;
 	private List<Command> commands;
-	private Subject subject;
 	private WeightNorm weightNorm;
+	private Subject subject;
 	private List<ObserverOrder> observerOrders;
 	private List<ObserverThreshold> observerThresholds;
 
@@ -33,7 +33,7 @@ public class Observer implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getObserverId() {
 		return this.observerId;
@@ -119,18 +119,6 @@ public class Observer implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Subject
-	@ManyToOne
-	@JoinColumn(name="subjectId", nullable=false)
-	public Subject getSubject() {
-		return this.subject;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
-	}
-
-
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -143,6 +131,18 @@ public class Observer implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to Subject
+	@ManyToOne
+	@JoinColumn(name="subjectId", nullable=false)
+	public Subject getSubject() {
+		return this.subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 
 

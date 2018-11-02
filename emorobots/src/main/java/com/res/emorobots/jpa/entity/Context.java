@@ -23,13 +23,13 @@ public class Context implements Serializable {
 	private Timestamp ended;
 	private Date lastaccess;
 	private BigInteger numaccess;
+	private BigInteger ownerId;
 	private String ownerName;
 	private Timestamp started;
 	private String status;
 	private Timestamp telapsed;
 	private String text;
-	private WeightNorm weightNorm1;
-	private WeightNorm weightNorm2;
+	private WeightNorm weightNorm;
 	private List<ContextOrder> contextOrders;
 
 	public Context() {
@@ -37,7 +37,7 @@ public class Context implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getContextId() {
 		return this.contextId;
@@ -98,6 +98,15 @@ public class Context implements Serializable {
 	}
 
 
+	public BigInteger getOwnerId() {
+		return this.ownerId;
+	}
+
+	public void setOwnerId(BigInteger ownerId) {
+		this.ownerId = ownerId;
+	}
+
+
 	@Column(length=80)
 	public String getOwnerName() {
 		return this.ownerName;
@@ -151,30 +160,15 @@ public class Context implements Serializable {
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="ownerId", referencedColumnName="entityNormId")
-		})
-	public WeightNorm getWeightNorm1() {
-		return this.weightNorm1;
-	}
-
-	public void setWeightNorm1(WeightNorm weightNorm1) {
-		this.weightNorm1 = weightNorm1;
-	}
-
-
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
 		@JoinColumn(name="contextId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false),
 		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false)
 		})
-	public WeightNorm getWeightNorm2() {
-		return this.weightNorm2;
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
 	}
 
-	public void setWeightNorm2(WeightNorm weightNorm2) {
-		this.weightNorm2 = weightNorm2;
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
 	}
 
 

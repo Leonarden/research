@@ -27,13 +27,15 @@ public class Sentence implements Serializable {
 	private WeightNorm weightNorm;
 	private List<Sentence2Sentence> sentence2sentences1;
 	private List<Sentence2Sentence> sentence2sentences2;
+	private List<SymbolSentence> symbolSentences;
+	private List<WordSentence> wordSentences;
 
 	public Sentence() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getSentenceId() {
 		return this.sentenceId;
@@ -176,6 +178,56 @@ public class Sentence implements Serializable {
 		sentence2sentences2.setSentence2(null);
 
 		return sentence2sentences2;
+	}
+
+
+	//bi-directional many-to-one association to SymbolSentence
+	@OneToMany(mappedBy="sentence")
+	public List<SymbolSentence> getSymbolSentences() {
+		return this.symbolSentences;
+	}
+
+	public void setSymbolSentences(List<SymbolSentence> symbolSentences) {
+		this.symbolSentences = symbolSentences;
+	}
+
+	public SymbolSentence addSymbolSentence(SymbolSentence symbolSentence) {
+		getSymbolSentences().add(symbolSentence);
+		symbolSentence.setSentence(this);
+
+		return symbolSentence;
+	}
+
+	public SymbolSentence removeSymbolSentence(SymbolSentence symbolSentence) {
+		getSymbolSentences().remove(symbolSentence);
+		symbolSentence.setSentence(null);
+
+		return symbolSentence;
+	}
+
+
+	//bi-directional many-to-one association to WordSentence
+	@OneToMany(mappedBy="sentence")
+	public List<WordSentence> getWordSentences() {
+		return this.wordSentences;
+	}
+
+	public void setWordSentences(List<WordSentence> wordSentences) {
+		this.wordSentences = wordSentences;
+	}
+
+	public WordSentence addWordSentence(WordSentence wordSentence) {
+		getWordSentences().add(wordSentence);
+		wordSentence.setSentence(this);
+
+		return wordSentence;
+	}
+
+	public WordSentence removeWordSentence(WordSentence wordSentence) {
+		getWordSentences().remove(wordSentence);
+		wordSentence.setSentence(null);
+
+		return wordSentence;
 	}
 
 }

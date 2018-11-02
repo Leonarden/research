@@ -22,9 +22,9 @@ public class ObserverThreshold implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
+	private WeightNorm weightNorm;
 	private Observer observer;
 	private Threshold threshold;
-	private WeightNorm weightNorm;
 	private List<ObserverThreshold2ObserverThreshold> observerThreshold2observerThresholds1;
 	private List<ObserverThreshold2ObserverThreshold> observerThreshold2observerThresholds2;
 
@@ -33,7 +33,7 @@ public class ObserverThreshold implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getObserverthresholdId() {
 		return this.observerthresholdId;
@@ -94,6 +94,21 @@ public class ObserverThreshold implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="observerthresholdId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
+	}
+
+
 	//bi-directional many-to-one association to Observer
 	@ManyToOne
 	@JoinColumn(name="observerId", nullable=false)
@@ -115,21 +130,6 @@ public class ObserverThreshold implements Serializable {
 
 	public void setThreshold(Threshold threshold) {
 		this.threshold = threshold;
-	}
-
-
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="observerthresholdId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
-		})
-	public WeightNorm getWeightNorm() {
-		return this.weightNorm;
-	}
-
-	public void setWeightNorm(WeightNorm weightNorm) {
-		this.weightNorm = weightNorm;
 	}
 
 

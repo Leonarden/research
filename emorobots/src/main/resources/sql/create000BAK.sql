@@ -224,10 +224,6 @@ create table ProbChainItem5(
  
 
  
-    /* in computation we might encounter many calculations of the same entity some values will be deprecated candidate= -1, some not "used" candidate = 0, some saved until better option: priority->chosen the higest value */
-    /* cleanning process delete where candidate = -1 */
- /* candidatethreshold: we are gonna work with probabilities Float, and threshold will depend of the problem, in this case delegated to entities */
- /* the question is if for performance would be better to create its own table:YES     but in future  */
  
  
 ##123456789-TOKEN-12
@@ -376,8 +372,7 @@ CONSTRAINT WeightNorm_Word_WeightNorm FOREIGN KEY (wordId,entityName)
     REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE,
        
     CONSTRAINT syn1_word_syn1 FOREIGN KEY (synonymId)
-    REFERENCES Synonym(synonymId) 
-
+    REFERENCES Synonym(synonymId)
 
 
 
@@ -427,6 +422,69 @@ CONSTRAINT WeightNorm_SE_WeightNorm FOREIGN KEY (sentenceId,entityName)
 
 
 );
+
+
+###123456789-TOKEN-0
+drop table if exists  WordSentence;
+###123456789-TOKEN-1
+create table WordSentence(
+  wordsentenceId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  wordId BIGINT UNSIGNED,
+  sentenceId BIGINT UNSIGNED,
+   text  Varchar(20),
+   lang Varchar(10),
+   encoding Varchar(10),
+  entityName Varchar(80) NOT NULL DEFAULT 'WORDSENTENCE',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+CONSTRAINT WeightNorm_WOSE_WeightNorm FOREIGN KEY (wordsentenceId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE,
+
+     CONSTRAINT sen_wsen_sen FOREIGN KEY (sentenceId)
+    REFERENCES Sentence(sentenceId), 
+
+
+     CONSTRAINT wo_wsen_wo FOREIGN KEY (wordId)
+    REFERENCES Word(wordId) 
+    
+
+);
+
+
+###123456789-TOKEN-0
+drop table if exists  SymbolSentence;
+###123456789-TOKEN-1
+create table SymbolSentence(
+  symbolsentenceId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  symbolId BIGINT UNSIGNED,
+  sentenceId BIGINT UNSIGNED,
+   text  Varchar(20),
+   lang Varchar(10),
+   encoding Varchar(10),
+  entityName Varchar(80) NOT NULL DEFAULT 'SYMBOLSENTENCE',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+
+ candidateId BIGINT NOT NULL default 0,
+ candidateNormId BIGINT NOT NULL default 0,
+CONSTRAINT WeightNorm_symbSE_WeightNorm FOREIGN KEY (symbolsentenceId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName) ON DELETE CASCADE,
+
+     CONSTRAINT sen_sysen_sen FOREIGN KEY (sentenceId)
+    REFERENCES Sentence(sentenceId), 
+
+
+     CONSTRAINT sym_sysen_sym FOREIGN KEY (symbolId)
+    REFERENCES Symbol(symbolId) 
+    
+
+);
+
+    
+    
 
 ###123456789-TOKEN-0
 drop table if exists  Sentence2Sentence;
@@ -501,6 +559,31 @@ CONSTRAINT WeightNorm_def_WeightNorm FOREIGN KEY (definitionId,entityName)
 
 );
 
+
+###123456789-TOKEN-0
+drop table if exists  DefinitionInterpretation;
+###123456789-TOKEN-1
+create table DefinitionInterpretation(
+  
+  definitioninterpretationId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   definitionId BIGINT UNSIGNED NOT NULL, 
+  candidateId BIGINT NOT NULL default 0,     
+  candidatethreshold FLOAT NOT NULL DEFAULT 0, /* this is a kind of "reverse" */
+  content  Varchar(4096),
+  entityName Varchar(80) NOT NULL DEFAULT 'DefinitionInterpretation',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+
+CONSTRAINT WeightNorm_defint_WeightNorm FOREIGN KEY (definitioninterpretationId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
+ CONSTRAINT dein_def_dein FOREIGN KEY (definitionId)
+    REFERENCES Definition(definitionId) 
+
+
+);
+
+
+
 ###123456789-TOKEN-0
 drop table if exists  Solution;
 ###123456789-TOKEN-1
@@ -522,6 +605,32 @@ CONSTRAINT WeightNorm_sol_WeightNorm FOREIGN KEY (solutionId,entityName)
     REFERENCES Problem(problemId) 
 
 );
+
+
+###123456789-TOKEN-0
+drop table if exists  SolutionInterpretation;
+###123456789-TOKEN-1
+create table SolutionInterpretation(
+  
+  solutioninterpretationId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   solutionId BIGINT UNSIGNED NOT NULL, 
+  candidateId BIGINT NOT NULL default 0,     
+  candidatethreshold FLOAT NOT NULL DEFAULT 0, /* this is a kind of "reverse" */
+  content  Varchar(4096),
+  entityName Varchar(80) NOT NULL DEFAULT 'SolutionInterpretation',   
+   numaccess  BIGINT UNSIGNED NOT NULL DEFAULT 0,
+lastaccess Datetime,
+
+CONSTRAINT WeightNorm_solI_WeightNorm FOREIGN KEY (solutioninterpretationId,entityName)
+    REFERENCES WeightNorm(entityNormId,entityName), 
+ CONSTRAINT soin_so_soin FOREIGN KEY (solutionId)
+    REFERENCES Solution(solutionId) ON DELETE CASCADE
+
+
+);
+
+
+
 
 
 ###123456789-TOKEN-10

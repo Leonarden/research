@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.math.BigInteger;
+import java.util.List;
 
 
 /**
@@ -24,13 +25,14 @@ public class Symbol implements Serializable {
 	private BigInteger numaccess;
 	private String text;
 	private WeightNorm weightNorm;
+	private List<SymbolSentence> symbolSentences;
 
 	public Symbol() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getSymbolId() {
 		return this.symbolId;
@@ -123,6 +125,31 @@ public class Symbol implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to SymbolSentence
+	@OneToMany(mappedBy="symbol")
+	public List<SymbolSentence> getSymbolSentences() {
+		return this.symbolSentences;
+	}
+
+	public void setSymbolSentences(List<SymbolSentence> symbolSentences) {
+		this.symbolSentences = symbolSentences;
+	}
+
+	public SymbolSentence addSymbolSentence(SymbolSentence symbolSentence) {
+		getSymbolSentences().add(symbolSentence);
+		symbolSentence.setSymbol(this);
+
+		return symbolSentence;
+	}
+
+	public SymbolSentence removeSymbolSentence(SymbolSentence symbolSentence) {
+		getSymbolSentences().remove(symbolSentence);
+		symbolSentence.setSymbol(null);
+
+		return symbolSentence;
 	}
 
 }

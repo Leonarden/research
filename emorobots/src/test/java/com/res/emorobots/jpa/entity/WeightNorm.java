@@ -33,10 +33,11 @@ public class WeightNorm implements Serializable {
 	private List<Command> commands;
 	private List<CommandOrder> commandOrders;
 	private List<CommandOrder2CommandOrder> commandOrder2commandOrders;
-	private List<Context> contexts1;
-	private List<Context> contexts2;
+	private List<Context> contexts;
+	private List<ContextOrder> contextOrders;
 	private List<Definition> definitions;
 	private List<Definition2Definition> definition2definitions;
+	private List<DefinitionInterpretation> definitionInterpretations;
 	private List<Observer> observers;
 	private List<ObserverOrder> observerOrders;
 	private List<ObserverOrder2ObserverOrder> observerOrder2observerOrders;
@@ -54,13 +55,15 @@ public class WeightNorm implements Serializable {
 	private List<Sentence2Sentence> sentence2sentences;
 	private List<Solution> solutions;
 	private List<Solution2Solution> solution2solutions;
+	private List<SolutionInterpretation> solutionInterpretations;
 	private List<Subject> subjects;
 	private List<SubjectOrder> subjectOrders;
 	private List<SubjectOrder2SubjectOrder> subjectOrder2subjectOrders;
 	private List<Symbol> symbols;
+	private List<SymbolSentence> symbolSentences;
 	private List<Synonym> synonyms;
 	private List<Word> words;
-	private List<ContextOrder> contextOrders;
+	private List<WordSentence> wordSentences;
 
 	public WeightNorm() {
 	}
@@ -328,52 +331,52 @@ public class WeightNorm implements Serializable {
 
 
 	//bi-directional many-to-one association to Context
-	@OneToMany(mappedBy="weightNorm1")
-	public List<Context> getContexts1() {
-		return this.contexts1;
+	@OneToMany(mappedBy="weightNorm")
+	public List<Context> getContexts() {
+		return this.contexts;
 	}
 
-	public void setContexts1(List<Context> contexts1) {
-		this.contexts1 = contexts1;
+	public void setContexts(List<Context> contexts) {
+		this.contexts = contexts;
 	}
 
-	public Context addContexts1(Context contexts1) {
-		getContexts1().add(contexts1);
-		contexts1.setWeightNorm1(this);
+	public Context addContext(Context context) {
+		getContexts().add(context);
+		context.setWeightNorm(this);
 
-		return contexts1;
+		return context;
 	}
 
-	public Context removeContexts1(Context contexts1) {
-		getContexts1().remove(contexts1);
-		contexts1.setWeightNorm1(null);
+	public Context removeContext(Context context) {
+		getContexts().remove(context);
+		context.setWeightNorm(null);
 
-		return contexts1;
+		return context;
 	}
 
 
-	//bi-directional many-to-one association to Context
-	@OneToMany(mappedBy="weightNorm2")
-	public List<Context> getContexts2() {
-		return this.contexts2;
+	//bi-directional many-to-one association to ContextOrder
+	@OneToMany(mappedBy="weightNorm")
+	public List<ContextOrder> getContextOrders() {
+		return this.contextOrders;
 	}
 
-	public void setContexts2(List<Context> contexts2) {
-		this.contexts2 = contexts2;
+	public void setContextOrders(List<ContextOrder> contextOrders) {
+		this.contextOrders = contextOrders;
 	}
 
-	public Context addContexts2(Context contexts2) {
-		getContexts2().add(contexts2);
-		contexts2.setWeightNorm2(this);
+	public ContextOrder addContextOrder(ContextOrder contextOrder) {
+		getContextOrders().add(contextOrder);
+		contextOrder.setWeightNorm(this);
 
-		return contexts2;
+		return contextOrder;
 	}
 
-	public Context removeContexts2(Context contexts2) {
-		getContexts2().remove(contexts2);
-		contexts2.setWeightNorm2(null);
+	public ContextOrder removeContextOrder(ContextOrder contextOrder) {
+		getContextOrders().remove(contextOrder);
+		contextOrder.setWeightNorm(null);
 
-		return contexts2;
+		return contextOrder;
 	}
 
 
@@ -424,6 +427,31 @@ public class WeightNorm implements Serializable {
 		definition2definition.setWeightNorm(null);
 
 		return definition2definition;
+	}
+
+
+	//bi-directional many-to-one association to DefinitionInterpretation
+	@OneToMany(mappedBy="weightNorm")
+	public List<DefinitionInterpretation> getDefinitionInterpretations() {
+		return this.definitionInterpretations;
+	}
+
+	public void setDefinitionInterpretations(List<DefinitionInterpretation> definitionInterpretations) {
+		this.definitionInterpretations = definitionInterpretations;
+	}
+
+	public DefinitionInterpretation addDefinitionInterpretation(DefinitionInterpretation definitionInterpretation) {
+		getDefinitionInterpretations().add(definitionInterpretation);
+		definitionInterpretation.setWeightNorm(this);
+
+		return definitionInterpretation;
+	}
+
+	public DefinitionInterpretation removeDefinitionInterpretation(DefinitionInterpretation definitionInterpretation) {
+		getDefinitionInterpretations().remove(definitionInterpretation);
+		definitionInterpretation.setWeightNorm(null);
+
+		return definitionInterpretation;
 	}
 
 
@@ -852,6 +880,31 @@ public class WeightNorm implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to SolutionInterpretation
+	@OneToMany(mappedBy="weightNorm")
+	public List<SolutionInterpretation> getSolutionInterpretations() {
+		return this.solutionInterpretations;
+	}
+
+	public void setSolutionInterpretations(List<SolutionInterpretation> solutionInterpretations) {
+		this.solutionInterpretations = solutionInterpretations;
+	}
+
+	public SolutionInterpretation addSolutionInterpretation(SolutionInterpretation solutionInterpretation) {
+		getSolutionInterpretations().add(solutionInterpretation);
+		solutionInterpretation.setWeightNorm(this);
+
+		return solutionInterpretation;
+	}
+
+	public SolutionInterpretation removeSolutionInterpretation(SolutionInterpretation solutionInterpretation) {
+		getSolutionInterpretations().remove(solutionInterpretation);
+		solutionInterpretation.setWeightNorm(null);
+
+		return solutionInterpretation;
+	}
+
+
 	//bi-directional many-to-one association to Subject
 	@OneToMany(mappedBy="weightNorm")
 	public List<Subject> getSubjects() {
@@ -952,6 +1005,31 @@ public class WeightNorm implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to SymbolSentence
+	@OneToMany(mappedBy="weightNorm")
+	public List<SymbolSentence> getSymbolSentences() {
+		return this.symbolSentences;
+	}
+
+	public void setSymbolSentences(List<SymbolSentence> symbolSentences) {
+		this.symbolSentences = symbolSentences;
+	}
+
+	public SymbolSentence addSymbolSentence(SymbolSentence symbolSentence) {
+		getSymbolSentences().add(symbolSentence);
+		symbolSentence.setWeightNorm(this);
+
+		return symbolSentence;
+	}
+
+	public SymbolSentence removeSymbolSentence(SymbolSentence symbolSentence) {
+		getSymbolSentences().remove(symbolSentence);
+		symbolSentence.setWeightNorm(null);
+
+		return symbolSentence;
+	}
+
+
 	//bi-directional many-to-one association to Synonym
 	@OneToMany(mappedBy="weightNorm")
 	public List<Synonym> getSynonyms() {
@@ -1002,28 +1080,28 @@ public class WeightNorm implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to ContextOrder
+	//bi-directional many-to-one association to WordSentence
 	@OneToMany(mappedBy="weightNorm")
-	public List<ContextOrder> getContextOrders() {
-		return this.contextOrders;
+	public List<WordSentence> getWordSentences() {
+		return this.wordSentences;
 	}
 
-	public void setContextOrders(List<ContextOrder> contextOrders) {
-		this.contextOrders = contextOrders;
+	public void setWordSentences(List<WordSentence> wordSentences) {
+		this.wordSentences = wordSentences;
 	}
 
-	public ContextOrder addContextOrder(ContextOrder contextOrder) {
-		getContextOrders().add(contextOrder);
-		contextOrder.setWeightNorm(this);
+	public WordSentence addWordSentence(WordSentence wordSentence) {
+		getWordSentences().add(wordSentence);
+		wordSentence.setWeightNorm(this);
 
-		return contextOrder;
+		return wordSentence;
 	}
 
-	public ContextOrder removeContextOrder(ContextOrder contextOrder) {
-		getContextOrders().remove(contextOrder);
-		contextOrder.setWeightNorm(null);
+	public WordSentence removeWordSentence(WordSentence wordSentence) {
+		getWordSentences().remove(wordSentence);
+		wordSentence.setWeightNorm(null);
 
-		return contextOrder;
+		return wordSentence;
 	}
 
 }

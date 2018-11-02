@@ -29,7 +29,7 @@ public class OrderType implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getOrdertypeId() {
 		return this.ordertypeId;

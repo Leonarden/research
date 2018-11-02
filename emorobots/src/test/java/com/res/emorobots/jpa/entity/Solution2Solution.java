@@ -21,16 +21,16 @@ public class Solution2Solution implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
+	private WeightNorm weightNorm;
 	private Solution solution1;
 	private Solution solution2;
-	private WeightNorm weightNorm;
 
 	public Solution2Solution() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getSolution2solutionId() {
 		return this.solution2solutionId;
@@ -91,30 +91,6 @@ public class Solution2Solution implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Solution
-	@ManyToOne
-	@JoinColumn(name="solution2Id", nullable=false)
-	public Solution getSolution1() {
-		return this.solution1;
-	}
-
-	public void setSolution1(Solution solution1) {
-		this.solution1 = solution1;
-	}
-
-
-	//bi-directional many-to-one association to Solution
-	@ManyToOne
-	@JoinColumn(name="solutionId", nullable=false)
-	public Solution getSolution2() {
-		return this.solution2;
-	}
-
-	public void setSolution2(Solution solution2) {
-		this.solution2 = solution2;
-	}
-
-
 	//bi-directional many-to-one association to WeightNorm
 	@ManyToOne
 	@JoinColumns({
@@ -127,6 +103,30 @@ public class Solution2Solution implements Serializable {
 
 	public void setWeightNorm(WeightNorm weightNorm) {
 		this.weightNorm = weightNorm;
+	}
+
+
+	//bi-directional many-to-one association to Solution
+	@ManyToOne
+	@JoinColumn(name="solutionId", nullable=false)
+	public Solution getSolution1() {
+		return this.solution1;
+	}
+
+	public void setSolution1(Solution solution1) {
+		this.solution1 = solution1;
+	}
+
+
+	//bi-directional many-to-one association to Solution
+	@ManyToOne
+	@JoinColumn(name="solution2Id", nullable=false)
+	public Solution getSolution2() {
+		return this.solution2;
+	}
+
+	public void setSolution2(Solution solution2) {
+		this.solution2 = solution2;
 	}
 
 }

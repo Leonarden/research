@@ -36,7 +36,7 @@ public class Threshold implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getThresholdId() {
 		return this.thresholdId;

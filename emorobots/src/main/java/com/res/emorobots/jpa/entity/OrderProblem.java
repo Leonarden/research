@@ -36,7 +36,7 @@ public class OrderProblem implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getOrderproblemId() {
 		return this.orderproblemId;

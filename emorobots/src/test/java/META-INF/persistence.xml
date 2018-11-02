@@ -57,5 +57,9 @@
 		<class>com.res.emorobots.jpa.entity.WeightNorm</class>
 		<class>com.res.emorobots.jpa.entity.WeightNormPK</class>
 		<class>com.res.emorobots.jpa.entity.Word</class>
+		<class>com.res.emorobots.jpa.entity.DefinitionInterpretation</class>
+		<class>com.res.emorobots.jpa.entity.SolutionInterpretation</class>
+		<class>com.res.emorobots.jpa.entity.SymbolSentence</class>
+		<class>com.res.emorobots.jpa.entity.WordSentence</class>
 	</persistence-unit>
 </persistence>

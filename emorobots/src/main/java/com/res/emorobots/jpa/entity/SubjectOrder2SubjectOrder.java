@@ -21,16 +21,16 @@ public class SubjectOrder2SubjectOrder implements Serializable {
 	private Date lastaccess;
 	private BigInteger numaccess;
 	private String text;
+	private WeightNorm weightNorm;
 	private SubjectOrder subjectOrder1;
 	private SubjectOrder subjectOrder2;
-	private WeightNorm weightNorm;
 
 	public SubjectOrder2SubjectOrder() {
 	}
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getSubjectorder2subjectorderId() {
 		return this.subjectorder2subjectorderId;
@@ -91,6 +91,21 @@ public class SubjectOrder2SubjectOrder implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to WeightNorm
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
+		@JoinColumn(name="subjectorder2subjectorderId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
+		})
+	public WeightNorm getWeightNorm() {
+		return this.weightNorm;
+	}
+
+	public void setWeightNorm(WeightNorm weightNorm) {
+		this.weightNorm = weightNorm;
+	}
+
+
 	//bi-directional many-to-one association to SubjectOrder
 	@ManyToOne
 	@JoinColumn(name="subjectorder2Id", nullable=false)
@@ -112,21 +127,6 @@ public class SubjectOrder2SubjectOrder implements Serializable {
 
 	public void setSubjectOrder2(SubjectOrder subjectOrder2) {
 		this.subjectOrder2 = subjectOrder2;
-	}
-
-
-	//bi-directional many-to-one association to WeightNorm
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="entityName", referencedColumnName="entityName", nullable=false),
-		@JoinColumn(name="subjectorder2subjectorderId", referencedColumnName="entityNormId", nullable=false, insertable=false, updatable=false)
-		})
-	public WeightNorm getWeightNorm() {
-		return this.weightNorm;
-	}
-
-	public void setWeightNorm(WeightNorm weightNorm) {
-		this.weightNorm = weightNorm;
 	}
 
 }
