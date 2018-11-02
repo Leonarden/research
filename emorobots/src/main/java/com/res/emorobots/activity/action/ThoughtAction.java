@@ -10,6 +10,14 @@ import com.res.emorobots.jpa.entity.Order;
 public class ThoughtAction extends Action {
 
 	List<Thought> thoughts;
+
+	public List<Thought> getThoughts() {
+		return thoughts;
+	}
+
+	public void setThoughts(List<Thought> thoughts) {
+		this.thoughts = thoughts;
+	}
 	
 	
 	
