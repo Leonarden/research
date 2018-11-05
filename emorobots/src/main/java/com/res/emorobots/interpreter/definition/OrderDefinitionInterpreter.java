@@ -1,4 +1,7 @@
-package com.res.emorobots.interpreter;
+package com.res.emorobots.interpreter.definition;
+
+import com.res.emorobots.interpreter.Interpreter;
+import com.res.emorobots.interpreter.OrderDefinition;
 
 public class OrderDefinitionInterpreter extends Interpreter<OrderDefinitionContext,OrderDefinition> {
 

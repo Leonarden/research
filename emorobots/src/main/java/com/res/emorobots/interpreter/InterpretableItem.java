@@ -5,7 +5,7 @@ T value;
 Interpreter <Context, InterpretableItem> interpreter;
 
 	
-	@Override
+	
 	public Interpreter<Context, InterpretableItem> getInterpreter(InterpretableItem iItem) {
 		// TODO Auto-generated method stub
 		return null;
@@ -14,7 +14,7 @@ Interpreter <Context, InterpretableItem> interpreter;
 	   this.interpreter = i;
    }
 	
-	@Override
+	
 	public InterpretableItem interpret(Context context, long index) {
 		// TODO Auto-generated method stub
 		return null;

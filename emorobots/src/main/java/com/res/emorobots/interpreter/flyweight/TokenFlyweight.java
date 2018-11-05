@@ -35,10 +35,10 @@ public class TokenFlyweight extends InterpretableItemFlyweight<String,Token> {
 	try {	
 		director.setParams(Arrays.asList(key));
 		 director.build();
-			if( type instanceof Word) {
+		
 				
 				this.flyweight = (Token) director.getResult();
-			}
+			
 	}catch(Exception ex) {
 		ex.printStackTrace();
 	}
@@ -73,20 +73,7 @@ public class TokenFlyweight extends InterpretableItemFlyweight<String,Token> {
 
 	
 	boolean setDao() {
-		boolean isSet = false;
-		if( type instanceof Symbol) {
-			crud = null; /* need of CrudImpl */
-			isSet = true;
-		}
-		else if(this.type instanceof Word) {
-			crud = null; /* need of CrudImpl */
-			isSet = true;
-		}
-		else if(this.type instanceof Word) {
-			crud = null; /* need of CrudImpl */
-			isSet = true;
-		}
-		
+	boolean isSet = false;
 		return isSet;
 		
 	}

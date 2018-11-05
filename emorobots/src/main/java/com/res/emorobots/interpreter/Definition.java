@@ -4,18 +4,19 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Definition<T extends Map> extends Token {  
+public class Definition<T> extends Sentence<Collection<Token>> {  
 	
 
-	T value;
+   T definitionvalue;
 	String type;
 	Long sequence = 0l;
+
 	
-	public T getValue() {
-		return value;
+    public T getDefinitionvalue() {
+		return definitionvalue;
 	}
-	public void setValue(T value) {
-		this.value = value;
+	public void setDefinitionvalue(T definitionvalue) {
+		this.definitionvalue = definitionvalue;
 	}
 	public String getType() {
 		return type;

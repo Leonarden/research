@@ -14,7 +14,7 @@ import com.res.emorobots.interpreter.Solution;
 import com.res.emorobots.interpreter.Token;
 import com.res.emorobots.order.Order;
 
-public interface InterpreterRequest<T extends Interpreter<Context<InterpretableItem>, InterpretableItem<T>>,T1 extends Problem<Definition<Map<K, V>>, Solution<T, Definition<Map<Long,Sentence<Collection<Token>>>>>>, 
+public interface InterpreterRequest<T extends Interpreter<Context<InterpretableItem>, InterpretableItem<T>>,T1 extends Problem<Definition<Map<?, ?>>, Solution<T, Definition<Map<Long,Sentence<Collection<Token>>>>>>, 
 			T2 extends Action<Collection<Order<Problem<Definition,Solution>>>>> {
 
 	T interpreterRequest(T1 p,  T2 blocking);    /* we request for interpreter of a solution that blocks in blocking action */

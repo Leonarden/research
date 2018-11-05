@@ -1,4 +1,8 @@
-package com.res.emorobots.interpreter;
+package com.res.emorobots.interpreter.solution;
+
+import com.res.emorobots.interpreter.Interpreter;
+import com.res.emorobots.interpreter.OrderSolution;
+import com.res.emorobots.interpreter.OrderSolutionProcessed;
 
 public class OrderSolutionInterpreter extends Interpreter<OrderSolutionContext,OrderSolution<OrderSolutionProcessed>> {
 

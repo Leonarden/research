@@ -76,11 +76,11 @@ public class TokenBuilder<T,T1> extends InterpretableItemBuilder<List<String>,To
 		return super.toString();
 	}
 
-	public T getEntity() {
+	public T1 getEntity() {
 		return entity;
 	}
 
-	public void setEntity(T entity) {
+	public void setEntity(T1 entity) {
 		this.entity = entity;
 	}
 	

@@ -6,15 +6,15 @@ import java.util.Map;
 
 public class Solution<T,T1 extends Definition<Map<Long,Sentence<Collection<Token>>>>> extends InterpretableItem<T> {
 
-	T value;
+	T solutionvalue;
 	String type;
 	T1 definition;
 	
-	public T getValue() {
-		return value;
+	public T getSolutionValue() {
+		return solutionvalue;
 	}
-	public void setValue(T value) {
-		this.value = value;
+	public void setSolutionvalue(T svalue) {
+		this.solutionvalue = svalue;
 	}
 	public String getType() {
 		return type;
